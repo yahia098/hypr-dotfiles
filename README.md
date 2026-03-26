@@ -1,25 +1,12 @@
-# my ever-changing dotfiles
-
----
-## showcase
-
-| desktop | editor |
-|---|---|
-| ![desktop](./screenshots/desktop.png) | ![editor](./screenshots/editor.png) |
-
----
-
 ## system
 
-| | |
-|---|---|
 | **os** | Arch Linux x86_64 |
-| **wm** | Hyprland 0.54.2 (Wayland) |
-| **shell** | zsh 5.9 |
-| **kernel** | Linux 6.18.19-1-lts |
+| **wm** | Hyprland (Wayland) |
+| **shell** | zsh  |
+| **kernel** | Linux-zen |
 | **terminal** | alacritty |
 | **editor** | neovim |
-| **browser** | brave |
+| **browser** | zen-browser |
 | **file manager** | thunar / yazi |
 | **bar** | waybar |
 | **launcher** | rofi |
@@ -28,12 +15,7 @@
 | **pdf viewer** | zathura |
 | **multiplexer** | tmux |
 | **video** | mpv |
-
----
-
-## structure
-
-```
+the repo is structured as such
 ~/.dotfiles/
 ├── alacritty/       # terminal
 ├── brave/           # browser
@@ -184,7 +166,7 @@ prefix + I   →   install plugins
 
 - `secrets.sh` is gitignored — populate `~/.config/profile/secrets.sh` yourself
 - `nwg-displays` config is monitor-specific, regenerate it for your setup
-- some paths may reference `sirine` — grep and replace as needed
+- some paths may reference `yahia` — grep and replace as needed
 
 ---
 ## star history
@@ -193,5 +175,5 @@ prefix + I   →   install plugins
 ## credits
 
 built on the work of countless people in the rice community. nothing here is truly original, just assembled and tweaked to taste.
-
 ---
+##
