@@ -1,0 +1,28 @@
+
+/* ===== Ashen Cathedral — Dark (High Visibility) ===== */
+
+/* Base background (darker, clearer separation) */
+@define-color bg rgba(38, 44, 46, 0.94);
+@define-color bg-solid #262c2e;
+
+/* Surfaces (stronger lift for readability) */
+@define-color surface rgba(78, 88, 92, 0.62);
+@define-color surface-alt rgba(98, 110, 115, 0.38);
+
+/* Text (increased contrast) */
+@define-color fg #f2f6f5;
+@define-color fg-soft #dbe2e1;
+@define-color fg-muted #b2bab8;
+
+/* Accent (slightly brighter, more readable at a glance) */
+@define-color accent #a6a0d8;
+@define-color accent-soft #c2bce6;
+@define-color accent-glow rgba(166,160,216,0.42);
+
+/* Borders (stronger separation, still subtle) */
+@define-color border rgba(255,255,255,0.10);
+
+/* Status colors (slightly more saturated for clarity) */
+@define-color urgent #e07a7a;
+@define-color warning #e0c08a;
+@define-color ok #93c7a4;
