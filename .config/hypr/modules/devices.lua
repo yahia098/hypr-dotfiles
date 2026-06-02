@@ -1,23 +1,34 @@
 hl.config({
-  input = {
-    kb_layout = "us",
-    kb_variant = "",
-    kb_model = "",
-    kb_options = "",
-    kb_rules = "",
-    follow_mouse = 1,
-    sensitivity = 0,
+    input = {
+        kb_layout = "us",
+        kb_variant = "",
+        kb_model = "",
+        kb_options = "",
+        kb_rules = "",
 
-    touchpad {
-        natural_scroll = false
+        follow_mouse = 1,
+
+        sensitivity = 0,
+
+        touchpad = {
+            natural_scroll = false,
+        },
     },
-    cursor {
-        no_hardware_cursors = 1
-      },
-  },
 })
+
+hl.config({
+    cursor = {
+        no_hardware_cursors = true,
+    },
+})
+
 hl.gesture({
     fingers = 3,
     direction = "horizontal",
-    action = "workspace"
+    action = "workspace",
+})
+
+hl.device({
+    name = "epic-mouse-v1",
+    sensitivity = -0.5,
 })

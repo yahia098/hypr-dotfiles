@@ -1,6 +1,6 @@
 hl.monitor({
-	output = "eDP-2",
-	mode = "preferred",
-	position = "auto",
-	scale = "auto",
+    output = "eDP-2",
+    mode = "preferred",
+    position = "auto",
+    scale = 1,
 })

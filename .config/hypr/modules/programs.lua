@@ -1,3 +1,5 @@
-local terminal = "kitty"
-local fileManager = "dolphin"
-local menu = "wofi --show drun"
+Programs = {
+    terminal = "kitty",
+    fileManager = "dolphin",
+    menu = "wofi --show drun",
+}
