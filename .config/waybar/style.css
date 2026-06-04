@@ -6,8 +6,8 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 13px;
+    font-family: "JetBrainsMono Nerd Font Propo";
+    font-size: 18px;
     color: #cdd6f4;
 }
 
@@ -23,6 +23,7 @@ window#waybar {
 #waybar > box {
     margin: 0;
     padding: 0;
+    min-height: 32px;
 }
 
 /* =========================
@@ -30,7 +31,7 @@ window#waybar {
 ========================= */
 #custom-separator {
     color: #45475a;
-    padding: 0 6px;
+    padding: 0 9px;
 }
 
 /* =========================
@@ -38,11 +39,11 @@ window#waybar {
 ========================= */
 #workspaces {
     background: transparent;
-    padding: 0 6px;
+    padding: 0 9px;
 }
 
 #workspaces button {
-    padding: 0 6px;
+    padding: 0 9px;
     margin: 0;
     color: #a6adc8;
     background: transparent;
@@ -70,7 +71,7 @@ window#waybar {
 #window {
     color: #cdd6f4;
     opacity: 0.9;
-    padding: 0 10px;
+    padding: 0 15px;
 }
 
 /* =========================
@@ -89,7 +90,7 @@ window#waybar {
 #custom-powerprofile {
     background: transparent;
     border: none;
-    padding: 0 6px;
+    padding: 0 9px;
     margin: 0;
 }
 
@@ -120,7 +121,7 @@ window#waybar {
 }
 
 #battery {
-    min-width: 70px;
+    min-width: 105px;
 }
 
 /* =========================
