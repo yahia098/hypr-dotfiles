@@ -119,11 +119,6 @@ window#waybar {
 #battery.critical {
     color: #f38ba8;
 }
-
-#battery {
-    min-width: 105px;
-}
-
 /* =========================
    POWER ICON
 ========================= */
