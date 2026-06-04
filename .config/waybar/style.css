@@ -1,96 +1,131 @@
+@import url("file:///home/yahia/.cache/wal/colors-waybar.css");
 
-/* ===== Import design tokens ===== */
-@import "colors-dark.css";
-
-/* ===== Base ===== */
-
+/* =========================
+   BASE
+========================= */
 * {
-    font-family: "JetBrainsMono Nerd Font Propo";
-    font-size: 12px;
-    min-height: 10px;
-    color: @fg;
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    color: #cdd6f4;
 }
 
-/* ===== Main Bar ===== */
-
+/* =========================
+   MAIN BAR
+========================= */
 window#waybar {
-    background: @bg;
-    border-bottom: 1px solid @border;
+    background: #1e1e2e;
+    border-bottom: 1px solid #313244;
 }
 
-/* ===== Shared Module Style ===== */
-
-#clock,
-#cpu,
-#memory,
-#temperature,
-#network,
-#pulseaudio,
-#tray,
-#battery,
-#custom-notification,
-#window {
-    background: @surface;
-
-    margin: 3px 3px;
-    padding: 2px 10px;
-
-    border-radius: 11px;
-
-    border: 1px solid @border;
-
-    color: @fg;
+/* remove spacing chaos */
+#waybar > box {
+    margin: 0;
+    padding: 0;
 }
 
-/* ===== Window Title ===== */
-
-#window {
-    padding-left: 12px;
-    padding-right: 12px;
-    color: @fg;
+/* =========================
+   SEPARATOR (tmux feel)
+========================= */
+#custom-separator {
+    color: #45475a;
+    padding: 0 6px;
 }
+
+/* =========================
+   WORKSPACES (LEFT)
+========================= */
 #workspaces {
-    margin: 3px 5px;
-    background: @surface-alt;
-    border-radius: 12px;
-    padding: 1px;
+    background: transparent;
+    padding: 0 6px;
 }
 
 #workspaces button {
-    padding: 0 10px;
-    margin: 0 2px;
-
-    border-radius: 9px;
-
-    color: @fg-soft;
-}
-
-#workspaces button.active {
-    background: rgba(154,147,201,0.22);
-    border: 1px solid rgba(154,147,201,0.30);
-
-    color: #ffffff;
+    padding: 0 6px;
+    margin: 0;
+    color: #a6adc8;
+    background: transparent;
 }
 
 #workspaces button:hover {
-    background: rgba(255,255,255,0.04);
+    background: #313244;
+    color: #cdd6f4;
 }
 
-/* ===== Tray ===== */
-
-#tray {
-    padding-left: 6px;
-    padding-right: 6px;
+/* ACTIVE WORKSPACE (important) */
+#workspaces button.active {
+    background: #45475a;
+    color: #ffffff;
 }
 
-/* ===== Tooltip ===== */
+#workspaces button.urgent {
+    background: #f38ba8;
+    color: #1e1e2e;
+}
 
-tooltip {
-    background: @bg;
+/* =========================
+   CENTER WINDOW TITLE
+========================= */
+#window {
+    color: #cdd6f4;
+    opacity: 0.9;
+    padding: 0 10px;
+}
 
-    border-radius: 10px;
+/* =========================
+   RIGHT MODULES (FLAT STATUSLINE)
+========================= */
+#clock,
+#network,
+#pulseaudio,
+#battery,
+#temperature,
+#cpu,
+#memory,
+#custom-notification,
+#custom-power,
+#custom-system,
+#custom-powerprofile {
+    background: transparent;
+    border: none;
+    padding: 0 6px;
+    margin: 0;
+}
 
-    border: 1px solid @border;
+/* hover feedback */
+#clock:hover,
+#network:hover,
+#pulseaudio:hover,
+#battery:hover,
+#temperature:hover,
+#cpu:hover,
+#memory:hover,
+#custom-notification:hover,
+#custom-power:hover,
+#custom-system:hover,
+#custom-powerprofile:hover {
+    background: #313244;
+}
 
-    color: @fg;
+/* =========================
+   BATTERY STATES
+========================= */
+#battery.warning {
+    color: #f9e2af;
+}
+
+#battery.critical {
+    color: #f38ba8;
+}
+
+#battery {
+    min-width: 70px;
+}
+
+/* =========================
+   POWER ICON
+========================= */
+#custom-power {
+    color: #f38ba8;
 }

@@ -1,73 +1,20 @@
--- =========================
--- Pywal loader (NO dependencies)
--- =========================
-local function load_wal()
-	local path = os.getenv("HOME") .. "/.cache/wal/colors.json"
-
-	local file = io.open(path, "r")
-	if not file then
-		return nil
-	end
-
-	local raw = file:read("*a")
-	file:close()
-
-	-- Safe fallback parser (no external libs)
-	local ok, data = pcall(function()
-		return load("return " .. raw:gsub(":", "="):gsub('"', "'"))()
-	end)
-
-	if ok and data and data.colors then
-		return data.colors
-	end
-
-	return nil
-end
-
-local wal = load_wal()
-
--- =========================
--- Helpers
--- =========================
-local function get(color, fallback)
-	if wal and wal[color] then
-		return wal[color]
-	end
-	return fallback
-end
-
-local function safe_color(wal_color, fallback)
-	if not wal_color then
-		return fallback
-	end
-
-	if wal_color == "#ffffff" or wal_color == "#000000" then
-		return fallback
-	end
-
-	return wal_color
-end
-
--- =========================
--- Hyprland config
--- =========================
 hl.config({
 	general = {
-		gaps_in = 2,
+		gaps_in = 1,
 		gaps_out = 5,
 
-		border_size = 1,
+		border_size = 2,
 
 		col = {
 			active_border = {
 				colors = {
-					safe_color(get("color5", nil), "#1e1e2e"),
-					safe_color(get("color4", nil), "#313244"),
+					"rgba(8d89b6ff)",
+					"rgba(c5cbca88)",
 				},
 				angle = 45,
 			},
 
-			inactive_border = safe_color(get("color0", nil), "#313244"),
+			inactive_border = "rgba(465154aa)",
 		},
 
 		resize_on_border = false,
@@ -77,23 +24,23 @@ hl.config({
 	},
 
 	decoration = {
-		rounding = 5,
+		rounding = 14,
 		rounding_power = 2,
 
 		active_opacity = 1.0,
-		inactive_opacity = 0.85,
+		inactive_opacity = 0.9,
 
 		shadow = {
 			enabled = true,
 			range = 18,
 			render_power = 3,
-			color = safe_color(get("color0", nil), "#11111b"),
+			color = "rgba(222728aa)",
 		},
 
 		blur = {
 			enabled = true,
 			size = 8,
-			passes = 1,
+			passes = 3,
 			new_optimizations = true,
 			vibrancy = 0.1696,
 		},
@@ -103,10 +50,6 @@ hl.config({
 		enabled = true,
 	},
 })
-
--- =========================
--- Curves
--- =========================
 hl.curve("easeOutQuint", {
 	type = "bezier",
 	points = {
@@ -146,10 +89,6 @@ hl.curve("quick", {
 		{ 0.1, 1 },
 	},
 })
-
--- =========================
--- Animations
--- =========================
 hl.animation({
 	leaf = "global",
 	enabled = true,
@@ -275,10 +214,6 @@ hl.animation({
 	speed = 7,
 	bezier = "quick",
 })
-
--- =========================
--- Layout tweaks
--- =========================
 hl.config({
 	dwindle = {
 		preserve_split = true,

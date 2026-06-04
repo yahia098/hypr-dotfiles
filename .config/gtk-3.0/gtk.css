@@ -1,0 +1,47 @@
+/* =========================
+   ADWAITA DENSITY TUNING
+   (match Wofi + Waybar compact UI)
+========================= */
+
+/* reduce global padding bias */
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+/* =========================
+   BUTTONS (align with Wofi entries)
+========================= */
+button {
+    padding: 6px 10px;
+    border-radius: 10px;
+}
+
+/* subtle hover (match Waybar hover intensity) */
+button:hover {
+    background: alpha(currentColor, 0.06);
+}
+
+/* =========================
+   LIST / ROW DENSITY
+========================= */
+row,
+list {
+    padding: 4px 8px;
+}
+
+/* =========================
+   INPUT FIELDS (GTK dialogs)
+========================= */
+entry {
+    padding: 8px 10px;
+    border-radius: 10px;
+}
+
+/* =========================
+   MENUS (tight like Wofi)
+========================= */
+menu,
+menuitem {
+    padding: 6px 8px;
+}

@@ -1,0 +1,9 @@
+show=drun
+prompt=›
+width=500
+height=350
+location=center
+allow_images=false
+insensitive=true
+gtk_dark=true
+layer=overlay
