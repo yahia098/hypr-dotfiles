@@ -134,11 +134,25 @@
     },
 
     "custom/notification": {
-        "format": " {}",
-        "exec": "swaync-client -c",
-        "interval": 2,
-        "on-click": "swaync-client -t"
+    "tooltip": false,
+    "format": "{icon}",
+
+    "return-type": "json",
+    "exec": "swaync-client -swb",
+    "exec-if": "which swaync-client",
+
+    "format-icons": {
+        "notification": "",
+        "none": "",
+        "dnd-notification": "",
+        "dnd-none": "",
+        "inhibited-notification": "",
+        "inhibited-none": ""
     },
+
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw"
+},
 
     "custom/power": {
         "format": "",
