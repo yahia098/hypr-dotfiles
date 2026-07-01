@@ -1,0 +1,6 @@
+require('options')
+require('plugins')
+require('lsp')
+require('miscellaneous')
+require('statusline')
+require('keymaps')
