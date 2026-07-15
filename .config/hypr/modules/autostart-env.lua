@@ -7,6 +7,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("swaync")
 	hl.exec_cmd("$HOME/.config/waybar/scripts/launch.sh")
 end)
+hl.exec_cmd("qs")
 os.execute("$HOME/.config/waybar/scripts/launch.sh")
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
