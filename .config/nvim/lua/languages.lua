@@ -43,12 +43,17 @@ vim.lsp.config("lemminx", {
 	capabilities = capabilities,
 })
 
+vim.lsp.config("json-lsp", {
+	capabilities = capabilities,
+})
+
 vim.lsp.enable({
 	"clangd",
 	"basedpyright",
 	"lua_ls",
 	"glsl_analyzer",
 	"lemminx",
+	"json-lsp",
 })
 
 vim.diagnostic.config({

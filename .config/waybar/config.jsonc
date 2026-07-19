@@ -10,6 +10,7 @@
     "bluetooth",
     "pulseaudio",
     "custom/notification",
+    "power-profiles-daemon",
     "battery",
     "clock",
     "tray",
@@ -56,6 +57,16 @@
 
     "scroll-step": 5,
     "on-click": "kitty -e pulsemixer",
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "format-icons": {
+      "performance": "󰓅",
+      "balanced": "",
+      "power-saver": "",
+    },
+    "on-click": "~/.config/waybar/scripts/powerprofile-cycle.sh",
+    "tooltip-format": "{profile}\nClick to cycle profiles",
   },
   "battery": {
     "format": "{capacity}% {icon}",
