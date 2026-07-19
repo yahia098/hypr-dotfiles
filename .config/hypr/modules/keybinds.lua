@@ -52,17 +52,17 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind(
 	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+	hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-up.sh"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+	hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-down.sh"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioMute",
-	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+	hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-toggle.sh"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
@@ -70,8 +70,16 @@ hl.bind(
 	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
 	{ locked = true, repeating = true }
 )
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
+hl.bind(
+	"XF86MonBrightnessUp",
+	hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness-up.sh"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86MonBrightnessDown",
+	hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness-down.sh"),
+	{ locked = true, repeating = true }
+)
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
@@ -84,7 +92,28 @@ hl.bind("SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot-area
 hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/record-full.sh"))
 hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/record-area.sh"))
 --moving windows
-hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.move({ direction = "left" }))
-hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mainMod .. " + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mainMod .. " + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
+local function smart_move(dx, dy, direction)
+	return function()
+		local w = hl.get_active_window()
+		if not w then
+			return
+		end
+
+		if w.floating then
+			hl.dispatch(hl.dsp.window.move({
+				x = dx,
+				y = dy,
+				relative = true,
+			}))
+		else
+			hl.dispatch(hl.dsp.window.move({
+				direction = direction,
+			}))
+		end
+	end
+end
+
+hl.bind(mainMod .. " + SHIFT + left", smart_move(-15, 0, "left"), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + right", smart_move(15, 0, "right"), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + up", smart_move(0, -15, "up"), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + down", smart_move(0, 15, "down"), { repeating = true })

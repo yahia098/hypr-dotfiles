@@ -3,34 +3,36 @@
 ---------------
 
 hl.config({
-    input = {
-        kb_layout  = "us",
-        kb_variant = "",
-        kb_model   = "",
-        kb_options = "",
-        kb_rules   = "",
+	input = {
+		-- Keyboard
+		kb_layout = "us,ara",
+		kb_variant = ",qwerty",
+		kb_model = "",
+		kb_options = "grp:alt_shift_toggle",
+		kb_rules = "",
 
-        follow_mouse = 1,
+		-- Mouse
+		follow_mouse = 1,
+		sensitivity = 0, -- -1.0 to 1.0
 
-        sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
-
-        touchpad = {
-            natural_scroll = false,
-        },
-    },
+		touchpad = {
+			natural_scroll = false,
+			-- tap_to_click = true,
+			-- disable_while_typing = true,
+			-- clickfinger_behavior = true,
+		},
+	},
 })
 
+-- Three-finger swipe to change workspaces.
 hl.gesture({
-    fingers = 3,
-    direction = "horizontal",
-    action = "workspace"
+	fingers = 3,
+	direction = "horizontal",
+	action = "workspace",
 })
 
--- Example per-device config
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
+-- Example per-device configuration.
 hl.device({
-    name        = "epic-mouse-v1",
-    sensitivity = -0.5,
+	name = "epic-mouse-v1",
+	sensitivity = -0.5,
 })
-
-
