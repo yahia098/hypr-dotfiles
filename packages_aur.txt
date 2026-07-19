@@ -1,5 +1,3 @@
 helixnotes-appimage-bin 
-paru 
-paru-debug 
 wlogout 
 zen-browser-bin 
