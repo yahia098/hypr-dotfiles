@@ -15,6 +15,7 @@ win e -> dolphin
 win a -> toggle tlp
 win space -> change language
 win b -> open browser
+win h -> helix-notes (installed with flatpak)
 win r -> enter resize submap
 win shift space -> enter apps submap (some redundant keys)
 win shift arrow keys -> move windows either in float mode or tile mode
