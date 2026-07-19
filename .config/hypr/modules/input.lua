@@ -8,7 +8,7 @@ hl.config({
 		kb_layout = "us,ara",
 		kb_variant = ",qwerty",
 		kb_model = "",
-		kb_options = "grp:alt_shift_toggle",
+		kb_options = "",
 		kb_rules = "",
 
 		-- Mouse

@@ -158,3 +158,27 @@ window#waybar {
 #tray > .needs-attention {
   background: @mauve;
 }
+
+/*========================
+ * Language
+ *===================== */
+#custom-keyboard {
+  min-width: 34px;
+  padding: 0 8px;
+  margin: 0 4px;
+
+  font-weight: bold;
+  font-size: 13px;
+  color: @text;
+  border-radius: 6px;
+
+  transition: all 150ms ease;
+}
+
+#custom-keyboard.english {
+  color: #89b4fa;
+}
+
+#custom-keyboard.arabic {
+  color: #f9e2af;
+}
