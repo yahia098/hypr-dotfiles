@@ -20,6 +20,7 @@ end
 hl.define_submap("apps", function()
 	hl.bind("B", app(Programs.Browser))
 	hl.bind("E", app(Programs.FileManager))
+	hl.bind("T",app("Telegram"))
 	hl.bind("L", app("lutris"))
 	hl.bind("escape", hl.dsp.submap("reset"))
 	hl.bind("Return", hl.dsp.submap("reset"))
