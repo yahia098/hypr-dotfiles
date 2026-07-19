@@ -11,7 +11,7 @@
     "bluetooth",
     "pulseaudio",
     "custom/notification",
-    "power-profiles-daemon",
+    "custom/tlp",
     "battery",
     "clock",
     "tray",
@@ -29,7 +29,7 @@
   },
   "bluetooth": {
     "format": "",
-    "format-disabled": "",
+    "format-disabled": "󰂲",
     "format-connected": "󰂰 {device_alias}",
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
@@ -59,16 +59,7 @@
     "scroll-step": 5,
     "on-click": "kitty -e pulsemixer",
   },
-  "power-profiles-daemon": {
-    "format": "{icon}",
-    "format-icons": {
-      "performance": "󰓅",
-      "balanced": "",
-      "power-saver": "",
-    },
-    "on-click": "~/.config/waybar/scripts/powerprofile-cycle.sh",
-    "tooltip-format": "{profile}\nClick to cycle profiles",
-  },
+
   "battery": {
     "format": "{capacity}% {icon}",
     "format-charging": " {capacity}% {icon}",
@@ -109,5 +100,12 @@
     "exec": "~/.config/waybar/scripts/keyboard-layout.sh",
     "return-type": "json",
     "signal": 8,
+    "on-click": "~/.config/hypr/scripts/toggle-layout.sh",
+  },
+  "custom/tlp": {
+    "exec": "~/.config/waybar/scripts/power-profile-get.sh",
+    "return-type": "json",
+    "signal": 9,
+    "on-click": "~/.config/hypr/scripts/power-profile-toggle.sh",
   },
 }
