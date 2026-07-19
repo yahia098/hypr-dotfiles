@@ -31,6 +31,7 @@ hl.bind(
 	})
 )
 hl.bind(mainMod .. " + H", hl.dsp.exec_cmd(Programs.Notes))
+hl.bind(mainMod .. " + T",hl.dsp.exec_cmd("Telegram"))
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
