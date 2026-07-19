@@ -23,11 +23,11 @@ win l -> lock the screen with hyprlock
 submaps show next to workspaces on waybar
 
 
-===============================DISCLAIMER===========================================
+=========================AI Assistance===============================================
 
-i used chatgpt to learn when i made this as well as writng some bash scripts and for debugging some issues that were too difficult for me as well as speeding up my development.
-No i did not vibe code it i know what wa==each piece of my code does
-
+I used ChatGPT while learning how to rice my stuff.
+It helped me understand concepts, debug issues and generate some Bash boilerplate to be used for later, and obviously speed up development. 
+The overall design, configuration, and final implementation are my own, and I understand how each part of the configuration works.
 ===================================LISCENSE===========================================
 
 I LET ANYONE USE THIS CODE FOR FREE AND TO MODIFY IT AS THEY WISH AND WITHOUT ANY NEED TO TELL ME AND YOU CAN USE IT IN YOUR BUSINESS
