@@ -21,8 +21,8 @@ win shift arrow keys -> move windows either in float mode or tile mode
 win arrow keys -> change focused window (mouse does the same)
 win l -> lock the screen with hyprlock
 submaps show next to workspaces on waybar
-===============================DISCLAIMER====================================
+===============================DISCLAIMER=======================================
 i used chatgpt to learn when i made this as well as writng some bash scripts and for debugging some issues that were too difficult for me as well as speeding up my development.
 No i did not vibe code it i know what wa==each piece of my code does 
-=============================LISCENSE=======================================
+=============================LISCENSE===========================================
 I LET ANYONE USE THIS CODE FOR FREE AND TO MODIFY IT AS THEY WISH AND WITHOUT ANY NEED TO TELL ME AND YOU CAN USE IT IN YOUR BUSINESS
