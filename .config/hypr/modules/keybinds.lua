@@ -29,6 +29,7 @@ hl.bind(
 	})
 )
 hl.bind(mainMod .. " + H", hl.dsp.exec_cmd(Programs.Notes))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("hyprctl reload"))
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
