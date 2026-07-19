@@ -49,6 +49,14 @@ hl.window_rule({
 })
 --for opengl learning
 hl.window_rule({
-	match = { title = "^OpenGL" },
+	match = { title = "Learn OpenGL" },
 	float = true,
+})
+hl.window_rule({
+	name = "lutris floating",
+	match = { title = "Lutris" },
+	float = true,
+	size = { 900, 900 },
+	move = { 100, 100 },
+	border_size = 5,
 })

@@ -5,17 +5,17 @@
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(Programs.terminal))
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(Programs.Terminal))
 local closeWindowBind = hl.bind(mainMod .. " +SHIFT+ Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock.sh"))
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("wlogout"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(Programs.fileManager))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(Programs.FileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(Programs.menu))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(Programs.Menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
-
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(Programs.Browser))
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
@@ -29,7 +29,6 @@ hl.bind(
 	})
 )
 hl.bind(mainMod .. " + H", hl.dsp.exec_cmd(Programs.Notes))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("hyprctl reload"))
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do

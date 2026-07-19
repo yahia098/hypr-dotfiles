@@ -1,6 +1,7 @@
 Programs = {
-	terminal = "kitty",
-	fileManager = "dolphin",
-	menu = "wofi --show drun",
+	Terminal = "kitty",
+	FileManager = "dolphin",
+	Menu = "wofi --show drun",
 	Notes = "helixnotes",
+	Browser = "zen-browser",
 }
