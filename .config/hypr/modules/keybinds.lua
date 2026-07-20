@@ -14,8 +14,8 @@ hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("~/.config/hypr/scripts/power-profile
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(Programs.FileManager))
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(Programs.FileManagerTUI))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " +SHIFT + SPACE", hl.dsp.exec_cmd(Programs.Menu))
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-layout.sh"))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(Programs.Menu))
+hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-layout.sh"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(Programs.Browser))

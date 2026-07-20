@@ -14,12 +14,12 @@ win enter -> terminal
 win e -> dolphin
 win shift e -> yazi
 win a -> toggle tlp
-win space -> change language
+win space -> launcher (wofi)
 win b -> open browser
 win h -> helix-notes (installed with flatpak)
 win r -> enter resize submap
 win t -> Telegram
-win shift space -> enter apps submap (some redundant keys)
+win shift space -> change language
 win shift arrow keys -> move windows either in float mode or tile mode
 win arrow keys -> change focused window (mouse does the same)
 win l -> lock the screen with hyprlock
