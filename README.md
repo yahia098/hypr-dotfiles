@@ -1,6 +1,6 @@
 my hypr config
 WIP
-it uses waybar and wofi
+it uses waybar and fuzzel
 text editor is nvim with my custom dots
 i use zsh
 <img width="1920" height="1080" alt="2026-07-19_21-54-40" src="https://github.com/user-attachments/assets/e7b10b8c-7399-4568-b35c-a750d888d944" />
@@ -21,7 +21,7 @@ win shift return -> enter apps 󰀻 submap
 Esc/Return->Exit
 win e -> dolphin
 win a -> toggle tlp
-win space -> launcher (wofi)
+win space -> launcher (fuzzel)
 win r -> enter resize submap
 win shift space -> change language EN->AR->RU->JP
 win shift arrow keys -> move windows either in float mode or tile mode
