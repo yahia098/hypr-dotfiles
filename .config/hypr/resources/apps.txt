@@ -3,5 +3,5 @@
  Shift E-->Yazi
  L      -->Lutris
  H      -->helix-notes
- L      -->Telegram
+ T      -->Telegram
 Esc/Return->Exit
