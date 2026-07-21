@@ -60,3 +60,19 @@ hl.window_rule({
 	move = { 100, 100 },
 	border_size = 5,
 })
+
+hl.window_rule({
+	name = "floatss",
+	match = { class = "tab" },
+	float = true,
+	size = { 800, 800 },
+	move = { 1000, 30 },
+})
+
+hl.window_rule({
+	name = "floats",
+	match = { class = "floats" },
+	float = true,
+	size = { 1200, 800 },
+	move = { 400, 200 },
+})
