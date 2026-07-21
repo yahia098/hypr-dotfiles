@@ -7,7 +7,13 @@ LAYOUT=$(
 
 case "$LAYOUT" in
     *Arabic*)
-        printf '{"text":"AR","class":"arabic","tooltip":"Arabic"}'
+        printf '{"text":"عر","class":"arabic","tooltip":"العربية"}'
+        ;;
+    *Russian*)
+        printf '{"text":"Ру","class":"russian","tooltip":"Русский"}'
+        ;;
+    *Japanese*)
+        printf '{"text":"日本","class":"japanese","tooltip":"日本語"}'
         ;;
     *)
         printf '{"text":"EN","class":"english","tooltip":"English"}'

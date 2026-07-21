@@ -23,7 +23,7 @@ win e -> dolphin
 win a -> toggle tlp
 win space -> launcher (wofi)
 win r -> enter resize submap
-win shift space -> change language
+win shift space -> change language EN->AR->RU->JP
 win shift arrow keys -> move windows either in float mode or tile mode
 win arrow keys -> change focused window (mouse does the same)
 win l -> lock the screen with hyprlock

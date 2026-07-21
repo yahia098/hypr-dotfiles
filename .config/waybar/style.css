@@ -162,5 +162,13 @@ window#waybar {
 }
 
 #custom-keyboard.arabic {
+  color: #a6e3a1;
+}
+
+#custom-keyboard.russian {
   color: #f9e2af;
+}
+
+#custom-keyboard.japanese {
+  color: #f38ba8;
 }

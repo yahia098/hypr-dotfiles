@@ -5,7 +5,7 @@
 hl.config({
 	input = {
 		-- Keyboard
-		kb_layout = "us,ara",
+		kb_layout = "us,ara,ru,jp",
 		kb_variant = ",qwerty",
 		kb_model = "",
 		kb_options = "",
