@@ -1,2 +1,5 @@
-helixnotes-appimage-bin 
-zen-browser-bin 
+catppuccin-gtk-theme-mocha
+helixnotes-appimage-bin
+paru
+paru-debug
+zen-browser-bin

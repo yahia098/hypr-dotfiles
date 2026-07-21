@@ -1,0 +1,25 @@
+/* ===========================
+ * Color Palette
+ * =========================== */
+
+/* Backgrounds */
+@define-color base #1e1e2e;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+
+/* Foreground */
+@define-color text #cdd6f4;
+@define-color subtext #a6adc8;
+
+/* Palette */
+@define-color blue #89b4fa;
+@define-color green #a6e3a1;
+@define-color yellow #f9e2af;
+@define-color red #f38ba8;
+@define-color mauve #cba6f7;
+
+/* Semantic Colors */
+@define-color accent @blue;
+@define-color success @green;
+@define-color warning @yellow;
+@define-color danger @red;
