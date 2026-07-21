@@ -10,15 +10,19 @@ while learning how to use opengl
 <img width="1920" height="1080" alt="2026-07-19_21-48-12" src="https://github.com/user-attachments/assets/1f07eba8-4921-43b8-a76e-2ea0cdbb3b0a" />
 my keybinds:
 win as mod key
-win enter -> terminal
+win return -> 󰆍 kitty
+win shift return -> enter apps 󰀻 submap
+󰈹 B -->Zen-browser
+ E -->Dolphin
+ Shift E-->Yazi
+ L -->Lutris
+ H -->helix-notes
+ L -->Telegram
+Esc/Return->Exit
 win e -> dolphin
-win shift e -> yazi
 win a -> toggle tlp
 win space -> launcher (wofi)
-win b -> open browser
-win h -> helix-notes (installed with flatpak)
 win r -> enter resize submap
-win t -> Telegram
 win shift space -> change language
 win shift arrow keys -> move windows either in float mode or tile mode
 win arrow keys -> change focused window (mouse does the same)

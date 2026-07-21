@@ -1,0 +1,7 @@
+󰈹 B      -->Zen-browser
+ E      -->Dolphin
+ Shift E-->Yazi
+ L      -->Lutris
+ H      -->helix-notes
+ L      -->Telegram
+Esc/Return->Exit
