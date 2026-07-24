@@ -6,6 +6,7 @@ android-file-transfer
 android-tools
 aria2
 ark
+awww
 base
 base-devel
 bat
@@ -55,7 +56,6 @@ gwenview
 hypridle
 hyprland
 hyprlock
-hyprpaper
 hyprpicker
 hyprpolkitagent
 hyprpwcenter
