@@ -104,4 +104,4 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias dmusic="~/Codes/download-music.sh"
 alias dvideo="~/Codes/download-video.sh"
-
+export EDITOR='nvim'

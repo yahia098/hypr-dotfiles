@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SINK@ 5%+
 
 VOL=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}')

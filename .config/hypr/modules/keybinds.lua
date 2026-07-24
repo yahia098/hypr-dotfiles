@@ -7,13 +7,23 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(Programs.Terminal))
 local closeWindowBind = hl.bind(mainMod .. " +SHIFT+ Q", hl.dsp.window.close())
--- closeWindowBind:set_enabled(false)
+--for disabling a bind use :
+--local closeWindowBind = hl.bind(mainMod .. " +SHIFT+ Q", hl.dsp.window.close())
+--note: just ":set_enabled(false)" like this :closeWindowBind:set_enabled(false)
+--or  hl.bind(mainMod .. " +SHIFT+ Q", hl.dsp.window.close()):set_enabled(false)
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock.sh"))
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("~/.config/hypr/scripts/powermenu.sh"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("~/.config/hypr/scripts/power-profile-toggle.sh"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(Programs.FileManager))
+--apps also available in apps submap with extra keys
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(Programs.Menu))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(Programs.Browser))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(Programs.FileManager))
+hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(Programs.FileManagerTUI))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(Programs.Notes))
+hl.bind(mainMod .. "+ D", hl.dsp.exec_cmd("discord"))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("Telegram"))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("lutris"))
 hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-layout.sh"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only

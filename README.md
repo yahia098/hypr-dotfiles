@@ -8,25 +8,45 @@ my windows
 <img width="1920" height="1080" alt="2026-07-19_21-47-03" src="https://github.com/user-attachments/assets/d5b19a94-2b60-426d-b26f-5307ae73a397" />
 while learning how to use opengl
 <img width="1920" height="1080" alt="2026-07-19_21-48-12" src="https://github.com/user-attachments/assets/1f07eba8-4921-43b8-a76e-2ea0cdbb3b0a" />
+
 my keybinds:
+
 win as mod key
+
 win return -> 󰆍 kitty
-win shift return -> enter apps 󰀻 submap
-󰈹 B -->Zen-browser
- E -->Dolphin
- Shift E-->Yazi
- L -->Lutris
- H -->helix-notes
- L -->Telegram
+
+win B -->󰈹 Zen-browser
+
+win E --> Dolphin
+
+win Shift E--> Yazi
+
+win Shift L --> Lutris
+
+win N --> helix-notes
+
+win T --> Telegram
+
+win D --> Discord
+
 Esc/Return->Exit
+
 win e -> dolphin
+
 win a -> toggle tlp
+
 win space -> launcher (fuzzel)
+
 win r -> enter resize submap
+
 win shift space -> change language EN->AR->RU->JP
+
 win shift arrow keys -> move windows either in float mode or tile mode
+
 win arrow keys -> change focused window (mouse does the same)
+
 win l -> lock the screen with hyprlock
+
 submaps show next to workspaces on waybar
 
 =========================AI Assistance===============================================
