@@ -19,6 +19,6 @@ case "$choice" in
         systemctl suspend
         ;;
     " Logout")
-        hyprctl dispatch exit
+        hyprctl dispatch 'hl.dsp.exit()' 
         ;;
 esac
