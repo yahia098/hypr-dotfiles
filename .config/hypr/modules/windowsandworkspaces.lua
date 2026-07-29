@@ -62,7 +62,6 @@ hl.window_rule({
 })
 
 hl.window_rule({
-	name = "floatss",
 	match = { class = "tab" },
 	float = true,
 	size = { 800, 800 },
@@ -70,9 +69,15 @@ hl.window_rule({
 })
 
 hl.window_rule({
-	name = "floats",
 	match = { class = "floats" },
 	float = true,
 	size = { 1200, 800 },
 	move = { 400, 200 },
+})
+
+hl.window_rule({
+	name = "PolyMC floating",
+	match = { class = "org.polymc.PolyMC" },
+	float = true,
+	size = { 900, 600 },
 })
