@@ -13,10 +13,6 @@ case "$LAYOUT" in
         ICON="󰌌"
         TEXT="Русский"
         ;;
-    *Japanese*)
-        ICON="󰌌"
-        TEXT="日本語"
-        ;;
     *)
         ICON="󰌌"
         TEXT="English"

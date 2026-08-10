@@ -23,6 +23,7 @@ hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(Programs.FileManagerTUI))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(Programs.Notes))
 hl.bind(mainMod .. "+ D", hl.dsp.exec_cmd("discord"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("Telegram"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("cliphist list | fuzzel -d | cliphist decode | wl-copy"))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("lutris"))
 hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-layout.sh"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
@@ -36,9 +37,9 @@ hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", actio
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
-	local key = i % 10 -- 10 maps to key 0
-	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    local key = i % 10 -- 10 maps to key 0
+    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
 -- Example special workspace (scratchpad)
@@ -55,34 +56,34 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind(
-	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-up.sh"),
-	{ locked = true, repeating = true }
+    "XF86AudioRaiseVolume",
+    hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-up.sh"),
+    { locked = true, repeating = true }
 )
 hl.bind(
-	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-down.sh"),
-	{ locked = true, repeating = true }
+    "XF86AudioLowerVolume",
+    hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-down.sh"),
+    { locked = true, repeating = true }
 )
 hl.bind(
-	"XF86AudioMute",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-toggle.sh"),
-	{ locked = true, repeating = true }
+    "XF86AudioMute",
+    hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-toggle.sh"),
+    { locked = true, repeating = true }
 )
 hl.bind(
-	"XF86AudioMicMute",
-	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
-	{ locked = true, repeating = true }
+    "XF86AudioMicMute",
+    hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+    { locked = true, repeating = true }
 )
 hl.bind(
-	"XF86MonBrightnessUp",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness-up.sh"),
-	{ locked = true, repeating = true }
+    "XF86MonBrightnessUp",
+    hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness-up.sh"),
+    { locked = true, repeating = true }
 )
 hl.bind(
-	"XF86MonBrightnessDown",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness-down.sh"),
-	{ locked = true, repeating = true }
+    "XF86MonBrightnessDown",
+    hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness-down.sh"),
+    { locked = true, repeating = true }
 )
 
 -- Requires playerctl
@@ -97,24 +98,24 @@ hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/record-fu
 hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/record-area.sh"))
 --moving windows
 local function smart_move(dx, dy, direction)
-	return function()
-		local w = hl.get_active_window()
-		if not w then
-			return
-		end
+    return function()
+        local w = hl.get_active_window()
+        if not w then
+            return
+        end
 
-		if w.floating then
-			hl.dispatch(hl.dsp.window.move({
-				x = dx,
-				y = dy,
-				relative = true,
-			}))
-		else
-			hl.dispatch(hl.dsp.window.move({
-				direction = direction,
-			}))
-		end
-	end
+        if w.floating then
+            hl.dispatch(hl.dsp.window.move({
+                x = dx,
+                y = dy,
+                relative = true,
+            }))
+        else
+            hl.dispatch(hl.dsp.window.move({
+                direction = direction,
+            }))
+        end
+    end
 end
 
 hl.bind(mainMod .. " + SHIFT + left", smart_move(-15, 0, "left"), { repeating = true })
