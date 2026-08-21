@@ -12,9 +12,6 @@ case "$LAYOUT" in
     *Russian*)
         printf '{"text":"Ру","class":"russian","tooltip":"Русский"}'
         ;;
-    *Japanese*)
-        printf '{"text":"日本","class":"japanese","tooltip":"日本語"}'
-        ;;
     *)
         printf '{"text":"EN","class":"english","tooltip":"English"}'
         ;;

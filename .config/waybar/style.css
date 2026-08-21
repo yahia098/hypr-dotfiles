@@ -38,9 +38,11 @@ window#waybar {
   padding: 0 8px;
   color: @subtext;
   background: transparent;
+  font-family: "Noto Sans CJK JP";
+  font-size: 22px;
+  font-weight: 900;
   transition: all 150ms ease;
 }
-
 #workspaces button:hover {
   background: @surface0;
   color: @text;
@@ -155,8 +157,4 @@ window#waybar {
 
 #custom-keyboard.russian {
   color: #f9e2af;
-}
-
-#custom-keyboard.japanese {
-  color: #f38ba8;
 }

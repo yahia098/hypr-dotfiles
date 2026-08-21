@@ -13,25 +13,39 @@
     "custom/notification",
     "custom/tlp",
     "battery",
-    "clock",
     "tray",
+    "clock",
   ],
 
   "hyprland/window": {
     "max-length": 50,
   },
 
+  "hyprland/workspaces": {
+      "format": "{icon}",
+      "format-icons": {
+        "1": "一",
+        "2": "二",
+        "3": "三",
+        "4": "四",
+        "5": "五"
+    },
+      "persistent-workspaces": {
+		"*": 5 // 5 workspaces by default on every monitor
+	}
+},
+
   "network": {
-    "format-wifi": " {essid:10}",
+    "format-wifi": " ",
     "format-ethernet": "󰈀 Ethernet",
-    "format-disconnected": "󰖪 Offline",
+    "format-disconnected": "󰖪 ",
     "tooltip-format": "{essid}\n{ipaddr}\nSignal: {signalStrength}%",
     "on-click": "kitty --app-id tab -e nmtui",
   },
   "bluetooth": {
     "format": "",
     "format-disabled": "󰂲",
-    "format-connected": "󰂰 {device_alias}",
+    "format-connected": "󰂰 ",
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
     "on-click": "kitty --app-id tab -e bluetui",
@@ -41,7 +55,7 @@
     "format": "{icon} {volume}%",
     "format-muted": "󰝟",
 
-    "format-bluetooth": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
     "format-bluetooth-muted": "󰝟 ",
 
     "format-source": "{volume}% ",
@@ -49,8 +63,8 @@
 
     "format-icons": {
       "headphone": "",
-      "hands-free": "󰂑",
-      "headset": "󰂑",
+      "hands-free": "󱠲",
+      "headset": "",
       "phone": "",
       "portable": "",
       "car": "",
@@ -72,8 +86,24 @@
   },
 
   "clock": {
-    "format": "{:%H:%M}",
-    "format-alt": "{:%A %d %B %H:%M}",
+	"format": "{:%H:%M}",
+	"format-alt": "{:%A, %B %d, %Y (%R)}",
+	"tooltip-format": "<tt><small>{calendar}</small></tt>",
+	"calendar": {
+		"mode"             : "year",
+		"mode-mon-col"     : 3,
+		"weeks-pos"        : "right",
+		"first-day-of-week": 1,
+		"on-scroll"        : 1,
+		"on-click-right"   : "mode",
+		"format": {
+			"months":     "<span color='#ffead3'><b>{}</b></span>",
+			"days":       "<span color='#ecc6d9'><b>{}</b></span>",
+			"weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+			"weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+			"today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+		}
+	},
   },
   "custom/notification": {
     "tooltip": false,
