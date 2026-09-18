@@ -1,6 +1,8 @@
 my hypr config
 WIP
-it uses waybar and fuzzel
+copy the following commands to shell
+sudo pacman -S hyprland swaync waybar fuzzel neovim wf-recorder slurp grim xdg-desktop-portal-hyprland;
+git clone https://github.com/yahia098/hypr-dotfiles.git $HOME
 text editor is nvim with my custom dots
 i use zsh
 <img width="1920" height="1080" alt="2026-07-24_11-27-46" src="https://github.com/user-attachments/assets/36930857-24f0-476c-9ea8-59176b2719c3" />
