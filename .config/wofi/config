@@ -1,0 +1,7 @@
+show=drun
+prompt=Run
+allow_images=true
+insensitive=true
+no_actions=true
+width=600
+height=400

@@ -2,7 +2,7 @@
 
 choice=$(
     printf " Shutdown\n󰜉 Reboot\n󰌾 Lock\n󰤄 Suspend\n Logout" |
-    fuzzel --dmenu --prompt "Power"
+    wofi --dmenu --prompt "Power"
 )
 
 case "$choice" in

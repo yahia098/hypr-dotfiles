@@ -62,17 +62,17 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    match = { class = "tab" },
+    name = "network floating",
+    match = { class = "nm-connection-editor" },
+    move = { 1300, 30 },
     float = true,
-    size = { 800, 800 },
-    move = { 1000, 30 },
 })
-
 hl.window_rule({
-    match = { class = "floats" },
+    name = "audio floating",
+    match = { title = "Volume Control" },
+    move = { 1200, 30 },
+    size = { 720, 500 },
     float = true,
-    size = { 1200, 800 },
-    move = { 400, 200 },
 })
 
 hl.window_rule({

@@ -40,7 +40,7 @@
     "format-ethernet": "󰈀 Ethernet",
     "format-disconnected": "󰖪 ",
     "tooltip-format": "{essid}\n{ipaddr}\nSignal: {signalStrength}%",
-    "on-click": "kitty --app-id tab -e nmtui",
+    "on-click": "nm-sidebar --toggle",
   },
   "bluetooth": {
     "format": "",
@@ -48,7 +48,7 @@
     "format-connected": "󰂰 ",
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
-    "on-click": "kitty --app-id tab -e bluetui",
+    "on-click": "bm-sidebar",
   },
 
   "pulseaudio": {
@@ -72,7 +72,7 @@
     },
 
     "scroll-step": 5,
-    "on-click": "kitty --app-id tab -e pulsemixer",
+    "on-click": "pavucontrol",
   },
 
   "battery": {

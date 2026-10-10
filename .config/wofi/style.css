@@ -1,0 +1,23 @@
+@import "../theme/colors.css";
+
+/* ===========================
+ * Wofi
+ * =========================== */
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 18px;
+}
+
+#scroll {
+  background-color: @base;
+}
+
+#outer-box {
+  background-color: @base;
+  padding: 10px;
+  border: 2px solid @accent;
+}
+
+#main {
+  background-color: @base;
+}
