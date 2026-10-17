@@ -1,198 +1,303 @@
 # Hyprland Dotfiles
 
-My personal Hyprland desktop configuration for Arch Linux. I use it for everyday work, university, and programming—including learning OpenGL. The setup is a work in progress and evolves with my workflow.
+My personal Hyprland desktop configuration for **Arch Linux**. I use it for everyday work, university, and programming—including learning OpenGL. This is a work in progress, shaped around the way I use my machine rather than a universal desktop setup.
 
 <p align="center">
-  <strong>Arch Linux · Hyprland · Lua · Waybar</strong>
+  <strong>Arch Linux · Hyprland · Lua · Waybar · Catppuccin Mocha</strong>
 </p>
 
 ## Showcase
 
-<!-- SCREEN RECORDING SLOT
-     1. Add a GIF at assets/showcase.gif and uncomment the image snippet below, OR
-     2. Upload an MP4 to GitHub and replace the placeholder link with its URL.
-
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2026-10-17_15-19-29.mp4" alt="Screen recording of the Hyprland desktop" width="900">
+  <a href="assets/screenshots/2026-10-17_15-19-29.mp4"><strong>▶ Watch the Hyprland screen recording</strong></a>
+  <br>
+  <sub><code>assets/screenshots/2026-10-17_15-19-29.mp4</code></sub>
 </p>
--->
 
-
-<!-- For a GitHub-hosted video, replace the placeholder below with the video URL. -->
-<!-- **Watch the desktop tour:** [Screen recording](PASTE_VIDEO_URL_HERE) -->
-
-
+The recording is stored in the repository and linked here. GitHub does not render repository-relative MP4 files as inline players in a README; the link opens the video file. For an inline player, upload the MP4 in the GitHub README editor and use the generated `github.com/user-attachments/assets/...` URL on its own line.
 
 ## Screenshots
 
-<p align="center">
-  <strong>Desktop</strong><br>
-  <em>My desktop layout and status bar</em><br><br>
-  <img src="https://github.com/user-attachments/assets/36930857-24f0-476c-9ea8-59176b2719c3" alt="Hyprland desktop screenshot" width="100%">
-</p>
+These screenshots are stored in [`assets/screenshots/`](assets/screenshots/).
 
-<p align="center">
-  <strong>Window layout</strong><br>
-  <em>Tiled windows during a normal session</em><br><br>
-  <img src="https://github.com/user-attachments/assets/d5b19a94-2b60-426d-b26f-5307ae73a397" alt="Tiled Hyprland windows" width="100%">
-</p>
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <strong>Desktop</strong><br>
+      <em>Desktop and Waybar</em><br><br>
+      <a href="assets/screenshots/2026-10-17_16-33-15.png"><img src="assets/screenshots/2026-10-17_16-33-15.png" alt="Hyprland desktop screenshot from 16:33:15" width="100%"></a>
+    </td>
+    <td align="center" width="50%">
+      <strong>Desktop · Alternate view</strong><br>
+      <em>A second view of the session</em><br><br>
+      <a href="assets/screenshots/2026-10-17_16-33-16.png"><img src="assets/screenshots/2026-10-17_16-33-16.png" alt="Hyprland desktop screenshot from 16:33:16" width="100%"></a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <strong>Another view</strong><br>
+      <em>Additional desktop screenshot</em><br><br>
+      <a href="assets/screenshots/another.png"><img src="assets/screenshots/another.png" alt="Additional Hyprland screenshot" width="100%"></a>
+    </td>
+    <td align="center" width="50%">
+      <strong>Application launcher</strong><br>
+      <em>Launching applications with Wofi</em><br><br>
+      <a href="assets/screenshots/launcher.png"><img src="assets/screenshots/launcher.png" alt="Wofi application launcher" width="100%"></a>
+    </td>
+  </tr>
+</table>
 
-<p align="center">
-  <strong>Development workflow</strong><br>
-  <em>Windows arranged while learning OpenGL</em><br><br>
-  <img src="https://github.com/user-attachments/assets/1f07eba8-4921-43b8-a76e-2ea0cdbb3b0a" alt="Hyprland desktop while learning OpenGL" width="100%">
-</p>
+<details>
+  <summary>Earlier screenshots</summary>
 
-<!-- EXTRA SCREENSHOT SLOT
-     Upload another screenshot to the repository (for example, assets/screenshots/launcher.png),
-     then duplicate this snippet and change the path and alt text:
-
-<p align="center">
-  <strong>Launcher / settings / another workflow</strong><br>
-  <img src="assets/screenshots/launcher.png" alt="Application launcher" width="100%">
-</p>
--->
+  <p align="center">
+    <strong>Earlier desktop view</strong><br><br>
+    <img src="https://github.com/user-attachments/assets/36930857-24f0-476c-9ea8-59176b2719c3" alt="Earlier Hyprland desktop screenshot" width="100%">
+  </p>
+  <p align="center">
+    <strong>Earlier tiled-window layout</strong><br><br>
+    <img src="https://github.com/user-attachments/assets/d5b19a94-2b60-426d-b26f-5307ae73a397" alt="Earlier tiled Hyprland windows" width="100%">
+  </p>
+  <p align="center">
+    <strong>Earlier development workflow</strong><br><br>
+    <img src="https://github.com/user-attachments/assets/1f07eba8-4921-43b8-a76e-2ea0cdbb3b0a" alt="Earlier desktop while learning OpenGL" width="100%">
+  </p>
+</details>
 
 ## Features
 
-- **Modular Lua configuration.** Hyprland settings are split into modules for monitors, programs, startup and environment variables, permissions, appearance, input, miscellaneous settings, keybindings, submaps, window rules, and device switches.
-- **Catppuccin-inspired appearance.** Dark surfaces, a blue accent, subtle shadows, blur, and animated window/workspace transitions. The configuration uses the Dwindle layout and preserves splits.
-- **Waybar status bar.** Displays workspaces, the active submap, the focused window, keyboard layout, network, Bluetooth, audio, notifications, power profile, battery, tray, and clock.
-- **Keyboard-first workflow.** Launch apps, navigate focus, move windows, switch workspaces, toggle floating/fullscreen, and resize windows without reaching for the mouse.
-- **Dedicated resize submap.** Press `Super+R`, then use the arrow keys to resize the active window in small increments. `Esc` or `Enter` exits the submap. Waybar shows the active submap.
-- **Screenshots and screen recording.** Full-screen and area captures use `grim` and `slurp`; recordings use `wf-recorder`. Screenshots are saved under `~/Pictures/Screenshots`, recordings under `~/Videos/Recordings`. Screenshot scripts also copy the image to the clipboard.
-- **Clipboard history.** `Super+C` opens `cliphist` through Fuzzel and copies the selected entry.
-- **Laptop controls.** Media keys handle volume, microphone mute, brightness, and playback. A shortcut and Waybar module toggle the configured TLP power profile.
-- **Startup and session integration.** Starts Waybar, SwayNotificationCenter, Hypridle, wallpaper handling, clipboard history watchers, and selected tray applications. It also sets Wayland-related environment variables.
-- **Per-window rules.** Includes behavior for apps/windows such as the OpenGL learning window, Lutris, network settings, audio controls, and PolyMC.
-- **Separate Neovim configuration.** Neovim is included as a Git submodule pointing to [yahia098/nvim.dots](https://github.com/yahia098/nvim.dots).
+### Modular Lua configuration
+
+Hyprland settings are split into small modules that are loaded by `.config/hypr/hyprland.lua`:
+
+| Module | Responsibility |
+|---|---|
+| `monitors.lua` | Monitor mode, position, and scale |
+| `programs.lua` | Commands used by application-launcher keybindings |
+| `autostart-env.lua` | Startup commands and Wayland/session environment variables |
+| `permissions.lua` | Hyprland permission enforcement and explicit screencopy/plugin permissions |
+| `lookandfeel.lua` | Colors, gaps, layout, blur, shadows, opacity, and animations |
+| `input.lua` | Keyboard layouts, mouse/touchpad behavior, and workspace swipe gesture |
+| `misc.lua` | Miscellaneous compositor options |
+| `keybinds.lua` | Application, window, workspace, media, and capture shortcuts |
+| `submaps.lua` | Temporary resize mode |
+| `windowsandworkspaces.lua` | Window rules and workspace-related behavior |
+| `switches.lua` | Laptop lid-switch behavior |
+
+This separation keeps individual settings easier to locate and change without turning one file into a giant configuration block.
+
+### Appearance and layout
+
+- **Catppuccin Mocha-inspired palette** with a dark base, blue accent, and consistent colors shared by Hyprland and Waybar.
+- **Dwindle tiling layout** with custom animated transitions and easing curves.
+- **Subtle transparency and effects:** active windows are fully opaque, inactive windows use slightly reduced opacity, with shadows and a light blur effect.
+- **Minimal window geometry:** zero-width borders, square corners, and small inner/outer gaps.
+- **Waybar at the top** with workspace icons, focused-window title, active-submap indicator, keyboard layout, network, Bluetooth, audio, notifications, power profile, battery, tray, and clock/calendar.
+
+### Keyboard-first workflow
+
+- Navigate focus and switch workspaces with `Super` and the arrow keys or number row.
+- Move tiled windows directionally; move floating windows in small pixel increments using the same modifier pattern.
+- Use a dedicated resize submap instead of memorizing many resize shortcuts.
+- Toggle the `magic` special workspace as a scratchpad for windows that should be available without occupying a numbered workspace.
+- Use a three-finger horizontal touchpad swipe to change workspaces.
+
+### Desktop helpers
+
+- **Wofi** launches applications; **Fuzzel** is used for clipboard-history selection.
+- **Clipboard history** is collected from both text and image clipboard contents using `wl-paste` and `cliphist`.
+- **Screenshots** use `grim` and `slurp`, save timestamped PNGs in `~/Pictures/Screenshots/`, copy the image to the clipboard with `wl-copy`, and show a short notification.
+- **Screen recording** uses `wf-recorder`, saves timestamped MP4s in `~/Videos/Recordings/`, and can record either the full screen or a selected area. Triggering the recording shortcut again sends an interrupt to stop an active recording.
+- **Power profile switching** cycles between `performance`, `balanced`, and `power-saver` through `tlpctl`; Waybar shows the current profile.
+- **Audio and display controls** are bound to hardware keys for volume, microphone mute, and brightness. `playerctl` handles media playback.
+- **Locking and idle behavior** use Hyprlock and Hypridle. The lock helper captures and blurs a background image before starting Hyprlock.
+- **Wallpaper and session startup** use `awww`, launch Waybar and SwayNotificationCenter, start Hypridle and the polkit agent, and start configured tray applications and clipboard watchers.
+- **Window rules** handle special cases for the OpenGL learning window, Lutris, network settings, audio controls, PolyMC, `hyprland-run`, and XWayland dragging/maximize behavior.
+- **Explicit compositor permissions** are enabled; the configuration grants screencopy access to the capture and lock tools and plugin permission to `hyprpm`.
+
+### Components
+
+| Component | Role in this setup |
+|---|---|
+| [Hyprland](https://hyprland.org/) | Wayland compositor and window manager |
+| [Waybar](https://github.com/Alexays/Waybar) | Status bar and system modules |
+| [SwayNotificationCenter](https://github.com/ErikReider/SwayNotificationCenter) | Notifications and Do Not Disturb controls |
+| [Wofi](https://hg.sr.ht/~scoopta/wofi) | Application launcher |
+| [Fuzzel](https://codeberg.org/dnkl/fuzzel) | Clipboard-history picker |
+| [Kitty](https://sw.kovidgoyal.net/kitty/) | Terminal |
+| [Nemo](https://github.com/linuxmint/nemo) | File manager |
+| [Zathura](https://pwmt.org/projects/zathura/) | PDF viewer |
+| [grim](https://github.com/emersion/grim) and [slurp](https://github.com/emersion/slurp) | Screenshot and area selection |
+| [wf-recorder](https://github.com/ammen99/wf-recorder) | Screen recording |
+| [cliphist](https://github.com/sentriz/cliphist) and `wl-clipboard` | Clipboard history and clipboard access |
+| [Hyprlock](https://github.com/hyprwm/hyprlock) and [Hypridle](https://github.com/hyprwm/hypridle) | Lock screen and idle management |
+| [awww](https://github.com/0x46d/awww) | Wallpaper rendering |
+| [Neovim](https://neovim.io/) | Editor, configured through a separate submodule |
+
+Additional app bindings and autostart commands refer to Zen Browser, `helixnotes`, Discord, Telegram, Lutris, Vesktop, Whatsie, and other machine-specific helpers. Those applications are not all required to use Hyprland itself; install or change the ones you want.
 
 ## Keybindings
 
-The main modifier is **`Super`** (the Windows key). These bindings are documented from the current Lua configuration; app commands require their corresponding programs to be installed.
+The main modifier is **`Super`** (the Windows key). These are the bindings in the current Lua configuration. A binding that launches an application or script only works when that command is installed and available.
 
 ### Applications and session
 
 | Shortcut | Action |
 |---|---|
-| `Super+Enter` | Open Kitty terminal |
-| `Super+Space` | Open the Wofi application launcher |
-| `Super+B` | Open Zen Browser |
-| `Super+E` | Open Nemo file manager |
-| `Super+N` | Open `helixnotes` |
-| `Super+Z` | Open Zathura PDF viewer |
-| `Super+D` | Open Discord |
-| `Super+T` | Open Telegram |
-| `Super+Shift+L` | Open Lutris |
-| `Super+Esc` | Open the custom power menu script |
-| `Super+L` | Lock the screen using the custom lock script |
-| `Super+A` | Toggle the configured power profile |
-| `Super+C` | Open clipboard history and copy the selected entry |
-| `Super+Shift+Space` | Cycle keyboard layouts using the layout-toggle script |
+| `Super` + `Enter` | Open Kitty terminal |
+| `Super` + `Space` | Open the Wofi application launcher |
+| `Super` + `B` | Open Zen Browser |
+| `Super` + `E` | Open Nemo file manager |
+| `Super` + `N` | Open `helixnotes` |
+| `Super` + `Z` | Open Zathura PDF viewer |
+| `Super` + `D` | Open Discord |
+| `Super` + `T` | Open Telegram |
+| `Super` + `Shift` + `L` | Open Lutris |
+| `Super` + `Esc` | Open the custom power menu |
+| `Super` + `L` | Lock the screen using the custom lock script |
+| `Super` + `Shift` + `Q` | Close the active window |
+| `Super` + `A` | Cycle the configured power profile |
+| `Super` + `C` | Open clipboard history; copy the selected entry |
+| `Super` + `Shift` + `Space` | Cycle keyboard layouts using the layout-toggle script |
 
 ### Windows and layout
 
 | Shortcut | Action |
 |---|---|
-| `Super+Arrow keys` | Focus the window in that direction |
-| `Super+Shift+Arrow keys` | Move the active window; floating windows move by small steps, tiled windows move in the indicated direction |
-| `Super+V` | Toggle floating mode for the active window |
-| `Super+F` | Toggle fullscreen |
-| `Super+P` | Toggle pseudo-tiling (Dwindle layout) |
-| `Super+J` | Toggle the Dwindle split direction |
-| `Super+R` | Enter the resize submap |
-| `Super+S` | Toggle the special workspace named `magic` |
-| `Super+Shift+S` | Move the active window to the `magic` special workspace |
-| `Super+Mouse wheel` | Move to the next/previous workspace |
-| `Super+Left mouse button` + drag | Move a window |
-| `Super+Right mouse button` + drag | Resize a window |
+| `Super` + arrow keys | Focus a window in that direction |
+| `Super` + `Shift` + arrow keys | Move the active window: floating windows move by 15-pixel increments; tiled windows move directionally |
+| `Super` + `V` | Toggle floating mode for the active window |
+| `Super` + `F` | Toggle fullscreen |
+| `Super` + `P` | Toggle pseudo-tiling in the Dwindle layout |
+| `Super` + `J` | Toggle the Dwindle split direction |
+| `Super` + `R` | Enter the resize submap |
+| `Super` + `S` | Toggle the `magic` special workspace |
+| `Super` + `Shift` + `S` | Move the active window to the `magic` special workspace |
+| `Super` + mouse wheel | Cycle through workspaces |
+| `Super` + left mouse button + drag | Move a window |
+| `Super` + right mouse button + drag | Resize a window |
 
 ### Workspaces
 
 | Shortcut | Action |
 |---|---|
-| `Super+1` … `Super+9` | Focus workspace 1–9 |
-| `Super+0` | Focus workspace 10 |
-| `Super+Shift+1` … `Super+Shift+9` | Move the active window to workspace 1–9 |
-| `Super+Shift+0` | Move the active window to workspace 10 |
+| `Super` + `1` … `9` | Focus workspace 1–9 |
+| `Super` + `0` | Focus workspace 10 |
+| `Super` + `Shift` + `1` … `9` | Move the active window to workspace 1–9 |
+| `Super` + `Shift` + `0` | Move the active window to workspace 10 |
 
 ### Resize submap
 
-1. Press `Super+R` to enter the submap.
-2. Press an arrow key to resize the active window in that direction.
+1. Press `Super` + `R` to enter the resize submap.
+2. Use an arrow key to resize the active window in that direction. Holding the key repeats the resize in 15-pixel increments.
 3. Press `Esc` or `Enter` to return to the normal keybindings.
+
+Waybar displays the active submap next to the workspace indicators, so the temporary mode is visible.
 
 ### Screenshots and recordings
 
 | Shortcut | Action |
 |---|---|
 | `Print` | Capture the full screen, save it, and copy it to the clipboard |
-| `Shift+Print` | Select and capture a screen area, save it, and copy it to the clipboard |
-| `Super+Print` | Start a full-screen recording; press again to stop it |
-| `Super+Shift+Print` | Start an area recording; press again to stop it |
+| `Shift` + `Print` | Select and capture an area, save it, and copy it to the clipboard |
+| `Super` + `Print` | Start a full-screen recording; press again to stop |
+| `Super` + `Shift` + `Print` | Start an area recording; press again to stop |
 
-Recordings are saved as timestamped MP4 files in `~/Videos/Recordings`. Starting a new recording while `wf-recorder` is running stops the current recording. Area recording prompts for a region selection.
+Screenshots are saved in `~/Pictures/Screenshots/`. Recordings are saved in `~/Videos/Recordings/`. File names use timestamps. Area captures and recordings prompt for a region selection.
 
-### Hardware keys
+### Hardware keys and input
 
 | Key | Action |
 |---|---|
-| Volume up / down | Change volume |
+| Volume up / down | Change output volume |
 | Volume mute | Toggle output mute |
 | Microphone mute | Toggle the default audio input mute |
 | Brightness up / down | Change display brightness |
-| Media next / play-pause / previous | Control media playback through `playerctl` |
+| Media next / play / pause / previous | Control playback through `playerctl` |
+| Laptop lid switch | Suspend the system |
 
-The laptop lid switch is configured to suspend the system. Keyboard-layout cycling is handled by the script and currently uses the layouts configured in `input.lua`; review that module if your preferred layouts differ.
+The configured keyboard layouts are **US English**, **Arabic**, and **Russian** (`us,ara,ru`). A three-finger horizontal touchpad swipe switches workspaces.
+
+## Repository layout
+
+```text
+hypr-dotfiles/
+├── .config/
+│   ├── hypr/
+│   │   ├── hyprland.lua
+│   │   ├── modules/
+│   │   └── scripts/
+│   ├── waybar/
+│   │   ├── config.jsonc
+│   │   ├── style.css
+│   │   └── scripts/
+│   ├── theme/
+│   │   └── colors.css
+│   └── nvim/                 # Git submodule
+├── assets/
+│   └── screenshots/
+│       ├── 2026-10-17_15-19-29.mp4
+│       ├── 2026-10-17_16-33-15.png
+│       ├── 2026-10-17_16-33-16.png
+│       ├── another.png
+│       └── launcher.png
+├── Pictures/
+├── .gitmodules
+├── .zshrc
+└── README.md
+```
+
+This is a guide to the main paths, not a complete file listing. The repository also contains scripts and other configuration files beneath `.config/`.
 
 ## Installation and setup
 
-This configuration is written for **Arch Linux** and targets the setup described in the repository. Review the configuration before using it on another machine; monitor names, GPU environment variables, applications, and scripts may need adjustment.
+This configuration is written for **Arch Linux** and targets the machine and applications I use. It is not a self-contained installer. Review commands and settings before adopting it, especially if you already have a Hyprland setup.
 
 ### 1. Clone the repository
 
-Clone into a dedicated directory rather than directly into `$HOME`. Include the Neovim submodule:
+Include the Neovim submodule:
 
 ```sh
 git clone --recurse-submodules https://github.com/yahia098/hypr-dotfiles.git "$HOME/hypr-dotfiles"
 ```
 
-### 2. Review the configuration
+### 2. Back up existing configuration
 
-The main files are under `.config/`. In particular, review:
+Before linking or copying files, back up the matching directories under `~/.config/`. Do not blindly replace your entire `.config` directory. Integrate the directories you want from the checkout—for example, `hypr`, `waybar`, and `theme`—and resolve any existing files or symlinks first.
 
-- `.config/hypr/hyprland.lua` and `.config/hypr/modules/` for the compositor configuration.
-- `.config/hypr/scripts/` for lock, power, keyboard-layout, screenshot, recording, and wallpaper scripts.
-- `.config/waybar/` for the status bar and its helper scripts.
-- `.config/nvim/` for the Neovim submodule.
+### 3. Install the tools you plan to use
 
-Back up your existing configuration before copying or linking anything into `~/.config/`. This repository is not an automatic installer, and blindly copying everything may overwrite settings you want to keep.
+The essential desktop tools used by the configuration include Hyprland, Waybar, SwayNotificationCenter, Hypridle, Hyprlock, `hyprpolkitagent`, `xdg-desktop-portal-hyprland`, Kitty, Wofi, Fuzzel, Nemo, Zathura, `grim`, `slurp`, `wf-recorder`, `wl-clipboard`, `cliphist`, `playerctl`, `pavucontrol`, `jq`, and `libnotify`/`notify-send`.
 
-### 3. Install the required tools
+The setup also refers to `awww`, `tlpctl`, the `nm-sidebar` and `bm-sidebar` helpers, and several desktop applications. Those commands may require separate installation or your own setup. In particular, the Waybar Wi-Fi and Bluetooth click actions call `nm-sidebar --toggle` and `bm-sidebar`; install those helpers or change the click actions if they are not present on your system.
 
-The current configuration references the following core tools and applications. Install the relevant packages with your preferred Arch package source and verify optional applications separately:
+Package names and sources can change. Install only the components you want and confirm each command exists before relying on the corresponding binding.
 
-- Desktop: Hyprland, Waybar, SwayNotificationCenter, Hypridle, Hyprlock, `hyprpolkitagent`, and `xdg-desktop-portal-hyprland`.
-- Launching and desktop utilities: Kitty, Wofi, Fuzzel (used by clipboard history), Nemo, Zen Browser, Zathura, `wl-clipboard`, `cliphist`, `jq`, and `libnotify`.
-- Captures and media: `grim`, `slurp`, `wf-recorder`, `playerctl`, and `pavucontrol`.
-- Other commands invoked by the configuration: `awww`, TLP, Telegram, Vesktop, Whatsie, plus the custom helper commands/scripts referenced in Waybar.
+### 4. Review hardware- and machine-specific settings
 
-Some applications may come from sources outside the official repositories. The exact package names and availability can change; install only what you need and inspect the scripts before enabling them.
+- `.config/hypr/modules/monitors.lua` defines `eDP-1` at `1920x1080@144`, scale `1`. Change it for your own monitor if needed.
+- `.config/hypr/modules/autostart-env.lua` sets Wayland/desktop environment variables and includes NVIDIA-specific values. Review those if your GPU or driver setup differs.
+- Autostart includes Telegram, Vesktop, Whatsie, Waybar, SwayNotificationCenter, Hypridle, the polkit agent, wallpaper startup, and clipboard watchers. Disable any application launch you do not want.
+- The wallpaper helper references `~/.config/wallpapers/cabin-3.png`; make sure that file exists or change the wallpaper script.
+- The lid-switch binding suspends the system. Change it if that is not the behavior you want.
+- Permission changes in `permissions.lua` require restarting Hyprland.
 
-### 4. Check machine-specific settings
+For version-specific behavior, consult the [Hyprland wiki](https://wiki.hypr.land/).
 
-- `.config/hypr/modules/monitors.lua` contains an `eDP-1` monitor mode of `1920x1080@144`; change it for your display if necessary.
-- `.config/hypr/modules/autostart-env.lua` sets desktop environment variables and includes NVIDIA-specific variables. Review these if your hardware differs.
-- Confirm that all programs used by keybindings and autostart are installed and available in `PATH`.
-- Ensure the scripts under `.config/hypr/scripts/` and `.config/waybar/scripts/` are executable.
-- Log out and start Hyprland after integrating the configuration. Read the [Hyprland wiki](https://wiki.hypr.land/) when troubleshooting version-specific behavior.
+## Neovim submodule
+
+Neovim is maintained separately in [yahia098/nvim.dots](https://github.com/yahia098/nvim.dots) and included under `.config/nvim` as a Git submodule. Use `git clone --recurse-submodules` when cloning this repository; if you cloned without submodules, run:
+
+```sh
+git submodule update --init --recursive
+```
 
 ## AI assistance and ownership
 
 I built and maintain this configuration while learning how to customize my Linux desktop. I used documentation, videos, experimentation, and debugging to learn Lua, Bash, JSON, and CSS. I also used ChatGPT to explain concepts, debug issues, and generate some Bash boilerplate.
 
-The overall design, configuration choices, and final implementation are mine. I use this setup for university and personal projects, and I continue to modify it by understanding the configuration rather than blindly accepting generated changes.
+The overall design, configuration choices, and final implementation are mine. I use this setup for university and personal projects, and I continue to change it by understanding the configuration rather than blindly accepting generated changes.
 
 ## License
 
-I allow anyone to use, modify, and use this code commercially without needing to contact me or provide attribution. This statement reflects my intended permission; a standard license file has not been added yet.
+My intention is to let anyone use and modify this configuration, including for commercial use, without needing to contact me or provide attribution. There is not yet a formal `LICENSE` file in the repository, so this statement records my intent but is not a substitute for adding a standard license.
