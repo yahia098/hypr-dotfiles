@@ -40,14 +40,14 @@ The recording is stored in the repository and linked here. GitHub does not rende
 
 ## Screenshots
 
-The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The featured desktop screenshot is stored in `resources/screenshots/desktop_sea.png`.
+The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The featured desktop screenshot is stored in `assetsscreenshots/desktop_sea.png`.
 
 <table>
   <tr>
     <td align="center" width="50%">
       <strong>Desktop screenshot</strong><br>
-      <a href="resources/screenshots/desktop_sea.png">
-        <img src="resources/screenshots/desktop_sea.png" alt="Hyprland desktop" width="100%">
+      <a href="assets/screenshots/desktop_sea.png">
+        <img src="assets/screenshots/desktop_sea.png" alt="Hyprland desktop" width="100%">
       </a>
     </td>
     <td align="center" width="50%">
@@ -265,7 +265,7 @@ hypr-dotfiles/
 │   │   ├── config.toml
 │   │   └── templates/
 │   └── nvim/                 # Git submodule
-├── resources/
+├── assets/
 │   └── screenshots/
 │       └── desktop_sea.png   # Featured desktop screenshot
 ├── assets/
