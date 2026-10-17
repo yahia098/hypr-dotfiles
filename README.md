@@ -9,11 +9,20 @@ My personal Hyprland desktop configuration for **Arch Linux**. I use it for ever
 ## Showcase
 
 <p align="center">
-  <a href="assets/screenshots/2026-10-17_15-19-29.mp4"><strong>▶ Watch the Hyprland screen recording</strong></a>
-  <br>
-  <sub><code>assets/screenshots/2026-10-17_15-19-29.mp4</code></sub>
+  <strong>Hyprland desktop in action</strong>
 </p>
 
+
+
+https://github.com/user-attachments/assets/2b16facf-8c12-4ebc-93fa-440a60e79197
+
+
+
+<p align="center">
+  <sub>
+    <a href="assets/screenshots/2026-10-17_15-19-29.mp4">View the MP4 in the repository</a>
+  </sub>
+</p>
 The recording is stored in the repository and linked here. GitHub does not render repository-relative MP4 files as inline players in a README; the link opens the video file. For an inline player, upload the MP4 in the GitHub README editor and use the generated `github.com/user-attachments/assets/...` URL on its own line.
 
 ## Screenshots
