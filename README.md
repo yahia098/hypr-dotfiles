@@ -113,8 +113,8 @@ This separation keeps individual settings easier to locate and change without tu
 
 ### Desktop helpers
 
-- **Wofi** launches applications; **Fuzzel** is used for clipboard-history selection.
-- **Clipboard history** is collected from both text and image clipboard contents using `wl-paste` and `cliphist`.
+- **Wofi** launches applications and is used for clipboard-history selection.
+- **Visual clipboard history.** Press `Super+C` to open a Wofi picker powered by `cliphist`. It supports text history, image thumbnails, and previews for local video files copied through Nemo. Image thumbnails are generated with ImageMagick; video previews use FFmpeg. Text entries show readable previews, while other binary entries receive descriptive labels. Selecting an entry restores its content to the system clipboard so it can be pasted normally with `Ctrl+V`, where the target application supports that content type. Clipboard capture uses `wl-paste` watchers for text, images, and Nemo's `x-special/gnome-copied-files` format.
 - **Screenshots** use `grim` and `slurp`, save timestamped PNGs in `~/Pictures/Screenshots/`, copy the image to the clipboard with `wl-copy`, and show a short notification.
 - **Screen recording** uses `wf-recorder`, saves timestamped MP4s in `~/Videos/Recordings/`, and can record either the full screen or a selected area. Triggering the recording shortcut again sends an interrupt to stop an active recording.
 - **Power profile switching** cycles between `performance`, `balanced`, and `power-saver` through `tlpctl`; Waybar shows the current profile.
@@ -131,8 +131,7 @@ This separation keeps individual settings easier to locate and change without tu
 | [Hyprland](https://hyprland.org/) | Wayland compositor and window manager |
 | [Waybar](https://github.com/Alexays/Waybar) | Status bar and system modules |
 | [SwayNotificationCenter](https://github.com/ErikReider/SwayNotificationCenter) | Notifications and Do Not Disturb controls |
-| [Wofi](https://hg.sr.ht/~scoopta/wofi) | Application launcher |
-| [Fuzzel](https://codeberg.org/dnkl/fuzzel) | Clipboard-history picker |
+| [Wofi](https://hg.sr.ht/~scoopta/wofi) | Application launcher and visual clipboard-history picker |
 | [Kitty](https://sw.kovidgoyal.net/kitty/) | Terminal |
 | [Nemo](https://github.com/linuxmint/nemo) | File manager |
 | [Zathura](https://pwmt.org/projects/zathura/) | PDF viewer |
@@ -143,7 +142,7 @@ This separation keeps individual settings easier to locate and change without tu
 | [awww](https://github.com/0x46d/awww) | Wallpaper rendering |
 | [Neovim](https://neovim.io/) | Editor, configured through a separate submodule |
 
-Additional app bindings and autostart commands refer to Zen Browser, `helixnotes`, Discord,Telegram, Lutris, Vesktop, Whatsie, and other machine-specific helpers. Those applications are not all required to use Hyprland itself; install or change the ones you want.
+Additional app bindings and autostart commands refer to Zen Browser, `helixnotes`, Discord, Telegram, Lutris, Vesktop, Whatsie, and other machine-specific helpers. Those applications are not all required to use Hyprland itself; install or change the ones you want.
 
 ## Keybindings
 
@@ -167,7 +166,7 @@ The main modifier is **`Super`** (the Windows key). These are the bindings in th
 | `Super` + `L` | Lock the screen using the custom lock script |
 | `Super` + `Shift` + `Q` | Close the active window |
 | `Super` + `A` | Cycle the configured power profile |
-| `Super` + `C` | Open clipboard history; copy the selected entry |
+| `Super` + `C` | Open visual clipboard history; restore the selected entry to the clipboard |
 | `Super` + `Shift` + `Space` | Cycle keyboard layouts using the layout-toggle script |
 
 ### Windows and layout
@@ -277,11 +276,57 @@ Before linking or copying files, back up the matching directories under `~/.conf
 
 ### 3. Install the tools you plan to use
 
-The essential desktop tools used by the configuration include Hyprland, Waybar, SwayNotificationCenter, Hypridle, Hyprlock, `hyprpolkitagent`, `xdg-desktop-portal-hyprland`, Kitty, Wofi, Fuzzel, Nemo, Zathura, `grim`, `slurp`, `wf-recorder`, `wl-clipboard`, `cliphist`, `playerctl`, `pavucontrol`, `jq`, and `libnotify`/`notify-send`.
+The package commands below reflect my current Arch Linux workstation. The full Arch command includes applications and development tools beyond what Hyprland itself needs, so review it before running—especially the kernel, NVIDIA driver, bootloader, firewall, and display-manager packages. Package versions are intentionally not pinned.
 
-The setup also refers to `awww`, `tlpctl`, the `nm-sidebar` and `bm-sidebar` helpers, and several desktop applications. Those commands may require separate installation or your own setup. In particular, the Waybar Wi-Fi and Bluetooth click actions call `nm-sidebar --toggle` and `bm-sidebar`; install those helpers or change the click actions if they are not present on your system.
+#### Arch Linux repository packages
 
-Package names and sources can change. Install only the components you want and confirm each command exists before relying on the corresponding binding.
+```bash
+sudo pacman -S --needed 7zip alsa-utils amd-ucode android-file-transfer android-tools awww base base-devel bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cmatrix cppcheck cups cups-pdf dosfstools efibootmgr efitools fastfetch fd ffmpeg ffmpegthumbnailer fuseiso fzf gamemode gamescope git github-cli glm gnome-disk-utility grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly gvfs-mtp hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit lib32-gamemode lib32-gcc-libs lib32-mangohud lib32-mesa lib32-mesa-utils lib32-nvidia-utils lib32-vulkan-icd-loader lib32-vulkan-mesa-layers lib32-vulkan-radeon libnotify libpaper libreoffice-fresh linux linux-firmware linux-headers lldb llvm man-db man-pages mangohud mesa nemo neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvidia-open nvidia-prime nvidia-utils nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler protontricks python python-black python-debugpy qbittorrent qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm sdl12-compat selene shellcheck simple-scan slurp smartmontools sof-firmware steam stylua swaync system-config-printer telegram-desktop texinfo time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv vulkan-mesa-layers vulkan-radeon vulkan-tools waybar wf-recorder wine wine-gecko wine-mono winetricks wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland zathura zathura-pdf-mupdf zsh flatpak
+```
+
+The `nvidia-open` package is for compatible NVIDIA GPUs using Arch's standard `linux` kernel. This command also includes the Mesa/Vulkan packages used by the integrated Radeon GPU and 32-bit graphics libraries for gaming. The `lib32-*` packages require the `[multilib]` repository to be enabled in `/etc/pacman.conf`. If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
+
+#### AUR packages
+
+Install an AUR helper first if you do not already have one. The following bootstraps `yay` from the AUR:
+
+```bash
+git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si
+```
+
+Then install the AUR applications used by the desktop setup:
+
+```bash
+yay -S --needed bm-sidebar catppuccin-gtk-theme-mocha helixnotes-bin nm-sidebar pipewire-control-center vesktop-bin zen-browser-bin
+```
+
+These additional AUR packages are part of my wider workstation, but are optional for the Hyprland configuration itself:
+
+```bash
+yay -S --needed catt cnrdrvcups-ufr2-uk esp-idf localsend
+```
+
+The `*-debug` packages are not needed for normal use. AUR packages are community-maintained; inspect their build files and review updates before installing them. See the [ArchWiki AUR guide](https://wiki.archlinux.org/title/Arch_User_Repository).
+
+#### Whatsie through Flatpak
+
+Whatsie is installed separately from Flathub as `com.ktechpit.whatsie`:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && flatpak install --user flathub com.ktechpit.whatsie
+```
+
+See [Whatsie on Flathub](https://flathub.org/en/apps/com.ktechpit.whatsie).
+
+#### Clipboard-history dependencies
+
+The visual clipboard picker uses **Wofi**, `cliphist`, and `wl-clipboard`. Image thumbnails are generated with ImageMagick; local video-file thumbnails use FFmpeg. Python parses file URIs copied from Nemo. The autostart configuration must run clipboard watchers for all three relevant formats:
+
+- `text` — ordinary text copied to the clipboard.
+- `image` — copied images.
+- `x-special/gnome-copied-files` — file selections copied in Nemo, including local video files.
+
+Wofi is also the application launcher. Fuzzel is not used by the current clipboard picker.
 
 ### 4. Review hardware- and machine-specific settings
 
