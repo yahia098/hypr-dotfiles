@@ -3,7 +3,7 @@
 My personal Hyprland desktop configuration for **Arch Linux**. I use it for everyday work, university, and programming—including learning OpenGL. This is a work in progress, shaped around the way I use my machine rather than a universal desktop setup.
 
 <p align="center">
-  <strong>Arch Linux · Hyprland · Lua · Waybar · Catppuccin Mocha</strong>
+  <strong>Arch Linux · Hyprland · Lua · Waybar · Matugen</strong>
 </p>
 
 ## Showcase
@@ -27,14 +27,16 @@ The recording is stored in the repository and linked here. GitHub does not rende
 
 ## Screenshots
 
-These screenshots are stored in [`assets/screenshots/`](assets/screenshots/).
+Screenshots and the showcase recording are stored in [`assets/screenshots/`](assets/screenshots/). The desktop screenshot slot below is intentionally left open so I can add an image from `resources/` later.
 
 <table>
   <tr>
     <td align="center" width="50%">
-      <strong>Desktop</strong><br>
-      <em>Desktop and Waybar</em><br><br>
-      <a href="assets/screenshots/2026-10-17_16-33-15.png"><img src="assets/screenshots/2026-10-17_16-33-15.png" alt="Hyprland desktop screenshot from 16:33:15" width="100%"></a>
+      <strong>Desktop screenshot</strong><br>
+      <em>Placeholder — add a desktop image from <code>resources/</code> here.</em><br><br>
+      <!-- Replace this placeholder with an image, for example:
+      <img src="resources/your-desktop-image.png" alt="Hyprland desktop" width="100%">
+      -->
     </td>
     <td align="center" width="50%">
       <strong>Desktop · Alternate view</strong><br>
@@ -97,11 +99,12 @@ This separation keeps individual settings easier to locate and change without tu
 
 ### Appearance and layout
 
-- **Catppuccin Mocha-inspired palette** with a dark base, blue accent, and consistent colors shared by Hyprland and Waybar.
+- **Wallpaper-driven Matugen palette** shared by Hyprland, Kitty, Waybar, Wofi, Yazi, Hyprlock, Mako, and GTK color overrides.
 - **Dwindle tiling layout** with custom animated transitions and easing curves.
 - **Subtle transparency and effects:** active windows are fully opaque, inactive windows use slightly reduced opacity, with shadows and a light blur effect.
 - **Minimal window geometry:** zero-width borders, square corners, and small inner/outer gaps.
-- **Waybar at the top** with workspace icons, focused-window title, active-submap indicator, keyboard layout, network, Bluetooth, audio, notifications, power profile, battery, tray, and clock/calendar.
+- **GTK theming:** `adw-gtk3` is used as the base theme, with generated Matugen color overrides for GTK 3 and GTK 4. GTK applications may need to be restarted to pick up regenerated colors.
+- **Waybar at the top** with workspace icons, focused-window title, active-submap indicator, keyboard layout, network, Bluetooth, audio, power profile, battery, tray, and clock/calendar.
 
 ### Keyboard-first workflow
 
@@ -120,7 +123,7 @@ This separation keeps individual settings easier to locate and change without tu
 - **Power profile switching** cycles between `performance`, `balanced`, and `power-saver` through `tlpctl`; Waybar shows the current profile.
 - **Audio and display controls** are bound to hardware keys for volume, microphone mute, and brightness. `playerctl` handles media playback.
 - **Locking and idle behavior** use Hyprlock and Hypridle. The lock helper captures and blurs a background image before starting Hyprlock.
-- **Wallpaper and session startup** use `awww`, launch Waybar and SwayNotificationCenter, start Hypridle and the polkit agent, and start configured tray applications and clipboard watchers.
+- **Wallpaper and session startup** use `awww`, launch Waybar and Mako, start Hypridle and the polkit agent, and start configured tray applications and clipboard watchers.
 - **Window rules** handle special cases for the OpenGL learning window, Lutris, network settings, audio controls, PolyMC, `hyprland-run`, and XWayland dragging/maximize behavior.
 - **Explicit compositor permissions** are enabled; the configuration grants screencopy access to the capture and lock tools and plugin permission to `hyprpm`.
 
@@ -130,7 +133,9 @@ This separation keeps individual settings easier to locate and change without tu
 |---|---|
 | [Hyprland](https://hyprland.org/) | Wayland compositor and window manager |
 | [Waybar](https://github.com/Alexays/Waybar) | Status bar and system modules |
-| [SwayNotificationCenter](https://github.com/ErikReider/SwayNotificationCenter) | Notifications and Do Not Disturb controls |
+| [Mako](https://github.com/emersion/mako) | Lightweight notification daemon |
+| [Matugen](https://github.com/InioX/matugen) | Generates wallpaper-derived colors for the desktop |
+| [Adw-gtk3](https://github.com/lassekongo83/adw-gtk3) | GTK theme with Matugen color overrides |
 | [Wofi](https://hg.sr.ht/~scoopta/wofi) | Application launcher and visual clipboard-history picker |
 | [Kitty](https://sw.kovidgoyal.net/kitty/) | Terminal |
 | [Nemo](https://github.com/linuxmint/nemo) | File manager |
@@ -241,12 +246,15 @@ hypr-dotfiles/
 │   │   ├── style.css
 │   │   └── scripts/
 │   ├── theme/
-│   │   └── colors.css
+│   │   └── colors.css        # Shared generated colors for Waybar/Wofi
+│   ├── matugen/
+│   │   ├── config.toml
+│   │   └── templates/
 │   └── nvim/                 # Git submodule
+├── resources/                # Place a chosen desktop screenshot here
 ├── assets/
 │   └── screenshots/
 │       ├── 2026-10-17_15-19-29.mp4
-│       ├── 2026-10-17_16-33-15.png
 │       ├── 2026-10-17_16-33-16.png
 │       ├── another.png
 │       └── launcher.png
@@ -281,7 +289,7 @@ The package commands below reflect my current Arch Linux workstation. The full A
 #### Arch Linux repository packages
 
 ```bash
-sudo pacman -S --needed 7zip alsa-utils amd-ucode android-file-transfer android-tools awww base base-devel bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cmatrix cppcheck cups cups-pdf dosfstools efibootmgr efitools fastfetch fd ffmpeg ffmpegthumbnailer fuseiso fzf gamemode gamescope git github-cli glm gnome-disk-utility grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly gvfs-mtp hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit lib32-gamemode lib32-gcc-libs lib32-mangohud lib32-mesa lib32-mesa-utils lib32-nvidia-utils lib32-vulkan-icd-loader lib32-vulkan-mesa-layers lib32-vulkan-radeon libnotify libpaper libreoffice-fresh linux linux-firmware linux-headers lldb llvm man-db man-pages mangohud mesa nemo neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvidia-open nvidia-prime nvidia-utils nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler protontricks python python-black python-debugpy qbittorrent qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm sdl12-compat selene shellcheck simple-scan slurp smartmontools sof-firmware steam stylua swaync system-config-printer telegram-desktop texinfo time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv vulkan-mesa-layers vulkan-radeon vulkan-tools waybar wf-recorder wine wine-gecko wine-mono winetricks wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland zathura zathura-pdf-mupdf zsh flatpak
+sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils amd-ucode android-file-transfer android-tools awww base base-devel bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cmatrix cppcheck cups cups-pdf dosfstools efibootmgr efitools fastfetch fd ffmpeg ffmpegthumbnailer fuseiso fzf gamemode gamescope git github-cli glm gnome-disk-utility grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly gvfs-mtp hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit lib32-gamemode lib32-gcc-libs lib32-mangohud lib32-mesa lib32-mesa-utils lib32-nvidia-utils lib32-vulkan-icd-loader lib32-vulkan-mesa-layers lib32-vulkan-radeon libnotify libpaper libreoffice-fresh linux linux-firmware linux-headers lldb llvm mako man-db man-pages mangohud matugen mesa nemo neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvidia-open nvidia-prime nvidia-utils nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler protontricks python python-black python-debugpy qbittorrent qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm sdl12-compat selene shellcheck simple-scan slurp smartmontools sof-firmware steam stylua system-config-printer telegram-desktop texinfo time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv vulkan-mesa-layers vulkan-radeon vulkan-tools waybar wf-recorder wine wine-gecko wine-mono winetricks wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland zathura zathura-pdf-mupdf zsh flatpak
 ```
 
 The `nvidia-open` package is for compatible NVIDIA GPUs using Arch's standard `linux` kernel. This command also includes the Mesa/Vulkan packages used by the integrated Radeon GPU and 32-bit graphics libraries for gaming. The `lib32-*` packages require the `[multilib]` repository to be enabled in `/etc/pacman.conf`. If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
@@ -297,7 +305,7 @@ git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -
 Then install the AUR applications used by the desktop setup:
 
 ```bash
-yay -S --needed bm-sidebar catppuccin-gtk-theme-mocha helixnotes-bin nm-sidebar pipewire-control-center vesktop-bin zen-browser-bin
+yay -S --needed bm-sidebar helixnotes-bin nm-sidebar pipewire-control-center vesktop-bin zen-browser-bin
 ```
 
 These additional AUR packages are part of my wider workstation, but are optional for the Hyprland configuration itself:
@@ -332,7 +340,7 @@ Wofi is also the application launcher. Fuzzel is not used by the current clipboa
 
 - `.config/hypr/modules/monitors.lua` defines `eDP-1` at `1920x1080@144`, scale `1`. Change it for your own monitor if needed.
 - `.config/hypr/modules/autostart-env.lua` sets Wayland/desktop environment variables and includes NVIDIA-specific values. Review those if your GPU or driver setup differs.
-- Autostart includes Telegram, Vesktop, Whatsie, Waybar, SwayNotificationCenter, Hypridle, the polkit agent, wallpaper startup, and clipboard watchers. Disable any application launch you do not want.
+- Autostart includes Telegram, Vesktop, Whatsie, Waybar, Mako, Hypridle, the polkit agent, wallpaper startup, and clipboard watchers. Disable any application launch you do not want.
 - The wallpaper helper references `~/.config/wallpapers/cabin-3.png`; make sure that file exists or change the wallpaper script.
 - The lid-switch binding suspends the system. Change it if that is not the behavior you want.
 - Permission changes in `permissions.lua` require restarting Hyprland.
