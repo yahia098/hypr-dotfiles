@@ -1,6 +1,8 @@
+
 /* ===========================
  * Colors
  * =========================== */
+
 @import "../theme/colors.css";
 
 /* ===========================
@@ -20,9 +22,9 @@
  * =========================== */
 
 window#waybar {
-  background: @base;
-  color: @text;
-  border-bottom: 2px solid @surface1;
+  background: @surface;
+  color: @on_surface;
+  border-bottom: 2px solid @surface_container;
   min-height: 30px;
 }
 
@@ -36,27 +38,28 @@ window#waybar {
 
 #workspaces button {
   padding: 0 8px;
-  color: @subtext;
+  color: @on_surface_variant;
   background: transparent;
   font-family: "Noto Sans CJK JP";
   font-size: 22px;
   font-weight: 900;
   transition: all 150ms ease;
 }
+
 #workspaces button:hover {
-  background: @surface0;
-  color: @text;
+  background: @surface_container_low;
+  color: @on_surface;
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-  background: @blue;
-  color: @base;
+  background: @primary;
+  color: @on_primary;
 }
 
 #workspaces button.urgent {
-  background: @red;
-  color: @base;
+  background: @error;
+  color: @on_error;
 }
 
 /* ===========================
@@ -64,7 +67,7 @@ window#waybar {
  * =========================== */
 
 #window {
-  color: @text;
+  color: @on_surface;
 }
 
 /* ===========================
@@ -74,14 +77,13 @@ window#waybar {
 #network,
 #bluetooth,
 #pulseaudio,
-#custom-notification,
 #battery,
 #clock,
 #tray,
 #custom-keyboard,
 #custom-tlp {
   padding: 0 10px;
-  color: @text;
+  color: @on_surface;
 }
 
 /* Hover */
@@ -89,13 +91,12 @@ window#waybar {
 #network:hover,
 #bluetooth:hover,
 #pulseaudio:hover,
-#custom-notification:hover,
 #battery:hover,
 #clock:hover,
 #tray:hover,
 #custom-keyboard:hover,
 #custom-tlp:hover {
-  background: @surface0;
+  background: @surface_container_low;
 }
 
 /* ===========================
@@ -104,15 +105,15 @@ window#waybar {
 
 #battery.charging,
 #battery.plugged {
-  color: @green;
+  color: @tertiary;
 }
 
 #battery.warning {
-  color: @yellow;
+  color: @secondary;
 }
 
 #battery.critical {
-  color: @red;
+  color: @error;
   font-weight: bold;
 }
 
@@ -121,16 +122,17 @@ window#waybar {
  * =========================== */
 
 #custom-tlp.performance {
-  color: @red;
+  color: @error;
 }
 
 #custom-tlp.balanced {
-  color: @blue;
+  color: @primary;
 }
 
 #custom-tlp.power-saver {
-  color: @green;
+  color: @tertiary;
 }
+
 /* ===========================
  * Tray
  * =========================== */
@@ -140,21 +142,22 @@ window#waybar {
 }
 
 #tray > .needs-attention {
-  background: @mauve;
+  background: @tertiary;
 }
 
-/*========================
+/* ===========================
  * Language
- *===================== */
+ * =========================== */
 
 #custom-keyboard.english {
-  color: #89b4fa;
+  color: @primary;
 }
 
 #custom-keyboard.arabic {
-  color: #a6e3a1;
+  color: @tertiary;
 }
 
 #custom-keyboard.russian {
-  color: #f9e2af;
+  color: @secondary;
 }
+

@@ -6,38 +6,11 @@
 -- Design System
 ------------------------------------------------------------
 
-local colors = {
-	base = "rgb(1e1e2e)",
-	mantle = "rgb(181825)",
-	crust = "rgb(11111b)",
-
-	surface0 = "rgb(313244)",
-	surface1 = "rgb(45475a)",
-	surface2 = "rgb(585b70)",
-
-	text = "rgb(cdd6f4)",
-	subtext0 = "rgb(a6adc8)",
-	subtext1 = "rgb(bac2de)",
-
-	rosewater = "rgb(f5e0dc)",
-	flamingo = "rgb(f2cdcd)",
-	pink = "rgb(f5c2e7)",
-	mauve = "rgb(cba6f7)",
-	red = "rgb(f38ba8)",
-	maroon = "rgb(eba0ac)",
-	peach = "rgb(fab387)",
-	yellow = "rgb(f9e2af)",
-	green = "rgb(a6e3a1)",
-	teal = "rgb(94e2d5)",
-	sky = "rgb(89dceb)",
-	sapphire = "rgb(74c7ec)",
-	blue = "rgb(89b4fa)",
-	lavender = "rgb(b4befe)",
-}
+local colors = dofile(os.getenv("HOME") .. "/.config/hypr/lua/matugen-colors.lua")
 
 local spacing = {
 	gaps_in = 2,
-	gaps_out = 3,
+	gaps_out = 0,
 	border_size = 0,
 }
 
@@ -63,13 +36,13 @@ hl.config({
 		col = {
 			active_border = {
 				colors = {
-					colors.surface1,
-					colors.blue,
+					colors.surface_container,
+					colors.primary,
 				},
 				angle = 45,
 			},
 
-			inactive_border = colors.surface0,
+			inactive_border = colors.surface_container_low,
 		},
 
 		resize_on_border = false,
@@ -89,11 +62,7 @@ hl.config({
 			enabled = true,
 			range = 6,
 			render_power = 2,
-
-			-- If your wrapper accepts the original integer format,
-			-- you can change this back to:
-			-- color = 0xdd11111b
-			color = "rgba(11111bdd)",
+			color = colors.shadow,
 		},
 
 		blur = {

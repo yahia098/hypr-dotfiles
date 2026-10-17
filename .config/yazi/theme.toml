@@ -1,0 +1,34 @@
+
+[mgr]
+cwd = { fg = "#ffb68a" }
+hovered = { fg = "#ffdbc8", bg = "#6f3811" }
+preview_hovered = { underline = true }
+
+find_keyword = { fg = "#ffb4ab", italic = true }
+find_position = { fg = "#cbc992", bg = "reset", italic = true }
+
+marker_copied = { fg = "#333209", bg = "#cbc992" }
+marker_cut = { fg = "#690005", bg = "#ffb4ab" }
+marker_marked = { fg = "#522300", bg = "#ffb68a" }
+marker_selected = { fg = "#432b1c", bg = "#e5bfa9" }
+
+count_copied = { fg = "#333209", bg = "#cbc992" }
+count_cut = { fg = "#690005", bg = "#ffb4ab" }
+count_selected = { fg = "#432b1c", bg = "#e5bfa9" }
+
+[tabs]
+active = { fg = "#ffdbc8", bg = "#6f3811" }
+inactive = { fg = "#d7c2b8", bg = "#261e19" }
+
+[status]
+overall = { fg = "#f0dfd7", bg = "#1a120d" }
+separator_style = { fg = "#9f8d84", bg = "#1a120d" }
+
+[mode]
+normal_main = { fg = "#522300", bg = "#ffb68a" }
+normal_alt = { fg = "#d7c2b8", bg = "#261e19" }
+select_main = { fg = "#ffdbc8", bg = "#6f3811" }
+select_alt = { fg = "#d7c2b8", bg = "#261e19" }
+unset_main = { fg = "#690005", bg = "#ffb4ab" }
+unset_alt = { fg = "#d7c2b8", bg = "#261e19" }
+

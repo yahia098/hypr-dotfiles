@@ -1,0 +1,37 @@
+[config]
+mode = "dark"
+reload_apps = true
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty.conf"
+output_path = "~/.config/kitty/matugen-colors.conf"
+post_hook = "pkill -SIGUSR1 kitty"
+
+[templates.gtk]
+input_path = "~/.config/matugen/templates/gtk-colors.css"
+output_path = "~/.config/theme/colors.css"
+
+[templates.yazi]
+input_path = "~/.config/matugen/templates/yazi.toml"
+output_path = "~/.config/yazi/theme.toml"
+
+[templates.hyprlock]
+input_path = "~/.config/matugen/templates/hyprlock.conf"
+output_path = "~/.config/hypr/matugen-lock.conf"
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland.lua"
+output_path = "~/.config/hypr/lua/matugen-colors.lua"
+
+[templates.mako]
+input_path = "~/.config/matugen/templates/mako.conf"
+output_path = "~/.config/mako/config"
+
+[templates.gtk3]
+input_path = "~/.config/matugen/templates/gtk-theme.css"
+output_path = "~/.config/gtk-3.0/colors.css"
+post_hook = "gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark"
+
+[templates.gtk4]
+input_path = "~/.config/matugen/templates/gtk-theme.css"
+output_path = "~/.config/gtk-4.0/colors.css"
