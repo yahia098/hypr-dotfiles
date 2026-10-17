@@ -13,7 +13,7 @@ My personal Hyprland desktop configuration for Arch Linux. I use it for everyday
      2. Upload an MP4 to GitHub and replace the placeholder link with its URL.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/8a474229-795b-4151-b556-f83028ef7651" alt="Screen recording of the Hyprland desktop" width="900">
+  <img src="https://github.com/user-attachments/assets/2026-10-17_15-19-29.mp4" alt="Screen recording of the Hyprland desktop" width="900">
 </p>
 -->
 
