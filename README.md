@@ -27,15 +27,16 @@ The recording is stored in the repository and linked here. GitHub does not rende
 
 ## Screenshots
 
-Screenshots and the showcase recording are stored in [`assets/screenshots/`](assets/screenshots/). The desktop screenshot slot below is intentionally left open so I can add an image from `resources/` later.
+The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The first slot below is intentionally empty: put the desktop image you want to feature in `resources/`, then replace the commented example path with its filename.
 
 <table>
   <tr>
     <td align="center" width="50%">
       <strong>Desktop screenshot</strong><br>
-      <em>Placeholder — add a desktop image from <code>resources/</code> here.</em><br><br>
-      <!-- Replace this placeholder with an image, for example:
-      <img src="resources/your-desktop-image.png" alt="Hyprland desktop" width="100%">
+      <em>Desktop screenshot goes here</em><br>
+      <sub>Place the image in <code>resources/</code>, then enable and update the example below.</sub><br><br>
+      <!-- Uncomment after adding your image to resources/:
+      <a href="resources/your-desktop-image.png"><img src="resources/your-desktop-image.png" alt="Hyprland desktop" width="100%"></a>
       -->
     </td>
     <td align="center" width="50%">
@@ -97,13 +98,15 @@ Hyprland settings are split into small modules that are loaded by `.config/hypr/
 
 This separation keeps individual settings easier to locate and change without turning one file into a giant configuration block.
 
+Matugen templates live in `.config/matugen/templates/`. The shared GTK-style palette is written to `.config/theme/colors.css`; generated templates also provide colors for Kitty, Waybar, Wofi, Yazi, Hyprlock, Hyprland, and Mako. Apply a wallpaper with `matugen image /path/to/wallpaper` (use the actual image path). GTK applications usually need to be restarted to reload CSS; Mako can be reloaded with `makoctl reload`, or restarted if it keeps using its previous configuration.
+
 ### Appearance and layout
 
 - **Wallpaper-driven Matugen palette** shared by Hyprland, Kitty, Waybar, Wofi, Yazi, Hyprlock, Mako, and GTK color overrides.
 - **Dwindle tiling layout** with custom animated transitions and easing curves.
 - **Subtle transparency and effects:** active windows are fully opaque, inactive windows use slightly reduced opacity, with shadows and a light blur effect.
 - **Minimal window geometry:** zero-width borders, square corners, and small inner/outer gaps.
-- **GTK theming:** `adw-gtk3` is used as the base theme, with generated Matugen color overrides for GTK 3 and GTK 4. GTK applications may need to be restarted to pick up regenerated colors.
+- **GTK theming:** `adw-gtk3` is the base theme, with Matugen-generated color overrides imported by GTK 3 and GTK 4. The session does not force the old Catppuccin `GTK_THEME`; restart GTK applications to pick up regenerated colors.
 - **Waybar at the top** with workspace icons, focused-window title, active-submap indicator, keyboard layout, network, Bluetooth, audio, power profile, battery, tray, and clock/calendar.
 
 ### Keyboard-first workflow
@@ -123,7 +126,7 @@ This separation keeps individual settings easier to locate and change without tu
 - **Power profile switching** cycles between `performance`, `balanced`, and `power-saver` through `tlpctl`; Waybar shows the current profile.
 - **Audio and display controls** are bound to hardware keys for volume, microphone mute, and brightness. `playerctl` handles media playback.
 - **Locking and idle behavior** use Hyprlock and Hypridle. The lock helper captures and blurs a background image before starting Hyprlock.
-- **Wallpaper and session startup** use `awww`, launch Waybar and Mako, start Hypridle and the polkit agent, and start configured tray applications and clipboard watchers.
+- **Wallpaper and session startup** use `awww`, launch Waybar and Mako, start Hypridle and the polkit agent, and start configured tray applications and clipboard watchers. Matugen regenerates the shared palette and app-specific templates when a wallpaper is applied; if a running app does not pick up new colors, restart that app (or restart Mako if its active configuration has not changed).
 - **Window rules** handle special cases for the OpenGL learning window, Lutris, network settings, audio controls, PolyMC, `hyprland-run`, and XWayland dragging/maximize behavior.
 - **Explicit compositor permissions** are enabled; the configuration grants screencopy access to the capture and lock tools and plugin permission to `hyprpm`.
 
