@@ -15,7 +15,7 @@ case "$CURRENT" in
 esac
 
 tlpctl $NEXT
-notify-send "Power Profile is: " "$NEXT" -t 800
+notify-send "Power Profile is: " "$NEXT" -t 200
 while [ "$(tlpctl get)" != "$NEXT" ]; do
     sleep 0.05
 done

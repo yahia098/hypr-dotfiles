@@ -7,8 +7,8 @@ FILE="$DIR/$(date +'%Y-%m-%d_%H-%M-%S').mp4"
 
 pkill -INT wf-recorder 2>/dev/null && exit 0
 
-notify-send "Select an area..."
+notify-send "Select an area..." -t 500
 
 wf-recorder -g "$(slurp)" -f "$FILE"
 
-notify-send "Recording saved" "$FILE"
+notify-send "Recording saved" "$FILE" -t 500

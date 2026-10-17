@@ -7,8 +7,8 @@ FILE="$DIR/$(date +'%Y-%m-%d_%H-%M-%S').mp4"
 
 pkill -INT wf-recorder 2>/dev/null && exit 0
 
-notify-send "Recording started"
+notify-send "Recording started" -t 500
 
 wf-recorder -f "$FILE"
 
-notify-send "Recording saved" "$FILE"
+notify-send "Recording saved" "$FILE" -t 500
