@@ -5,6 +5,22 @@ My personal Hyprland desktop configuration for **Arch Linux**. I use it for ever
 <p align="center">
   <strong>Arch Linux · Hyprland · Lua · Waybar · Matugen</strong>
 </p>
+## Quick Start
+
+**Requirements:** Arch Linux, a working Hyprland session, Git, and the applications required by the modules you want to use.
+
+```bash
+git clone --recurse-submodules https://github.com/yahia098/hypr-dotfiles.git ~/hypr-dotfiles
+cd ~/hypr-dotfiles
+```
+
+1. Back up your existing `~/.config` files.
+2. Review `.config/hypr/hyprland.lua` and its modules, especially monitor settings, startup commands, and hardware-specific options.
+3. Install the required dependencies listed in [Installation and setup](#installation-and-setup).
+4. Copy or symlink the configuration directories you need into `~/.config/`. Avoid replacing your entire configuration blindly.
+5. Reload Hyprland with `Super` + `Shift` + `R` if your configuration defines that binding, or restart your session.
+
+This repository is a personal configuration, not an automated installer. Review the scripts and paths before using them on your machine.
 
 ## Showcase
 
@@ -24,13 +40,13 @@ The recording is stored in the repository and linked here. GitHub does not rende
 
 ## Screenshots
 
-The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The desktop screenshot is stored in `resources/desktop_sea.png`.
+The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The featured desktop screenshot is stored in `resources/screenshots/desktop_sea.png`.
 
 <table>
   <tr>
     <td align="center" width="50%">
       <strong>Desktop screenshot</strong><br>
-      <a href="resources/desktop_sea.png">
+      <a href="resources/screenshots/desktop_sea.png">
         <img src="resources/screenshots/desktop_sea.png" alt="Hyprland desktop" width="100%">
       </a>
     </td>
@@ -250,7 +266,8 @@ hypr-dotfiles/
 │   │   └── templates/
 │   └── nvim/                 # Git submodule
 ├── resources/
-│   └── desktop_sea.png       # Featured desktop screenshot
+│   └── screenshots/
+│       └── desktop_sea.png   # Featured desktop screenshot
 ├── assets/
 │   └── screenshots/
 │       ├── 2026-10-17_15-19-29.mp4
@@ -283,7 +300,7 @@ Before linking or copying files, back up the matching directories under `~/.conf
 
 ### 3. Install the tools you plan to use
 
-The package commands below reflect my current Arch Linux workstation. The full Arch command includes applications and development tools beyond what Hyprland itself needs, so review it before running—especially the kernel, NVIDIA driver, bootloader, firewall, and display-manager packages. Package versions are intentionally not pinned.
+This package list reflects my current Arch Linux workstation. It includes applications and development tools beyond what Hyprland itself needs, so review it before running—especially the kernel, NVIDIA driver, bootloader, firewall, and display-manager packages. Package versions are intentionally not pinned.
 
 #### Arch Linux repository packages
 
