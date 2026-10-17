@@ -143,7 +143,7 @@ This separation keeps individual settings easier to locate and change without tu
 | [awww](https://github.com/0x46d/awww) | Wallpaper rendering |
 | [Neovim](https://neovim.io/) | Editor, configured through a separate submodule |
 
-Additional app bindings and autostart commands refer to Zen Browser, `helixnotes`, Discord, Telegram, Lutris, Vesktop, Whatsie, and other machine-specific helpers. Those applications are not all required to use Hyprland itself; install or change the ones you want.
+Additional app bindings and autostart commands refer to Zen Browser, `helixnotes`, Discord,Telegram, Lutris, Vesktop, Whatsie, and other machine-specific helpers. Those applications are not all required to use Hyprland itself; install or change the ones you want.
 
 ## Keybindings
 
@@ -161,6 +161,7 @@ The main modifier is **`Super`** (the Windows key). These are the bindings in th
 | `Super` + `Z` | Open Zathura PDF viewer |
 | `Super` + `D` | Open Discord |
 | `Super` + `T` | Open Telegram |
+| `Super` + `W` | Open Whatsie |
 | `Super` + `Shift` + `L` | Open Lutris |
 | `Super` + `Esc` | Open the custom power menu |
 | `Super` + `L` | Lock the screen using the custom lock script |
