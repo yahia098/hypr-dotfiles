@@ -18,6 +18,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 end)
 os.execute("$HOME/.config/waybar/scripts/launch.sh")
+--os.execute("$HOME/.config/hypr/scripts/wallpaper.sh")
+
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
