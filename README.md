@@ -28,11 +28,7 @@ The showcase recording and existing screenshots are stored in [`assets/screensho
   <tr>
     <td align="center" width="50%">
       <strong>Desktop screenshot</strong><br>
-      <em>Desktop screenshot goes here</em><br>
-      <sub>Place the image in <code>resources/</code>, then enable and update the example below.</sub><br><br>
-      <!-- Uncomment after adding your image to resources/:
-      <a href="resources/your-desktop-image.png"><img src="resources/your-desktop-image.png" alt="Hyprland desktop" width="100%"></a>
-      -->
+      <a href="resources/desktop_sea.png"><img src="resources/desktop_sea.png" alt="Hyprland desktop" width="100%"></a>
     </td>
     <td align="center" width="50%">
       <strong>Desktop · Alternate view</strong><br>
