@@ -47,7 +47,7 @@ The showcase recording and existing screenshots are stored in [`assets/screensho
     <td align="center" width="50%">
       <strong>Desktop screenshot</strong><br>
       <a href="assets/screenshots/desktop_sea.png">
-        <img src="assets/screenshots/desktop_sea.png" alt="Hyprland desktop" width="100%">
+        <img src="assets/screenshots/desktop_sea.png?v=2" alt="Hyprland desktop" width="100%">
       </a>
     </td>
     <td align="center" width="50%">
