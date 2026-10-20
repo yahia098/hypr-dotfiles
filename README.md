@@ -32,7 +32,7 @@ https://github.com/user-attachments/assets/2b16facf-8c12-4ebc-93fa-440a60e79197
 
 <p align="center">
   <sub>
-    <a href="assets/screenshots/2026-10-17_15-19-29.mp4">View the MP4 in the repository</a>
+    <a href="assets/screenshots/2026-10-20_06-15-53.mp4">View the MP4 in the repository</a>
   </sub>
 </p>
 
