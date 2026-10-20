@@ -28,7 +28,7 @@ This repository is a personal configuration, not an automated installer. Review 
   <strong>Hyprland desktop in action</strong>
 </p>
 
-https://github.com/user-attachments/assets/2b16facf-8c12-4ebc-93fa-440a60e79197
+https://github.com/user-attachments/assets/2026-10-20_06-15-53.mp4
 
 <p align="center">
   <sub>
