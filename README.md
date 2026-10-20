@@ -1,8 +1,26 @@
-# Hyprland Dotfiles My personal Hyprland desktop configuration for **Arch Linux**. I use it for everyday work, university, and programming—including learning OpenGL. This is a work in progress, shaped around the way I use my machine rather than a universal desktop setup.
+# Hyprland Dotfiles
+
+My personal Hyprland desktop configuration for **Arch Linux**. I use it for everyday work, university, and programming—including learning OpenGL. This is a work in progress, shaped around the way I use my machine rather than a universal desktop setup.
 
 <p align="center">
   <strong>Arch Linux · Hyprland · Lua · Waybar · Matugen</strong>
 </p>
+## Quick Start
+
+**Requirements:** Arch Linux, a working Hyprland session, Git, and the applications required by the modules you want to use.
+
+```bash
+git clone --recurse-submodules https://github.com/yahia098/hypr-dotfiles.git ~/hypr-dotfiles
+cd ~/hypr-dotfiles
+```
+
+1. Back up your existing `~/.config` files.
+2. Review `.config/hypr/hyprland.lua` and its modules, especially monitor settings, startup commands, and hardware-specific options.
+3. Install the required dependencies listed in [Installation and setup](#installation-and-setup).
+4. Copy or symlink the configuration directories you need into `~/.config/`. Avoid replacing your entire configuration blindly.
+5. Reload Hyprland with `Super` + `Shift` + `R` if your configuration defines that binding, or restart your session.
+
+This repository is a personal configuration, not an automated installer. Review the scripts and paths before using them on your machine.
 
 ## Showcase
 
@@ -22,17 +40,15 @@ The recording is stored in the repository and linked here. GitHub does not rende
 
 ## Screenshots
 
-The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The first slot below is intentionally empty: put the desktop image you want to feature in `resources/`, then replace the commented example path with its filename.
+The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The featured desktop screenshot is stored in `assetsscreenshots/desktop_sea.png`.
 
 <table>
   <tr>
     <td align="center" width="50%">
       <strong>Desktop screenshot</strong><br>
-      <em>Desktop screenshot goes here</em><br>
-      <sub>Place the image in <code>resources/</code>, then enable and update the example below.</sub><br><br>
-      <!-- Uncomment after adding your image to resources/:
-      <a href="resources/your-desktop-image.png"><img src="resources/your-desktop-image.png" alt="Hyprland desktop" width="100%"></a>
-      -->
+      <a href="assets/screenshots/desktop_sea.png">
+        <img src="assets/screenshots/desktop_sea.png?v=2" alt="Hyprland desktop" width="100%">
+      </a>
     </td>
     <td align="center" width="50%">
       <strong>Desktop · Alternate view</strong><br>
@@ -93,49 +109,16 @@ Hyprland settings are split into small modules that are loaded by `.config/hypr/
 
 This separation keeps individual settings easier to locate and change without turning one file into a giant configuration block.
 
+Matugen templates live in `.config/matugen/templates/`. The shared GTK-style palette is written to `.config/theme/colors.css`; generated templates also provide colors for Kitty, Waybar, Wofi, Yazi, Hyprlock, Hyprland, and Mako. Apply a wallpaper with `matugen image /path/to/wallpaper` (use the actual image path). GTK applications usually need to be restarted to reload CSS; Mako can be reloaded with `makoctl reload`, or restarted if it keeps using its previous configuration.
+
 ### Appearance and layout
 
-- **Wallpaper-driven Matugen palette:** generates colors from the selected wallpaper and applies them across supported desktop applications.
-- **Dwindle tiling layout:** uses custom animated transitions and easing curves.
+- **Wallpaper-driven Matugen palette** shared by Hyprland, Kitty, Waybar, Wofi, Yazi, Hyprlock, Mako, and GTK color overrides.
+- **Dwindle tiling layout** with custom animated transitions and easing curves.
 - **Subtle transparency and effects:** active windows are fully opaque, inactive windows use slightly reduced opacity, with shadows and a light blur effect.
 - **Minimal window geometry:** zero-width borders, square corners, and small inner/outer gaps.
 - **GTK theming:** `adw-gtk3` is the base theme, with Matugen-generated color overrides imported by GTK 3 and GTK 4. The session does not force the old Catppuccin `GTK_THEME`; restart GTK applications to pick up regenerated colors.
-- **Waybar at the top:** displays workspace icons, focused-window title, active-submap indicator, keyboard layout, network, Bluetooth, audio, power profile, battery, tray, and clock/calendar.
-
-### Matugen and dynamic theming
-
-[Matugen](https://github.com/InioX/matugen) generates a Material You-style color palette from the selected wallpaper. Templates use that palette to keep supported applications visually consistent.
-
-The shared GTK-style palette is written to `.config/theme/colors.css`. Generated templates provide colors for:
-
-- Hyprland
-- Waybar
-- Wofi
-- Kitty
-- Yazi
-- Hyprlock
-- Mako
-- GTK 3 and GTK 4
-- Neovim through `matugen.nvim`
-
-The wallpaper workflow connects the picker, wallpaper renderer, and color generator:
-
-1. Open the wallpaper picker with `Super` + `Esc`.
-2. Choose a wallpaper from the image-only Wofi interface.
-3. The selected image is passed to the wallpaper script.
-4. `awww` renders the new wallpaper.
-5. Matugen regenerates the palette and configured application templates.
-6. Hyprland reloads its configuration.
-
-To apply a wallpaper manually, run:
-
-```sh
-matugen image /path/to/wallpaper
-```
-
-Replace the example path with the actual image path. This command regenerates Matugen outputs; it does not itself select an image through the picker or guarantee that every running application reloads its colors.
-
-GTK applications may need to be restarted to reload CSS. Mako can be reloaded with `makoctl reload`, or restarted if it continues using its previous configuration. Other applications may also need a restart to pick up regenerated colors.
+- **Waybar at the top** with workspace icons, focused-window title, active-submap indicator, keyboard layout, network, Bluetooth, audio, power profile, battery, tray, and clock/calendar.
 
 ### Keyboard-first workflow
 
@@ -147,19 +130,18 @@ GTK applications may need to be restarted to reload CSS. Mako can be reloaded wi
 
 ### Desktop helpers
 
-- **Wofi application launcher:** launches applications from the keyboard.
-- **Wallpaper picker:** press `Super` + `Esc` to open an image-only Wofi picker. Select an image to change the desktop wallpaper and trigger the Matugen color-generation workflow. The picker presents wallpaper previews without text labels.
-- **Visual clipboard history:** press `Super` + `C` to open a Wofi picker powered by `cliphist`. It supports text history, image thumbnails, and previews for local video files copied through Nemo. Image thumbnails are generated with ImageMagick; video previews use FFmpeg. Text entries show readable previews, while other binary entries receive descriptive labels. Selecting an entry restores its content to the system clipboard so it can be pasted normally with `Ctrl` + `V`, where the target application supports that content type. Clipboard capture uses `wl-paste` watchers for text, images, and Nemo's `x-special/gnome-copied-files` format.
-- **Screenshots:** use `grim` and `slurp` to save timestamped PNGs in `~/Pictures/Screenshots/`, copy the image to the clipboard with `wl-copy`, and show a short notification.
-- **Screen recording:** uses `wf-recorder`, saves timestamped MP4s in `~/Videos/Recordings/`, and can record either the full screen or a selected area. Triggering the recording shortcut again sends an interrupt to stop an active recording.
-- **Power profile switching:** cycles between `performance`, `balanced`, and `power-saver` through `tlpctl`; Waybar shows the current profile.
-- **Audio and display controls:** hardware keys control volume, microphone mute, and brightness. `playerctl` handles media playback.
-- **Locking and idle behavior:** Hyprlock and Hypridle manage screen locking and idle actions. The lock helper captures and blurs a background image before starting Hyprlock.
-- **Session startup:** starts Waybar and Mako, Hypridle, the polkit agent, configured tray applications, and clipboard watchers.
-- **Window rules:** handle special cases for the OpenGL learning window, Lutris, network settings, audio controls, PolyMC, `hyprland-run`, and XWayland dragging/maximize behavior.
-- **Explicit compositor permissions:** the configuration grants screencopy access to capture and lock tools and plugin permission to `hyprpm`.
+- **Wofi** launches applications and is used for clipboard-history selection.
+- **Visual clipboard history.** Press `Super+C` to open a Wofi picker powered by `cliphist`. It supports text history, image thumbnails, and previews for local video files copied through Nemo. Image thumbnails are generated with ImageMagick; video previews use FFmpeg. Text entries show readable previews, while other binary entries receive descriptive labels. Selecting an entry restores its content to the system clipboard so it can be pasted normally with `Ctrl+V`, where the target application supports that content type. Clipboard capture uses `wl-paste` watchers for text, images, and Nemo's `x-special/gnome-copied-files` format.
+- **Screenshots** use `grim` and `slurp`, save timestamped PNGs in `~/Pictures/Screenshots/`, copy the image to the clipboard with `wl-copy`, and show a short notification.
+- **Screen recording** uses `wf-recorder`, saves timestamped MP4s in `~/Videos/Recordings/`, and can record either the full screen or a selected area. Triggering the recording shortcut again sends an interrupt to stop an active recording.
+- **Power profile switching** cycles between `performance`, `balanced`, and `power-saver` through `tlpctl`; Waybar shows the current profile.
+- **Audio and display controls** are bound to hardware keys for volume, microphone mute, and brightness. `playerctl` handles media playback.
+- **Locking and idle behavior** use Hyprlock and Hypridle. The lock helper captures and blurs a background image before starting Hyprlock.
+- **Wallpaper and session startup** use `awww`, launch Waybar and Mako, start Hypridle and the polkit agent, and start configured tray applications and clipboard watchers. Matugen regenerates the shared palette and app-specific templates when a wallpaper is applied; if a running app does not pick up new colors, restart that app (or restart Mako if its active configuration has not changed).
+- **Window rules** handle special cases for the OpenGL learning window, Lutris, network settings, audio controls, PolyMC, `hyprland-run`, and XWayland dragging/maximize behavior.
+- **Explicit compositor permissions** are enabled; the configuration grants screencopy access to the capture and lock tools and plugin permission to `hyprpm`.
 
-## Components
+### Components
 
 | Component | Role in this setup |
 |---|---|
@@ -168,7 +150,7 @@ GTK applications may need to be restarted to reload CSS. Mako can be reloaded wi
 | [Mako](https://github.com/emersion/mako) | Lightweight notification daemon |
 | [Matugen](https://github.com/InioX/matugen) | Generates wallpaper-derived colors for the desktop |
 | [Adw-gtk3](https://github.com/lassekongo83/adw-gtk3) | GTK theme with Matugen color overrides |
-| [Wofi](https://hg.sr.ht/~scoopta/wofi) | Application launcher and visual pickers for clipboard history and wallpapers |
+| [Wofi](https://hg.sr.ht/~scoopta/wofi) | Application launcher and visual clipboard-history picker |
 | [Kitty](https://sw.kovidgoyal.net/kitty/) | Terminal |
 | [Nemo](https://github.com/linuxmint/nemo) | File manager |
 | [Zathura](https://pwmt.org/projects/zathura/) | PDF viewer |
@@ -179,11 +161,11 @@ GTK applications may need to be restarted to reload CSS. Mako can be reloaded wi
 | [awww](https://github.com/0x46d/awww) | Wallpaper rendering |
 | [Neovim](https://neovim.io/) | Editor, configured through a separate submodule |
 
-Additional application bindings and autostart commands refer to Zen Browser, `helixnotes`, Discord, Telegram, Lutris, Vesktop, Whatsie, and other machine-specific helpers. Those applications are not all required to use Hyprland itself; install or change the ones you want.
+Additional app bindings and autostart commands refer to Zen Browser, `helixnotes`, Discord, Telegram, Lutris, Vesktop, Whatsie, and other machine-specific helpers. Those applications are not all required to use Hyprland itself; install or change the ones you want.
 
 ## Keybindings
 
-The main modifier is **`Super`** (the Windows key). These are the bindings documented for the current configuration. A binding that launches an application or script only works when that command is installed and available.
+The main modifier is **`Super`** (the Windows key). These are the bindings in the current Lua configuration. A binding that launches an application or script only works when that command is installed and available.
 
 ### Applications and session
 
@@ -199,11 +181,11 @@ The main modifier is **`Super`** (the Windows key). These are the bindings docum
 | `Super` + `T` | Open Telegram |
 | `Super` + `W` | Open Whatsie |
 | `Super` + `Shift` + `L` | Open Lutris |
-| `Super` + `Esc` | Open the wallpaper picker |
+| `Super` + `Esc` | Open the custom power menu |
 | `Super` + `L` | Lock the screen using the custom lock script |
 | `Super` + `Shift` + `Q` | Close the active window |
 | `Super` + `A` | Cycle the configured power profile |
-| `Super` + `C` | Open visual clipboard history and restore the selected entry to the clipboard |
+| `Super` + `C` | Open visual clipboard history; restore the selected entry to the clipboard |
 | `Super` + `Shift` + `Space` | Cycle keyboard layouts using the layout-toggle script |
 
 ### Windows and layout
@@ -278,12 +260,14 @@ hypr-dotfiles/
 │   │   ├── style.css
 │   │   └── scripts/
 │   ├── theme/
-│   │   └── colors.css
+│   │   └── colors.css        # Shared generated colors for Waybar/Wofi
 │   ├── matugen/
 │   │   ├── config.toml
 │   │   └── templates/
 │   └── nvim/                 # Git submodule
-├── resources/                # Place a chosen desktop screenshot here
+├── assets/
+│   └── screenshots/
+│       └── desktop_sea.png   # Featured desktop screenshot
 ├── assets/
 │   └── screenshots/
 │       ├── 2026-10-17_15-19-29.mp4
@@ -300,7 +284,7 @@ This is a guide to the main paths, not a complete file listing. The repository a
 
 ## Installation and setup
 
-This configuration targets **Arch Linux** and the applications I use. It is not a self-contained installer. Review commands and settings before adopting it, especially if you already have a working Hyprland setup.
+This configuration is written for **Arch Linux** and targets the machine and applications I use. It is not a self-contained installer. Review commands and settings before adopting it, especially if you already have a Hyprland setup.
 
 ### 1. Clone the repository
 
@@ -316,7 +300,7 @@ Before linking or copying files, back up the matching directories under `~/.conf
 
 ### 3. Install the tools you plan to use
 
-The package commands below reflect my Arch Linux workstation. The full package list includes applications and development tools beyond what Hyprland itself needs, so review it before running—especially the kernel, NVIDIA driver, bootloader, firewall, and display-manager packages. Package versions are intentionally not pinned.
+This package list reflects my current Arch Linux workstation. It includes applications and development tools beyond what Hyprland itself needs, so review it before running—especially the kernel, NVIDIA driver, bootloader, firewall, and display-manager packages. Package versions are intentionally not pinned.
 
 #### Arch Linux repository packages
 
@@ -324,7 +308,7 @@ The package commands below reflect my Arch Linux workstation. The full package l
 sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils amd-ucode android-file-transfer android-tools awww base base-devel bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cmatrix cppcheck cups cups-pdf dosfstools efibootmgr efitools fastfetch fd ffmpeg ffmpegthumbnailer fuseiso fzf gamemode gamescope git github-cli glm gnome-disk-utility grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly gvfs-mtp hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit lib32-gamemode lib32-gcc-libs lib32-mangohud lib32-mesa lib32-mesa-utils lib32-nvidia-utils lib32-vulkan-icd-loader lib32-vulkan-mesa-layers lib32-vulkan-radeon libnotify libpaper libreoffice-fresh linux linux-firmware linux-headers lldb llvm mako man-db man-pages mangohud matugen mesa nemo neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvidia-open nvidia-prime nvidia-utils nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler protontricks python python-black python-debugpy qbittorrent qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm sdl12-compat selene shellcheck simple-scan slurp smartmontools sof-firmware steam stylua system-config-printer telegram-desktop texinfo time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv vulkan-mesa-layers vulkan-radeon vulkan-tools waybar wf-recorder wine wine-gecko wine-mono winetricks wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland zathura zathura-pdf-mupdf zsh flatpak
 ```
 
-The `nvidia-open` package is for compatible NVIDIA GPUs using Arch's standard `linux` kernel. This command also includes Mesa/Vulkan packages for the integrated Radeon GPU and 32-bit graphics libraries for gaming. The `lib32-*` packages require the `[multilib]` repository to be enabled in `/etc/pacman.conf`. If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
+The `nvidia-open` package is for compatible NVIDIA GPUs using Arch's standard `linux` kernel. This command also includes the Mesa/Vulkan packages used by the integrated Radeon GPU and 32-bit graphics libraries for gaming. The `lib32-*` packages require the `[multilib]` repository to be enabled in `/etc/pacman.conf`. If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
 
 #### AUR packages
 
@@ -366,7 +350,7 @@ The visual clipboard picker uses **Wofi**, `cliphist`, and `wl-clipboard`. Image
 - `image` — copied images.
 - `x-special/gnome-copied-files` — file selections copied in Nemo, including local video files.
 
-Wofi is also used for the application launcher and wallpaper picker.
+Wofi is also the application launcher. Fuzzel is not used by the current clipboard picker.
 
 ### 4. Review hardware- and machine-specific settings
 
