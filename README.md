@@ -270,7 +270,7 @@ hypr-dotfiles/
 │       └── desktop_sea.png   # Featured desktop screenshot
 ├── assets/
 │   └── screenshots/
-│       ├── 2026-10-17_15-19-29.mp4
+│       ├── 2026-10-20_06-15-53.mp4
 │       ├── 2026-10-17_16-33-16.png
 │       ├── another.png
 │       └── launcher.png
