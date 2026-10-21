@@ -16,9 +16,11 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("wl-paste --type x-special/gnome-copied-files --watch cliphist store")
 	hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 	hl.exec_cmd("gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'")
+	hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark")
 end)
 
 os.execute("$HOME/.config/waybar/scripts/launch.sh")
+
 --os.execute("$HOME/.config/hypr/scripts/wallpaper.sh")
 
 -------------------------------
