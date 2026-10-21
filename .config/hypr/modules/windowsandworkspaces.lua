@@ -8,27 +8,27 @@
 -- Example window rules that are useful
 
 local suppressMaximizeRule = hl.window_rule({
-    -- Ignore maximize requests from all apps. You'll probably like this.
-    name = "suppress-maximize-events",
-    match = { class = ".*" },
+	-- Ignore maximize requests from all apps. You'll probably like this.
+	name = "suppress-maximize-events",
+	match = { class = ".*" },
 
-    suppress_event = "maximize",
+	suppress_event = "maximize",
 })
 -- suppressMaximizeRule:set_enabled(false)
 
 hl.window_rule({
-    -- Fix some dragging issues with XWayland
-    name = "fix-xwayland-drags",
-    match = {
-        class = "^$",
-        title = "^$",
-        xwayland = true,
-        float = true,
-        fullscreen = false,
-        pin = false,
-    },
+	-- Fix some dragging issues with XWayland
+	name = "fix-xwayland-drags",
+	match = {
+		class = "^$",
+		title = "^$",
+		xwayland = true,
+		float = true,
+		fullscreen = false,
+		pin = false,
+	},
 
-    no_focus = true,
+	no_focus = true,
 })
 
 -- Layer rules also return a handle.
@@ -41,43 +41,45 @@ hl.window_rule({
 
 -- Hyprland-run windowrule
 hl.window_rule({
-    name = "move-hyprland-run",
-    match = { class = "hyprland-run" },
+	name = "move-hyprland-run",
+	match = { class = "hyprland-run" },
 
-    move = "20 monitor_h-120",
-    float = true,
+	move = "20 monitor_h-120",
+	float = true,
 })
 --for opengl learning
 hl.window_rule({
-    match = { title = "Learn OpenGL" },
-    float = true,
+	name = "opengl floating",
+	match = { title = "^LearnOpenGL$" },
+	float = true,
+	center = true,
 })
 hl.window_rule({
-    name = "lutris floating",
-    match = { title = "Lutris" },
-    float = true,
-    size = { 900, 900 },
-    move = { 100, 100 },
-    border_size = 5,
-})
-
-hl.window_rule({
-    name = "network floating",
-    match = { class = "nm-connection-editor" },
-    move = { 1300, 30 },
-    float = true,
-})
-hl.window_rule({
-    name = "audio floating",
-    match = { title = "Volume Control" },
-    move = { 1200, 30 },
-    size = { 720, 500 },
-    float = true,
+	name = "lutris floating",
+	match = { class = "net.lutris.Lutris" },
+	float = true,
+	size = { 900, 900 },
+	move = { 100, 100 },
+	border_size = 5,
 })
 
 hl.window_rule({
-    name = "PolyMC floating",
-    match = { class = "org.polymc.PolyMC" },
-    float = true,
-    size = { 900, 600 },
+	name = "network floating",
+	match = { class = "nm-connection-editor" },
+	move = { 1300, 30 },
+	float = true,
+})
+hl.window_rule({
+	name = "audio floating",
+	match = { title = "Volume Control" },
+	move = { 1200, 30 },
+	size = { 720, 500 },
+	float = true,
+})
+
+hl.window_rule({
+	name = "PolyMC floating",
+	match = { class = "org.polymc.PolyMC" },
+	float = true,
+	size = { 900, 600 },
 })

@@ -1,18 +1,16 @@
-
 /* ===========================
  * Colors
  * =========================== */
 
-@import "../theme/colors.css";
-
+@import url("../theme/colors.css");
 /* ===========================
  * Global
  * =========================== */
 
 * {
-  font-family: "JetBrainsMono Nerd Font";
-  font-size: 18px;
-  color: @on_surface;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 18px;
+    color: @on_surface;
 }
 
 /* ===========================
@@ -20,36 +18,35 @@
  * =========================== */
 
 window {
-  color: @surface;
+    color: @surface;
 }
 
 #outer-box {
-  color: @surface;
-  padding: 10px;
-  border: none;
+    color: @surface;
+    padding: 10px;
+    border: none;
 }
 
 #input {
-  background-color: @surface_container_low;
-  border: none;
-  border-radius: 0;
-  margin-bottom: 8px;
-  padding: 8px;
+    background-color: @surface_container_low;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 8px;
+    padding: 8px;
 }
 
 #scroll,
 #inner-box,
 #main {
-  background-color: @surface;
+    background-color: @surface;
 }
 
 
 #entry:selected,
 #entry:selected #text {
-  color: @on_primary_container;
+    color: @on_primary_container;
 }
 
 #text {
-  color: @on_surface;
+    color: @on_surface;
 }
-
