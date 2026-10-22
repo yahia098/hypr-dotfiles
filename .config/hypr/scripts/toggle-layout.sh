@@ -1,8 +1,18 @@
+
 #!/usr/bin/env bash
+set -euo pipefail
 
-hyprctl switchxkblayout all next
+# Switch every keyboard to its next configured layout.
+if ! hyprctl switchxkblayout all next; then
+    notify-send "Keyboard Error" "Could not switch keyboard layout"
+    exit 1
+fi
 
-LAYOUT=$(hyprctl devices -j | jq -r '.keyboards[0].active_keymap')
+# Read the same main keyboard that Waybar uses.
+if ! LAYOUT="$(hyprctl devices -j | jq -er '.keyboards[] | select(.main == true) | .active_keymap')"; then
+    notify-send "Keyboard Error" "Could not read the active keyboard layout"
+    exit 1
+fi
 
 case "$LAYOUT" in
     *Arabic*)
@@ -25,4 +35,6 @@ notify-send \
     "$ICON Keyboard" \
     "$TEXT"
 
-pkill -RTMIN+8 waybar
+# Refresh Waybar's custom/keyboard module (signal 8).
+pkill -RTMIN+8 waybar || true
+

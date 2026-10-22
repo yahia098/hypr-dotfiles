@@ -1,0 +1,91 @@
+# Zathura configuration — Catppuccin Mocha
+# Place at: ~/.config/zathura/zathurarc
+# Reference: https://github.com/catppuccin/zathura
+
+# -----------------------------------------------------------------------------
+# Appearance
+# -----------------------------------------------------------------------------
+set default-bg "#1e1e2e"
+set default-fg "#cdd6f4"
+
+set statusbar-bg "#181825"
+set statusbar-fg "#cdd6f4"
+set inputbar-bg "#181825"
+set inputbar-fg "#cdd6f4"
+
+set notification-bg "#313244"
+set notification-fg "#cdd6f4"
+set notification-error-bg "#f38ba8"
+set notification-error-fg "#1e1e2e"
+set notification-warning-bg "#f9e2af"
+set notification-warning-fg "#1e1e2e"
+
+set highlight-color "#f9e2af"
+set highlight-active-color "#89b4fa"
+
+set completion-bg "#313244"
+set completion-fg "#cdd6f4"
+set completion-highlight-bg "#45475a"
+set completion-highlight-fg "#cba6f7"
+
+set index-bg "#1e1e2e"
+set index-fg "#cdd6f4"
+set index-active-bg "#45475a"
+set index-active-fg "#cba6f7"
+
+# -----------------------------------------------------------------------------
+# Reading and navigation behaviour
+# -----------------------------------------------------------------------------
+set selection-clipboard clipboard
+set adjust-open "width"
+set pages-per-row 1
+set scroll-step 60
+set scroll-page-aware true
+set scroll-wrap false
+set incremental-search true
+set search-hadjust true
+set statusbar-home-tilde true
+set statusbar-page-percent true
+set window-title-basename true
+set window-title-page true
+set zoom-center true
+set zoom-step 10
+set font "monospace normal 10"
+
+# Keep document colors intact by default. Press i to toggle dark recoloring.
+set recolor false
+set recolor-lightcolor "#1e1e2e"
+set recolor-darkcolor "#cdd6f4"
+set recolor-keephue true
+set recolor-reverse-video true
+
+# -----------------------------------------------------------------------------
+# Keymaps
+# Built-in Vim-like keys remain available unless listed below.
+# -----------------------------------------------------------------------------
+
+# Half-page scrolling: d down, u up
+map [normal] d scroll half-down
+map [normal] u scroll half-up
+map [fullscreen] d scroll half-down
+map [fullscreen] u scroll half-up
+
+# Zoom: z in, Shift+z (Z) out
+map [normal] z zoom in
+map [normal] Z zoom out
+map [fullscreen] z zoom in
+map [fullscreen] Z zoom out
+
+# Fit the page to width or fit the whole page in the window
+map [normal] W adjust_window width
+map [normal] A adjust_window best-fit
+map [fullscreen] W adjust_window width
+map [fullscreen] A adjust_window best-fit
+
+# Display toggles
+map [normal] i recolor
+map [normal] b toggle_statusbar
+map [normal] D toggle_page_mode
+map [fullscreen] i recolor
+map [fullscreen] b toggle_statusbar
+map [fullscreen] D toggle_page_mode

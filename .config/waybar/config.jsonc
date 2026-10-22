@@ -16,10 +16,10 @@
         "custom/tlp",
         "battery",
         "tray",
-        "clock",
+        "clock"
     ],
     "hyprland/window": {
-        "max-length": 50,
+        "max-length": 50
     },
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -31,7 +31,7 @@
             "5": "五"
         },
         "persistent-workspaces": {
-            "*": 5 // 5 workspaces by default on every monitor
+            "*": 5
         }
     },
     "network": {
@@ -39,7 +39,7 @@
         "format-ethernet": "󰈀 Ethernet",
         "format-disconnected": "󰖪 ",
         "tooltip-format": "{essid}\n{ipaddr}\nSignal: {signalStrength}%",
-        "on-click": "nm-sidebar --toggle",
+        "on-click": "nm-sidebar --toggle"
     },
     "bluetooth": {
         "format": "",
@@ -47,7 +47,7 @@
         "format-connected": "󰂰 ",
         "tooltip-format-connected": "{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}",
-        "on-click": "bm-sidebar",
+        "on-click": "bm-sidebar"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
@@ -67,10 +67,10 @@
                 "",
                 "",
                 ""
-            ],
+            ]
         },
         "scroll-step": 5,
-        "on-click": "pavucontrol",
+        "on-click": "pavucontrol"
     },
     "battery": {
         "format": "{capacity}% {icon}",
@@ -84,8 +84,8 @@
         ],
         "states": {
             "warning": 30,
-            "critical": 15,
-        },
+            "critical": 15
+        }
     },
     "clock": {
         "format": "{:%H:%M}",
@@ -105,21 +105,22 @@
                 "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
                 "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
             }
-        },
+        }
     },
     "tray": {
-        "spacing": 8,
+        "spacing": 8
     },
     "custom/keyboard": {
         "exec": "~/.config/waybar/scripts/keyboard-layout.sh",
         "return-type": "json",
         "signal": 8,
-        "on-click": "~/.config/hypr/scripts/toggle-layout.sh",
+        "on-click": "~/.config/hypr/scripts/toggle-layout.sh"
     },
     "custom/tlp": {
         "exec": "~/.config/waybar/scripts/power-profile-get.sh",
         "return-type": "json",
+        "interval": 5,
         "signal": 9,
-        "on-click": "~/.config/hypr/scripts/power-profile-toggle.sh",
-    },
+        "on-click": "~/.config/hypr/scripts/power-profile-toggle.sh"
+    }
 }

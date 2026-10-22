@@ -1,3 +1,4 @@
+
 [config]
 mode = "dark"
 reload_apps = true
@@ -10,6 +11,7 @@ post_hook = "pkill -SIGUSR1 kitty"
 [templates.gtk]
 input_path = "~/.config/matugen/templates/gtk-colors.css"
 output_path = "~/.config/theme/colors.css"
+
 [templates.yazi]
 input_path = "~/.config/matugen/templates/yazi.toml"
 output_path = "~/.config/yazi/theme.toml"
@@ -33,6 +35,7 @@ output_path = "~/.config/gtk-3.0/colors.css"
 [templates.gtk4]
 input_path = "~/.config/matugen/templates/gtk-theme.css"
 output_path = "~/.config/gtk-4.0/colors.css"
+post_hook = "gsettings set org.gnome.desktop.interface gtk-theme ''; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark"
 
 [templates.nvim]
 input_path = "~/.config/matugen/templates/nvim.json"
@@ -44,7 +47,7 @@ output_path = "~/.config/dunst/dunstrc"
 post_hook = "dunstctl reload"
 
 [templates.papirus-folders]
-input_path = '~/.config/matugen/templates/papirus-color'
+input_path = "~/.config/matugen/templates/papirus-color"
 colors_to_compare = [
     { name = "black",      color = "#4f4f4f" },
     { name = "blue",       color = "#5294e2" },
@@ -71,6 +74,6 @@ colors_to_compare = [
     { name = "yellow",     color = "#f9bd30" },
 ]
 compare_to = "{{ colors.primary.default.hex }}"
+post_hook = 'mkdir -p "$HOME/.cache/hypr" && (nohup sudo -n /usr/bin/papirus-folders -C {{ closest_color }} --theme Papirus-Dark >> "$HOME/.cache/hypr/papirus-folders.log" 2>&1 < /dev/null &)'
 index = 1
-post_hook = 'pkexec /usr/bin/papirus-folders -C {{closest_color}} -u'
 

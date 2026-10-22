@@ -24,17 +24,19 @@ hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd(Programs.PDF))
 hl.bind(mainMod .. "+ D", hl.dsp.exec_cmd("discord"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("Telegram"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("com.ktechpit.whatsie"))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("$HOME/.config/hypr/scripts/cliphist-wofi-img.sh | wl-copy"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("$HOME/.config/hypr/scripts/cliphist-wofi-img.sh"))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("lutris"))
 hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-layout.sh"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
+
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
@@ -92,12 +94,14 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
---screenshot
+
+-- Screenshots
 hl.bind("Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot-full.sh"))
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot-area.sh"))
 hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/record-full.sh"))
 hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/record-area.sh"))
---moving windows
+
+-- Moving windows
 local function smart_move(dx, dy, direction)
 	return function()
 		local w = hl.get_active_window()

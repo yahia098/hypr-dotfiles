@@ -6,21 +6,22 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("dunst")
 	hl.exec_cmd("awww-daemon")
-	hl.exec_cmd("$HOME/.config/waybar/scripts/launch.sh")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("Telegram -startintray")
 	hl.exec_cmd("vesktop -m")
 	hl.exec_cmd("com.ktechpit.whatsie -m")
-	hl.exec_cmd("wl-paste --type text --watch cliphist store")
-	hl.exec_cmd("wl-paste --type image --watch cliphist store")
-	hl.exec_cmd("wl-paste --type x-special/gnome-copied-files --watch cliphist store")
+	hl.exec_cmd("$HOME/.config/waybar/scripts/launch.sh")
+
+	-- Clear old history before starting the clipboard watchers.
+	hl.exec_cmd(
+		"cliphist wipe && (wl-paste --type text --watch cliphist store >/dev/null 2>&1 & wl-paste --type image --watch cliphist store >/dev/null 2>&1 & wl-paste --type x-special/gnome-copied-files --watch cliphist store >/dev/null 2>&1 &)"
+	)
 	hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 	hl.exec_cmd("gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'")
 	hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark")
 end)
 
 os.execute("$HOME/.config/waybar/scripts/launch.sh")
-
 --os.execute("$HOME/.config/hypr/scripts/wallpaper.sh")
 
 -------------------------------
@@ -39,6 +40,5 @@ hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("MOZ_ENABLE_WAYLAND", "1")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
-hl.env("_JAVA_AWT_WM_NONREPARENTING", "1")
 hl.env("GBM_BACKEND", "nvidia-drm")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")

@@ -10,7 +10,7 @@ My personal Hyprland desktop configuration for **Arch Linux**. I use it for ever
 **Requirements:** Arch Linux, a working Hyprland session, Git, and the applications required by the modules you want to use.
 
 ```bash
-git clone --recurse-submodules https://github.com/yahia098/hypr-dotfiles.git ~/hypr-dotfiles
+git clone https://github.com/yahia098/hypr-dotfiles.git ~/hypr-dotfiles
 cd ~/hypr-dotfiles
 ```
 
@@ -42,7 +42,7 @@ The recording is stored in the repository and linked here. GitHub does not rende
 
 ## Screenshots
 
-The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The featured desktop screenshot is stored in `assetsscreenshots/desktop_sea.png`.
+The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The featured desktop screenshot is stored in `assets/screenshots/desktop_sea.png`.
 
 <table>
   <tr>
@@ -111,11 +111,23 @@ Hyprland settings are split into small modules that are loaded by `.config/hypr/
 
 This separation keeps individual settings easier to locate and change without turning one file into a giant configuration block.
 
-Matugen templates live in `.config/matugen/templates/`. The shared GTK-style palette is written to `.config/theme/colors.css`; generated templates also provide colors for Kitty, Waybar, Wofi, Yazi, Hyprlock, Hyprland, and Mako. Apply a wallpaper with `matugen image /path/to/wallpaper` (use the actual image path). GTK applications usually need to be restarted to reload CSS; Mako can be reloaded with `makoctl reload`, or restarted if it keeps using its previous configuration.
+Matugen source templates live in `.config/matugen/templates/`; generated colour files are runtime outputs, not source files, and are intentionally not tracked by Git. The templates generate colours for Kitty, GTK 3, GTK 4, Waybar/Wofi through the shared `.config/theme/colors.css` palette, Yazi, Hyprland, Hyprlock, Dunst, and other configured targets. Matugen recreates the required outputs when you apply a wallpaper.
+
+### Matugen, GTK, Papirus, and wallpapers
+
+The wallpaper workflow is designed around Wofi and Matugen. The wallpaper picker lists images in `~/.config/wallpapers`, asks Matugen for the wallpaper's source colours, and lets you select which colour should drive the palette. It then calls `set-wallpaper.sh`, which displays the image with `awww`, runs Matugen with the `scheme-smart` scheme and selected source-colour index, and reloads Hyprland. The picker can be launched manually; it is not automatically started by the current `autostart-env.lua` because its startup line is commented out.
+
+Matugen's `config.toml` connects each source template to its generated output. Keep the templates and `config.toml` in Git, but ignore wallpaper-dependent output files such as `theme/colors.css`, `gtk-3.0/colors.css`, `gtk-4.0/colors.css`, `hypr/lua/matugen-colors.lua`, `hypr/matugen-lock.conf`, `yazi/theme.toml`, and generated application colour files. Apply a wallpaper once after installation so those outputs are generated locally.
+
+GTK uses `adw-gtk3-dark` as its base theme and the desktop colour scheme is set to prefer dark. Both `gtk-3.0/gtk.css` and `gtk-4.0/gtk.css` import their corresponding generated `colors.css`. GTK applications do not always reload user CSS in an already-running process, so restart an affected application when checking a new palette. The shared `.config/theme/colors.css` file is also used by components such as Waybar and Wofi; it is separate from GTK's per-version colour files.
+
+Matugen also selects the closest matching Papirus folder colour to its primary palette colour. The Papirus command is launched in the background so wallpaper selection does not have to wait for the icon-cache work. Its output is logged to `~/.cache/hypr/papirus-folders.log`. The hook uses `sudo -n`, so it requires a narrowly scoped sudoers rule allowing your own account to run `/usr/bin/papirus-folders` without a password; otherwise it fails rather than displaying an interactive password prompt. Keep the username and executable path in that rule specific to your machine.
+
+Dunst is the active notification daemon. Matugen writes its configuration from `.config/matugen/templates/dunstrc` to `.config/dunst/dunstrc`; the configured hook requests a Dunst reload after generation. If running applications do not pick up new colours, restart those applications rather than regenerating the palette repeatedly.
 
 ### Appearance and layout
 
-- **Wallpaper-driven Matugen palette** shared by Hyprland, Kitty, Waybar, Wofi, Yazi, Hyprlock, Mako, and GTK color overrides.
+- **Wallpaper-driven Matugen palette** shared by Hyprland, Kitty, Waybar, Wofi, Yazi, Hyprlock, Dunst, and GTK colour overrides.
 - **Dwindle tiling layout** with custom animated transitions and easing curves.
 - **Subtle transparency and effects:** active windows are fully opaque, inactive windows use slightly reduced opacity, with shadows and a light blur effect.
 - **Minimal window geometry:** zero-width borders, square corners, and small inner/outer gaps.
@@ -139,7 +151,7 @@ Matugen templates live in `.config/matugen/templates/`. The shared GTK-style pal
 - **Power profile switching** cycles between `performance`, `balanced`, and `power-saver` through `tlpctl`; Waybar shows the current profile.
 - **Audio and display controls** are bound to hardware keys for volume, microphone mute, and brightness. `playerctl` handles media playback.
 - **Locking and idle behavior** use Hyprlock and Hypridle. The lock helper captures and blurs a background image before starting Hyprlock.
-- **Wallpaper and session startup** use `awww`, launch Waybar and Mako, start Hypridle and the polkit agent, and start configured tray applications and clipboard watchers. Matugen regenerates the shared palette and app-specific templates when a wallpaper is applied; if a running app does not pick up new colors, restart that app (or restart Mako if its active configuration has not changed).
+- **Wallpaper and session startup** use `awww`, launch Waybar and Dunst, start Hypridle and the polkit agent, and start configured applications and clipboard watchers. The Wofi wallpaper picker and `set-wallpaper.sh` apply wallpapers separately; Matugen regenerates the shared palette and configured templates. Restart an affected application if it does not pick up newly generated colours.
 - **Window rules** handle special cases for the OpenGL learning window, Lutris, network settings, audio controls, PolyMC, `hyprland-run`, and XWayland dragging/maximize behavior.
 - **Explicit compositor permissions** are enabled; the configuration grants screencopy access to the capture and lock tools and plugin permission to `hyprpm`.
 
@@ -149,7 +161,7 @@ Matugen templates live in `.config/matugen/templates/`. The shared GTK-style pal
 |---|---|
 | [Hyprland](https://hyprland.org/) | Wayland compositor and window manager |
 | [Waybar](https://github.com/Alexays/Waybar) | Status bar and system modules |
-| [Mako](https://github.com/emersion/mako) | Lightweight notification daemon |
+| [Dunst](https://github.com/dunst-project/dunst) | Lightweight notification daemon |
 | [Matugen](https://github.com/InioX/matugen) | Generates wallpaper-derived colors for the desktop |
 | [Adw-gtk3](https://github.com/lassekongo83/adw-gtk3) | GTK theme with Matugen color overrides |
 | [Wofi](https://hg.sr.ht/~scoopta/wofi) | Application launcher and visual clipboard-history picker |
@@ -161,7 +173,7 @@ Matugen templates live in `.config/matugen/templates/`. The shared GTK-style pal
 | [cliphist](https://github.com/sentriz/cliphist) and `wl-clipboard` | Clipboard history and clipboard access |
 | [Hyprlock](https://github.com/hyprwm/hyprlock) and [Hypridle](https://github.com/hyprwm/hypridle) | Lock screen and idle management |
 | [awww](https://github.com/0x46d/awww) | Wallpaper rendering |
-| [Neovim](https://neovim.io/) | Editor, configured through a separate submodule |
+| [Neovim](https://neovim.io/) | Editor; its configuration is maintained in [a separate repository](https://github.com/yahia098/nvim.dots) |
 
 Additional app bindings and autostart commands refer to Zen Browser, `helixnotes`, Discord, Telegram, Lutris, Vesktop, Whatsie, and other machine-specific helpers. Those applications are not all required to use Hyprland itself; install or change the ones you want.
 
@@ -253,34 +265,31 @@ The configured keyboard layouts are **US English**, **Arabic**, and **Russian** 
 ```text
 hypr-dotfiles/
 ├── .config/
+│   ├── gtk-3.0/
+│   │   └── gtk.css             # Imports generated colors.css
+│   ├── gtk-4.0/
+│   │   └── gtk.css             # Imports generated colors.css
 │   ├── hypr/
 │   │   ├── hyprland.lua
 │   │   ├── modules/
 │   │   └── scripts/
+│   ├── matugen/
+│   │   ├── config.toml
+│   │   └── templates/          # Source templates, including Dunst and browser CSS
+│   ├── wallpapers/             # Wallpaper images selected by the Wofi picker
 │   ├── waybar/
 │   │   ├── config.jsonc
 │   │   ├── style.css
 │   │   └── scripts/
-│   ├── theme/
-│   │   └── colors.css        # Shared generated colors for Waybar/Wofi
-│   ├── matugen/
-│   │   ├── config.toml
-│   │   └── templates/
-│   └── nvim/                 # Git submodule
+│   └── zathura/                # Zathura settings
 ├── assets/
-│   └── screenshots/
-│       └── desktop_sea.png   # Featured desktop screenshot
-├── assets/
-│   └── screenshots/
-│       ├── 2026-10-20_06-15-53.mp4
-│       ├── 2026-10-17_16-33-16.png
-│       ├── another.png
-│       └── launcher.png
-├── Pictures/
-├── .gitmodules
+│   └── screenshots/            # Screenshots and showcase recording
+├── .gitignore
 ├── .zshrc
 └── README.md
 ```
+
+Generated colour files (including `gtk-3.0/colors.css`, `gtk-4.0/colors.css`, `theme/colors.css`, Matugen's Hyprland colour files, and `yazi/theme.toml`) may exist locally but are not source files tracked in Git. The tree is illustrative rather than a guarantee that every optional app directory is present in every checkout.
 
 This is a guide to the main paths, not a complete file listing. The repository also contains scripts and other configuration files beneath `.config/`.
 
@@ -290,10 +299,8 @@ This configuration is written for **Arch Linux** and targets the machine and app
 
 ### 1. Clone the repository
 
-Include the Neovim submodule:
-
 ```sh
-git clone --recurse-submodules https://github.com/yahia098/hypr-dotfiles.git "$HOME/hypr-dotfiles"
+git clone https://github.com/yahia098/hypr-dotfiles.git "$HOME/hypr-dotfiles"
 ```
 
 ### 2. Back up existing configuration
@@ -307,7 +314,7 @@ This package list reflects my current Arch Linux workstation. It includes applic
 #### Arch Linux repository packages
 
 ```bash
-sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils amd-ucode android-file-transfer android-tools awww base base-devel bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cmatrix cppcheck cups cups-pdf dosfstools efibootmgr efitools fastfetch fd ffmpeg ffmpegthumbnailer fuseiso fzf gamemode gamescope git github-cli glm gnome-disk-utility grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly gvfs-mtp hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit lib32-gamemode lib32-gcc-libs lib32-mangohud lib32-mesa lib32-mesa-utils lib32-nvidia-utils lib32-vulkan-icd-loader lib32-vulkan-mesa-layers lib32-vulkan-radeon libnotify libpaper libreoffice-fresh linux linux-firmware linux-headers lldb llvm mako man-db man-pages mangohud matugen mesa nemo neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvidia-open nvidia-prime nvidia-utils nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler protontricks python python-black python-debugpy qbittorrent qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm sdl12-compat selene shellcheck simple-scan slurp smartmontools sof-firmware steam stylua system-config-printer telegram-desktop texinfo time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv vulkan-mesa-layers vulkan-radeon vulkan-tools waybar wf-recorder wine wine-gecko wine-mono winetricks wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland zathura zathura-pdf-mupdf zsh flatpak
+sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils amd-ucode android-file-transfer android-tools awww base base-devel bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cmatrix cppcheck cups cups-pdf dosfstools efibootmgr efitools fastfetch fd ffmpeg ffmpegthumbnailer fuseiso fzf gamemode gamescope git github-cli glm gnome-disk-utility grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly gvfs-mtp hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit lib32-gamemode lib32-gcc-libs lib32-mangohud lib32-mesa lib32-mesa-utils lib32-nvidia-utils lib32-vulkan-icd-loader lib32-vulkan-mesa-layers lib32-vulkan-radeon libnotify libpaper libreoffice-fresh linux linux-firmware linux-headers lldb llvm dunst man-db man-pages mangohud matugen mesa nemo neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvidia-open nvidia-prime nvidia-utils nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler protontricks python python-black python-debugpy qbittorrent qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm sdl12-compat selene shellcheck simple-scan slurp smartmontools sof-firmware steam stylua system-config-printer telegram-desktop texinfo time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv vulkan-mesa-layers vulkan-radeon vulkan-tools waybar wf-recorder wine wine-gecko wine-mono winetricks wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland zathura zathura-pdf-mupdf zsh flatpak
 ```
 
 The `nvidia-open` package is for compatible NVIDIA GPUs using Arch's standard `linux` kernel. This command also includes the Mesa/Vulkan packages used by the integrated Radeon GPU and 32-bit graphics libraries for gaming. The `lib32-*` packages require the `[multilib]` repository to be enabled in `/etc/pacman.conf`. If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
@@ -323,7 +330,7 @@ git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -
 Then install the AUR applications used by the desktop setup:
 
 ```bash
-yay -S --needed bm-sidebar helixnotes-bin nm-sidebar pipewire-control-center vesktop-bin zen-browser-bin
+yay -S --needed bm-sidebar helixnotes-bin nm-sidebar papirus-folders pipewire-control-center vesktop-bin zen-browser-bin
 ```
 
 These additional AUR packages are part of my wider workstation, but are optional for the Hyprland configuration itself:
@@ -354,24 +361,32 @@ The visual clipboard picker uses **Wofi**, `cliphist`, and `wl-clipboard`. Image
 
 Wofi is also the application launcher. Fuzzel is not used by the current clipboard picker.
 
+### Matugen output files and Papirus permissions
+
+The generated colour files are deliberately not committed. After deploying the source configuration, run the wallpaper picker once to generate them. Keep `.config/matugen/config.toml` and the files under `.config/matugen/templates/` tracked; do not replace templates with their generated output files.
+
+If you use the automatic Papirus folder-colour hook, install `papirus-folders` and configure a narrow sudoers exception for the current login. Open the sudoers drop-in with `sudo visudo -f /etc/sudoers.d/papirus-folders` and add the following line after replacing `YOUR_USERNAME` with your login name:
+
+```sudoers
+YOUR_USERNAME ALL=(ALL) NOPASSWD: /usr/bin/papirus-folders
+```
+
+Then set its permissions with `sudo chmod 440 /etc/sudoers.d/papirus-folders`. Do not grant passwordless sudo to all commands. The hook logs output to `~/.cache/hypr/papirus-folders.log`; if the colour change fails, inspect that log before changing the hook.
+
 ### 4. Review hardware- and machine-specific settings
 
 - `.config/hypr/modules/monitors.lua` defines `eDP-1` at `1920x1080@144`, scale `1`. Change it for your own monitor if needed.
 - `.config/hypr/modules/autostart-env.lua` sets Wayland/desktop environment variables and includes NVIDIA-specific values. Review those if your GPU or driver setup differs.
-- Autostart includes Telegram, Vesktop, Whatsie, Waybar, Mako, Hypridle, the polkit agent, wallpaper startup, and clipboard watchers. Disable any application launch you do not want.
-- The wallpaper helper references `~/.config/wallpapers/cabin-3.png`; make sure that file exists or change the wallpaper script.
+- Autostart includes Telegram, Vesktop, Whatsie, Waybar, Dunst, Hypridle, `awww-daemon`, the polkit agent, and clipboard watchers. Disable any application launch you do not want. The Wofi wallpaper picker is launched separately.
+- The wallpaper picker reads image files from `~/.config/wallpapers/`. Keep your wallpaper images there, or update the picker path if you store them elsewhere.
 - The lid-switch binding suspends the system. Change it if that is not the behavior you want.
 - Permission changes in `permissions.lua` require restarting Hyprland.
 
 For version-specific behavior, consult the [Hyprland wiki](https://wiki.hypr.land/).
 
-## Neovim submodule
+## Neovim
 
-Neovim is maintained separately in [yahia098/nvim.dots](https://github.com/yahia098/nvim.dots) and included under `.config/nvim` as a Git submodule. Use `git clone --recurse-submodules` when cloning this repository; if you cloned without submodules, run:
-
-```sh
-git submodule update --init --recursive
-```
+Neovim is maintained separately in [yahia098/nvim.dots](https://github.com/yahia098/nvim.dots). This repository documents the Hyprland desktop configuration; manage and update the Neovim configuration in its own repository rather than copying generated Neovim colour output into this one.
 
 ## AI assistance and ownership
 

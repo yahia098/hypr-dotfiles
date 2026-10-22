@@ -1,3 +1,15 @@
 zsh/.config/zsh/.HISTFILE
 Pictures/pfp.png
+# Matugen-generated colour and theme files
+.config/gtk-3.0/colors.css
+.config/gtk-4.0/colors.css
+.config/theme/colors.css
+.config/hypr/lua/matugen-colors.lua
+.config/hypr/matugen-lock.conf
+.config/yazi/theme.toml
+.config/dunst/dunstrc
+.config/matugen/templates/colors-nvim.json
+
+# Machine-specific GTK bookmarks
+.config/gtk-3.0/bookmarks
 

@@ -1,3 +1,4 @@
+
 [global]
     monitor = 0
     follow = none
@@ -23,7 +24,7 @@
     gap_size = 8
     separator_color = frame
     sort = yes
-    font = "JetBrainsMono Nerd Font 10"
+    font = "JetBrainsMono Nerd Font 10, Noto Sans Arabic UI 10"
     markup = full
     format = "<b>%s</b>\n%b"
     alignment = left
@@ -79,3 +80,4 @@
     timeout = 0
     override_pause_level = 60
     default_icon = dialog-warning
+
