@@ -107,3 +107,14 @@ hl.window_rule({
 	center = true,
 	size = { 1000, 700 },
 })
+
+hl.window_rule({
+	name = "floating downloads",
+	match = {
+		class = "librewolf",
+		title = "Library",
+	},
+	float = true,
+	center = true,
+	size = { 1000, 700 },
+})
