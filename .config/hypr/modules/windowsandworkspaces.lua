@@ -83,3 +83,19 @@ hl.window_rule({
 	float = true,
 	size = { 900, 600 },
 })
+
+hl.window_rule({
+	name = "nautilus float",
+	match = { class = "org.gnome.Nautilus" },
+	float = true,
+	size = { 1100, 800 },
+	move = { 85, 140 },
+})
+
+hl.window_rule({
+	name = "file roller float",
+	match = { class = "org.gnome.FileRoller" },
+	float = true,
+	size = { 550, 800 },
+	move = { 1185, 140 },
+})
