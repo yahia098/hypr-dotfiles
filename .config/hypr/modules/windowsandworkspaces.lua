@@ -99,3 +99,11 @@ hl.window_rule({
 	size = { 550, 800 },
 	move = { 1185, 140 },
 })
+
+hl.window_rule({
+	name = "portal file chooser",
+	match = { class = "^xdg-desktop-portal-gtk$" },
+	float = true,
+	center = true,
+	size = { 1000, 700 },
+})
