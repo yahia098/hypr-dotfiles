@@ -76,4 +76,7 @@ colors_to_compare = [
 compare_to = "{{ colors.primary.default.hex }}"
 post_hook = 'mkdir -p "$HOME/.cache/hypr" && (nohup sudo -n /usr/bin/papirus-folders -C {{ closest_color }} --theme Papirus-Dark >> "$HOME/.cache/hypr/papirus-folders.log" 2>&1 < /dev/null &)'
 index = 1
-
+[templates.eww]
+input_path = "~/.config/matugen/templates/eww-colors.scss"
+output_path = "~/.config/eww/colors.scss"
+post_hook = "eww reload"
