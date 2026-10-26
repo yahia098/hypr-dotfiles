@@ -4,5 +4,5 @@ Programs = {
 	Menu = "wofi --show drun",
 	Notes = "helixnotes",
 	Browser = "librewolf",
-	PDF = "zathura",
+	Pdf = "evince",
 }

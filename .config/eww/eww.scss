@@ -1,0 +1,113 @@
+@import "colors.scss";
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Inter", sans-serif;
+}
+
+/* ---------- date + time ---------- */
+
+.datetime {
+  background-color: rgba($surface_container, 0.10);
+  border: 1px solid rgba($outline_variant, 0.12);
+  border-radius: 40px;
+  padding: 26px 60px 28px 60px;
+}
+
+.datetime label {
+  font-family: "Orbitron", "Oxanium", "Michroma", "JetBrainsMono Nerd Font", sans-serif;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.dt-greeting {
+  color: $on_surface_variant;
+  font-size: 14px;
+  letter-spacing: 5px;
+  /* letter-spacing adds a trailing gap, so pad the left to keep the text centered */
+  padding-left: 5px;
+  margin-bottom: 8px;
+}
+
+.dt-day {
+  color: $primary;
+  font-size: 58px;
+  font-weight: 400;
+  letter-spacing: 16px;
+  padding-left: 16px;
+}
+
+.dt-line {
+  background-color: $tertiary;
+  min-width: 56px;
+  min-height: 3px;
+  border-radius: 99px;
+  margin: 14px 0 14px 0;
+}
+
+.dt-time {
+  color: $on_surface;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: 10px;
+  padding-left: 10px;
+}
+
+.dt-date {
+  color: $secondary;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 6px;
+  padding-left: 6px;
+  margin-top: 10px;
+}
+
+/* ---------- stats card ---------- */
+
+.card {
+  min-width: 250px;
+  background-color: rgba($surface_container, 0.68);
+  border: 1px solid rgba($outline_variant, 0.6);
+  border-radius: 22px;
+  padding: 18px 20px 18px 20px;
+}
+
+.stat {
+  margin-bottom: 8px;
+}
+
+.card .stat:last-child {
+  margin-bottom: 0;
+}
+
+.stat-name {
+  color: $on_surface_variant;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.stat-text {
+  color: $on_surface;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.stat-bar {
+  margin-top: 3px;
+}
+
+.stat-bar trough {
+  background-color: $surface_container_highest;
+  min-height: 5px;
+  border-radius: 99px;
+}
+
+.stat-bar progress {
+  background-color: $primary;
+  min-height: 5px;
+  border-radius: 99px;
+}
+
+.stat-bar.danger progress {
+  background-color: $error;
+}

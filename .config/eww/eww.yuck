@@ -1,0 +1,69 @@
+;; ---------- polls ----------
+(defpoll time      :interval "2s"  `date +%H:%M`)
+(defpoll day       :interval "60s" `date +%A | tr a-z A-Z`)
+(defpoll date      :interval "60s" `date "+%d %B %Y" | tr a-z A-Z`)
+(defpoll greeting  :interval "300s"
+  `h=$(date +%H); if [ "$h" -lt 12 ]; then echo "good morning"; elif [ "$h" -lt 18 ]; then echo "good afternoon"; else echo "good evening"; fi`)
+(defpoll cpu_temp  :interval "5s"  `~/.config/eww/scripts/cputemp.sh`)
+(defpoll battery   :interval "30s" `~/.config/eww/scripts/battery.sh`)
+
+;; ---------- date + time (centre of the screen, a bit above middle) ----------
+(defwidget datetime []
+  (box :class "datetime" :orientation "v" :space-evenly false
+       :halign "center" :valign "center"
+    (label :class "dt-greeting" :show-truncated false :text greeting)
+    (label :class "dt-day"      :show-truncated false :text day)
+    (box   :class "dt-line"     :halign "center")
+    (label :class "dt-time"     :show-truncated false :text time)
+    (label :class "dt-date"     :show-truncated false :text date)))
+
+(defwindow datetime
+  :monitor 0
+  :geometry (geometry :x "0px"
+                      :y "-90px"
+                      :anchor "center")
+  :stacking "bg"
+  :exclusive false
+  :focusable false
+  (datetime))
+
+;; ---------- stats card (top right) ----------
+(defwidget stat [name text value]
+  (box :class "stat" :orientation "v" :space-evenly false
+    (box :orientation "h" :space-evenly false
+      (label :class "stat-name" :halign "start" :hexpand true
+             :show-truncated false :text name)
+      (label :class "stat-text" :halign "end"
+             :show-truncated false :text text))
+    (progress :class {value >= 85 ? "stat-bar danger" : "stat-bar"}
+              :orientation "h"
+              :value value)))
+
+(defwidget stats []
+  (box :class "card" :orientation "v" :space-evenly false
+    (stat :name "CPU"
+          :text "${round(EWW_CPU.avg, 0)}%"
+          :value {EWW_CPU.avg})
+    (stat :name "RAM"
+          :text "${round(EWW_RAM.used_mem / 1073741824, 1)} / ${round(EWW_RAM.total_mem / 1073741824, 1)} GB"
+          :value {EWW_RAM.used_mem_perc})
+    (stat :name "DISK"
+          :text "${round(EWW_DISK["/"].used / 1073741824, 0)} / ${round(EWW_DISK["/"].total / 1073741824, 0)} GB"
+          :value {EWW_DISK["/"].used_perc})
+    (stat :name "TEMP"
+          :text "${cpu_temp}°C"
+          :value cpu_temp)
+    (stat :name "BAT"
+          :text "${battery}%"
+          :value battery)))
+
+(defwindow statscard
+  :monitor 0
+  :geometry (geometry :x "24px"
+                      :y "24px"
+                      :width "250px"
+                      :anchor "top right")
+  :stacking "bg"
+  :exclusive false
+  :focusable false
+  (stats))
