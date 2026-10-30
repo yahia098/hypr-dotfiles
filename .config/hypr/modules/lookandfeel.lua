@@ -53,14 +53,14 @@ hl.config({
 
 	decoration = {
 		rounding = 0,
-		rounding_power = 0,
+		rounding_power = 1.00,
 
 		active_opacity = 1.0,
 		inactive_opacity = 0.95,
 
 		shadow = {
 			enabled = true,
-			range = 6,
+			range = 3,
 			render_power = 2,
 			color = colors.shadow,
 		},

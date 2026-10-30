@@ -6,7 +6,7 @@ DIR="$HOME/Videos/Recordings"
 mkdir -p "$DIR"
 
 # If a recording is already running, stop it.
-if pkill -INT -x wf-recorder 2>/dev/null; then
+if pkill -INT -f '^(.*/)?gpu-screen-recorder([[:space:]]|$)' 2>/dev/null; then
     exit 0
 fi
 
@@ -14,8 +14,8 @@ FILE="$DIR/$(date +'%Y-%m-%d_%H-%M-%S').mp4"
 
 notify-send "Recording started" -t 1000
 
-# Record the full screen until wf-recorder is interrupted.
-if wf-recorder -f "$FILE"; then
+# Record the first detected monitor until interrupted.
+if gpu-screen-recorder -w screen -f 60 -a default_output -o "$FILE"; then
     if [[ -s "$FILE" ]]; then
         notify-send "Recording saved" "$FILE" -t 3000
     else
@@ -24,7 +24,7 @@ if wf-recorder -f "$FILE"; then
     fi
 else
     STATUS=$?
-    notify-send "Recording Failed" "wf-recorder exited with status $STATUS" -t 3000
+    notify-send "Recording Failed" "GPU Screen Recorder exited with status $STATUS" -t 3000
     exit "$STATUS"
 fi
 

@@ -20,7 +20,7 @@
 (defwindow datetime
   :monitor 0
   :geometry (geometry :x "0px"
-                      :y "-90px"
+                      :y "-120px"
                       :anchor "center")
   :stacking "bg"
   :exclusive false
