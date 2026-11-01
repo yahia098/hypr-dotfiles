@@ -5,6 +5,7 @@ My personal Hyprland desktop configuration for **Arch Linux**. I use it for ever
 <p align="center">
   <strong>Arch Linux · Hyprland · Lua · Waybar · Matugen</strong>
 </p>
+
 ## Quick Start
 
 **Requirements:** Arch Linux, a working Hyprland session, Git, and the applications required by the modules you want to use.
@@ -30,19 +31,17 @@ This repository is a personal configuration, not an automated installer. Review 
 
 https://github.com/user-attachments/assets/5356a639-1e2a-482b-9023-8efdd35f6f21
 
-
-
 <p align="center">
   <sub>
     <a href="assets/screenshots/2026-10-20_06-15-53.mp4">View the MP4 in the repository</a>
   </sub>
 </p>
 
-The recording is stored in the repository and linked here. GitHub does not render repository-relative MP4 files as inline players in a README; the link opens the video file. For an inline player, upload the MP4 in the GitHub README editor and use the generated `github.com/user-attachments/assets/...` URL on its own line.
+The recording is stored in the repository and linked here. GitHub does not render repository-relative MP4 files as inline players in a README; the link opens the video file.
 
 ## Screenshots
 
-The showcase recording and existing screenshots are stored in [`assets/screenshots/`](assets/screenshots/). The featured desktop screenshot is stored in `assets/screenshots/desktop_sea.png`.
+The showcase recording and existing screenshots are stored in [assets/screenshots/](assets/screenshots/). The featured desktop screenshot is stored in `assets/screenshots/desktop_sea.png`.
 
 <table>
   <tr>
@@ -55,19 +54,25 @@ The showcase recording and existing screenshots are stored in [`assets/screensho
     <td align="center" width="50%">
       <strong>Desktop · Alternate view</strong><br>
       <em>A second view of the session</em><br><br>
-      <a href="assets/screenshots/2026-10-17_16-33-16.png"><img src="assets/screenshots/2026-10-17_16-33-16.png" alt="Hyprland desktop screenshot from 16:33:16" width="100%"></a>
+      <a href="assets/screenshots/2026-10-17_16-33-16.png">
+        <img src="assets/screenshots/2026-10-17_16-33-16.png" alt="Hyprland desktop screenshot from 16:33:16" width="100%">
+      </a>
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
       <strong>Another view</strong><br>
       <em>Additional desktop screenshot</em><br><br>
-      <a href="assets/screenshots/another.png"><img src="assets/screenshots/another.png" alt="Additional Hyprland screenshot" width="100%"></a>
+      <a href="assets/screenshots/another.png">
+        <img src="assets/screenshots/another.png" alt="Additional Hyprland desktop screenshot" width="100%">
+      </a>
     </td>
     <td align="center" width="50%">
       <strong>Application launcher</strong><br>
       <em>Launching applications with Wofi</em><br><br>
-      <a href="assets/screenshots/launcher.png"><img src="assets/screenshots/launcher.png" alt="Wofi application launcher" width="100%"></a>
+      <a href="assets/screenshots/launcher.png">
+        <img src="assets/screenshots/launcher.png" alt="Wofi application launcher" width="100%">
+      </a>
     </td>
   </tr>
 </table>
@@ -93,45 +98,64 @@ The showcase recording and existing screenshots are stored in [`assets/screensho
 
 ### Modular Lua configuration
 
-Hyprland settings are split into small modules that are loaded by `.config/hypr/hyprland.lua`:
+Hyprland settings are split into small modules loaded by `.config/hypr/hyprland.lua`:
 
-| Module | Responsibility |
-|---|---|
-| `monitors.lua` | Monitor mode, position, and scale |
-| `programs.lua` | Commands used by application-launcher keybindings |
-| `autostart-env.lua` | Startup commands and Wayland/session environment variables |
-| `permissions.lua` | Hyprland permission enforcement and explicit screencopy/plugin permissions |
-| `lookandfeel.lua` | Colors, gaps, layout, blur, shadows, opacity, and animations |
-| `input.lua` | Keyboard layouts, mouse/touchpad behavior, and workspace swipe gesture |
-| `misc.lua` | Miscellaneous compositor options |
-| `keybinds.lua` | Application, window, workspace, media, and capture shortcuts |
-| `submaps.lua` | Temporary resize mode |
-| `windowsandworkspaces.lua` | Window rules and workspace-related behavior |
-| `switches.lua` | Laptop lid-switch behavior |
+| Module                     | Responsibility                                                             |
+| -------------------------- | -------------------------------------------------------------------------- |
+| `monitors.lua`             | Monitor mode, position, and scale                                          |
+| `programs.lua`             | Commands used by application-launcher keybindings                          |
+| `autostart-env.lua`        | Startup commands and Wayland/session environment variables                 |
+| `permissions.lua`          | Hyprland permission enforcement and explicit screencopy/plugin permissions |
+| `lookandfeel.lua`          | Colors, gaps, layout, blur, shadows, opacity, and animations               |
+| `input.lua`                | Keyboard layouts, mouse/touchpad behavior, and workspace swipe gesture     |
+| `misc.lua`                 | Miscellaneous compositor options                                           |
+| `keybinds.lua`             | Application, window, workspace, media, and capture shortcuts               |
+| `submaps.lua`              | Temporary resize mode                                                      |
+| `windowsandworkspaces.lua` | Window rules and workspace-related behavior                                |
+| `switches.lua`             | Laptop lid-switch behavior                                                 |
 
 This separation keeps individual settings easier to locate and change without turning one file into a giant configuration block.
 
-Matugen source templates live in `.config/matugen/templates/`; generated colour files are runtime outputs, not source files, and are intentionally not tracked by Git. The templates generate colours for Kitty, GTK 3, GTK 4, Waybar/Wofi through the shared `.config/theme/colors.css` palette, Yazi, Hyprland, Hyprlock, Dunst, and other configured targets. Matugen recreates the required outputs when you apply a wallpaper.
+Matugen source templates live in `.config/matugen/templates/`; generated colour files are runtime outputs, not source files, and are intentionally not tracked by Git.
 
 ### Matugen, GTK, Papirus, and wallpapers
 
-The wallpaper workflow is designed around Wofi and Matugen. The wallpaper picker lists images in `~/.config/wallpapers`, asks Matugen for the wallpaper's source colours, and lets you select which colour should drive the palette. It then calls `set-wallpaper.sh`, which displays the image with `awww`, runs Matugen with the `scheme-smart` scheme and selected source-colour index, and reloads Hyprland. The picker can be launched manually; it is not automatically started by the current `autostart-env.lua` because its startup line is commented out.
+The wallpaper workflow is designed around Wofi and Matugen.
 
-Matugen's `config.toml` connects each source template to its generated output. Keep the templates and `config.toml` in Git, but ignore wallpaper-dependent output files such as `theme/colors.css`, `gtk-3.0/colors.css`, `gtk-4.0/colors.css`, `hypr/lua/matugen-colors.lua`, `hypr/matugen-lock.conf`, `yazi/theme.toml`, and generated application colour files. Apply a wallpaper once after installation so those outputs are generated locally.
+The wallpaper picker lists images in `~/.config/wallpapers`, asks Matugen for the wallpaper's source colours, and lets you select which colour should drive the palette.
 
-GTK uses `adw-gtk3-dark` as its base theme and the desktop colour scheme is set to prefer dark. Both `gtk-3.0/gtk.css` and `gtk-4.0/gtk.css` import their corresponding generated `colors.css`. GTK applications do not always reload user CSS in an already-running process, so restart an affected application when checking a new palette. The shared `.config/theme/colors.css` file is also used by components such as Waybar and Wofi; it is separate from GTK's per-version colour files.
+It then calls `set-wallpaper.sh`, which displays the image with `awww`, runs Matugen with the `scheme-smart` scheme and selected source-colour index, and reloads Hyprland.
 
-Matugen also selects the closest matching Papirus folder colour to its primary palette colour. The Papirus command is launched in the background so wallpaper selection does not have to wait for the icon-cache work. Its output is logged to `~/.cache/hypr/papirus-folders.log`. The hook uses `sudo -n`, so it requires a narrowly scoped sudoers rule allowing your own account to run `/usr/bin/papirus-folders` without a password; otherwise it fails rather than displaying an interactive password prompt. Keep the username and executable path in that rule specific to your machine.
+The picker can be launched manually; it is not automatically started by the current `autostart-env.lua` because its startup line is commented out.
 
-Dunst is the active notification daemon. Matugen writes its configuration from `.config/matugen/templates/dunstrc` to `.config/dunst/dunstrc`; the configured hook requests a Dunst reload after generation. If running applications do not pick up new colours, restart those applications rather than regenerating the palette repeatedly.
+Matugen's `config.toml` connects each source template to its generated output. Keep the templates and `config.toml` in Git, but ignore wallpaper-dependent output files such as:
+
+- `theme/colors.css`
+- `gtk-3.0/colors.css`
+- `gtk-4.0/colors.css`
+- `hypr/lua/matugen-colors.lua`
+- `hypr/matugen-lock.conf`
+- `yazi/theme.toml`
+
+Apply a wallpaper once after installation so those outputs are generated locally.
+
+GTK uses `adw-gtk3-dark` as its base theme and the desktop colour scheme is set to prefer dark. Both `gtk-3.0/gtk.css` and `gtk-4.0/gtk.css` import their corresponding generated `colors.css`.
+
+The shared `.config/theme/colors.css` file is also used by components such as Waybar and Wofi.
+
+Matugen also selects the closest matching Papirus folder colour to its primary palette colour. The Papirus command is launched in the background so wallpaper selection does not have to wait for the icon-cache work.
+
+Its hook uses `sudo -n`, so it requires a narrowly scoped sudoers rule allowing your own account to run `/usr/bin/papirus-folders` without a password.
+
+Dunst is the active notification daemon. Matugen writes its configuration from `.config/matugen/templates/dunstrc` to `.config/dunst/dunstrc`; the configured hook requests a Dunst reload after generation.
 
 ### Appearance and layout
 
 - **Wallpaper-driven Matugen palette** shared by Hyprland, Kitty, Waybar, Wofi, Yazi, Hyprlock, Dunst, and GTK colour overrides.
-- **Dwindle tiling layout** with custom animated transitions and easing curves.
+- **Master tiling layout** as the primary window-management layout.
 - **Subtle transparency and effects:** active windows are fully opaque, inactive windows use slightly reduced opacity, with shadows and a light blur effect.
 - **Minimal window geometry:** zero-width borders, square corners, and small inner/outer gaps.
-- **GTK theming:** `adw-gtk3` is the base theme, with Matugen-generated color overrides imported by GTK 3 and GTK 4. The session does not force the old Catppuccin `GTK_THEME`; restart GTK applications to pick up regenerated colors.
+- **GTK theming:** `adw-gtk3-dark` with Matugen-generated colour overrides.
 - **Waybar at the top** with workspace icons, focused-window title, active-submap indicator, keyboard layout, network, Bluetooth, audio, power profile, battery, tray, and clock/calendar.
 
 ### Keyboard-first workflow
@@ -145,88 +169,86 @@ Dunst is the active notification daemon. Matugen writes its configuration from `
 ### Desktop helpers
 
 - **Wofi** launches applications and is used for clipboard-history selection.
-- **Visual clipboard history.** Press `Super+C` to open a Wofi picker powered by `cliphist`. It supports text history, image thumbnails, and previews for local video files copied through Nemo. Image thumbnails are generated with ImageMagick; video previews use FFmpeg. Text entries show readable previews, while other binary entries receive descriptive labels. Selecting an entry restores its content to the system clipboard so it can be pasted normally with `Ctrl+V`, where the target application supports that content type. Clipboard capture uses `wl-paste` watchers for text, images, and Nemo's `x-special/gnome-copied-files` format.
+- **Visual clipboard history.** Press `Super` + `C` to open a Wofi picker powered by `cliphist`. It supports text history, image thumbnails, and previews for local video files copied through Nautilus. Image thumbnails are generated with ImageMagick; video previews use FFmpeg.
 - **Screenshots** use `grim` and `slurp`, save timestamped PNGs in `~/Pictures/Screenshots/`, copy the image to the clipboard with `wl-copy`, and show a short notification.
-- **Screen recording** uses `wf-recorder`, saves timestamped MP4s in `~/Videos/Recordings/`, and can record either the full screen or a selected area. Triggering the recording shortcut again sends an interrupt to stop an active recording.
+- **Screen recording** uses `wf-recorder`, saves timestamped MP4s in `~/Videos/Recordings/`, and can record either the full screen or a selected area.
 - **Power profile switching** cycles between `performance`, `balanced`, and `power-saver` through `tlpctl`; Waybar shows the current profile.
 - **Audio and display controls** are bound to hardware keys for volume, microphone mute, and brightness. `playerctl` handles media playback.
 - **Locking and idle behavior** use Hyprlock and Hypridle. The lock helper captures and blurs a background image before starting Hyprlock.
-- **Wallpaper and session startup** use `awww`, launch Waybar and Dunst, start Hypridle and the polkit agent, and start configured applications and clipboard watchers. The Wofi wallpaper picker and `set-wallpaper.sh` apply wallpapers separately; Matugen regenerates the shared palette and configured templates. Restart an affected application if it does not pick up newly generated colours.
+- **Wallpaper and session startup** use `awww`, launch Waybar and Dunst, start Hypridle and the polkit agent, and start configured applications and clipboard watchers.
 - **Window rules** handle special cases for the OpenGL learning window, Lutris, network settings, audio controls, PolyMC, `hyprland-run`, and XWayland dragging/maximize behavior.
 - **Explicit compositor permissions** are enabled; the configuration grants screencopy access to the capture and lock tools and plugin permission to `hyprpm`.
 
 ### Components
 
-| Component | Role in this setup |
-|---|---|
-| [Hyprland](https://hyprland.org/) | Wayland compositor and window manager |
-| [Waybar](https://github.com/Alexays/Waybar) | Status bar and system modules |
-| [Dunst](https://github.com/dunst-project/dunst) | Lightweight notification daemon |
-| [Matugen](https://github.com/InioX/matugen) | Generates wallpaper-derived colors for the desktop |
-| [Adw-gtk3](https://github.com/lassekongo83/adw-gtk3) | GTK theme with Matugen color overrides |
-| [Wofi](https://hg.sr.ht/~scoopta/wofi) | Application launcher and visual clipboard-history picker |
-| [Kitty](https://sw.kovidgoyal.net/kitty/) | Terminal |
-| [Nemo](https://github.com/linuxmint/nemo) | File manager |
-| [Zathura](https://pwmt.org/projects/zathura/) | PDF viewer |
-| [grim](https://github.com/emersion/grim) and [slurp](https://github.com/emersion/slurp) | Screenshot and area selection |
-| [wf-recorder](https://github.com/ammen99/wf-recorder) | Screen recording |
-| [cliphist](https://github.com/sentriz/cliphist) and `wl-clipboard` | Clipboard history and clipboard access |
-| [Hyprlock](https://github.com/hyprwm/hyprlock) and [Hypridle](https://github.com/hyprwm/hypridle) | Lock screen and idle management |
-| [awww](https://github.com/0x46d/awww) | Wallpaper rendering |
-| [Neovim](https://neovim.io/) | Editor; its configuration is maintained in [a separate repository](https://github.com/yahia098/nvim.dots) |
+| Component                                                                                         | Role in this setup                                                                                        |
+| ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| [Hyprland](https://hyprland.org/)                                                                 | Wayland compositor and window manager                                                                     |
+| [Waybar](https://github.com/Alexays/Waybar)                                                       | Status bar and system modules                                                                             |
+| [Dunst](https://github.com/dunst-project/dunst)                                                   | Lightweight notification daemon                                                                           |
+| [Matugen](https://github.com/InioX/matugen)                                                       | Generates wallpaper-derived colours for the desktop                                                       |
+| [Adw-gtk3](https://github.com/lassekongo83/adw-gtk3)                                              | GTK theme with Matugen colour overrides                                                                   |
+| [Wofi](https://hg.sr.ht/~scoopta/wofi)                                                            | Application launcher and visual clipboard-history picker                                                  |
+| [Kitty](https://sw.kovidgoyal.net/kitty/)                                                         | Terminal                                                                                                  |
+| [Nautilus](https://apps.gnome.org/Nautilus/)                                                      | File manager                                                                                              |
+| [Evince](https://apps.gnome.org/Evince/)                                                          | PDF viewer                                                                                                |
+| [grim](https://github.com/emersion/grim) and [slurp](https://github.com/emersion/slurp)           | Screenshot and area selection                                                                             |
+| [wf-recorder](https://github.com/ammen99/wf-recorder)                                             | Screen recording                                                                                          |
+| [cliphist](https://github.com/sentriz/cliphist) and `wl-clipboard`                                | Clipboard history and clipboard access                                                                    |
+| [Hyprlock](https://github.com/hyprwm/hyprlock) and [Hypridle](https://github.com/hyprwm/hypridle) | Lock screen and idle management                                                                           |
+| [awww](https://github.com/0x46d/awww)                                                             | Wallpaper rendering                                                                                       |
+| [Neovim](https://neovim.io/)                                                                      | Editor; its configuration is maintained in [a separate repository](https://github.com/yahia098/nvim.dots) |
 
-Additional app bindings and autostart commands refer to Zen Browser, `helixnotes`, Discord, Telegram, Lutris, Vesktop, Whatsie, and other machine-specific helpers. Those applications are not all required to use Hyprland itself; install or change the ones you want.
+Additional app bindings and autostart commands refer to Helix Notes, Telegram, Vesktop, Whatsie, Lutris, and other machine-specific helpers. These applications are not all required to use Hyprland itself.
 
 ## Keybindings
 
-The main modifier is **`Super`** (the Windows key). These are the bindings in the current Lua configuration. A binding that launches an application or script only works when that command is installed and available.
+The main modifier is **`Super`** (the Windows key). These are the bindings documented for the current Lua configuration. A binding that launches an application or script only works when that command is installed and available.
 
 ### Applications and session
 
-| Shortcut | Action |
-|---|---|
-| `Super` + `Enter` | Open Kitty terminal |
-| `Super` + `Space` | Open the Wofi application launcher |
-| `Super` + `B` | Open Zen Browser |
-| `Super` + `E` | Open Nemo file manager |
-| `Super` + `N` | Open `helixnotes` |
-| `Super` + `Z` | Open Zathura PDF viewer |
-| `Super` + `D` | Open Discord |
-| `Super` + `T` | Open Telegram |
-| `Super` + `W` | Open Whatsie |
-| `Super` + `Shift` + `L` | Open Lutris |
-| `Super` + `Esc` | Open the custom power menu |
-| `Super` + `L` | Lock the screen using the custom lock script |
-| `Super` + `Shift` + `Q` | Close the active window |
-| `Super` + `A` | Cycle the configured power profile |
-| `Super` + `C` | Open visual clipboard history; restore the selected entry to the clipboard |
-| `Super` + `Shift` + `Space` | Cycle keyboard layouts using the layout-toggle script |
+| Shortcut                    | Action                                                                     |
+| --------------------------- | -------------------------------------------------------------------------- |
+| `Super` + `Enter`           | Open Kitty terminal                                                        |
+| `Super` + `Space`           | Open the Wofi application launcher                                         |
+| `Super` + `B`               | Open the configured browser, if installed                                  |
+| `Super` + `E`               | Open Nautilus file manager                                                 |
+| `Super` + `N`               | Open Helix Notes                                                           |
+| `Super` + `Z`               | Open Evince PDF viewer                                                     |
+| `Super` + `D`               | Open Vesktop                                                               |
+| `Super` + `T`               | Open Telegram                                                              |
+| `Super` + `W`               | Open Whatsie                                                               |
+| `Super` + `Shift` + `L`     | Open Lutris                                                                |
+| `Super` + `Esc`             | Open the custom power menu                                                 |
+| `Super` + `L`               | Lock the screen using the custom lock script                               |
+| `Super` + `Shift` + `Q`     | Close the active window                                                    |
+| `Super` + `A`               | Cycle the configured power profile                                         |
+| `Super` + `C`               | Open visual clipboard history; restore the selected entry to the clipboard |
+| `Super` + `Shift` + `Space` | Cycle keyboard layouts using the layout-toggle script                      |
 
 ### Windows and layout
 
-| Shortcut | Action |
-|---|---|
-| `Super` + arrow keys | Focus a window in that direction |
-| `Super` + `Shift` + arrow keys | Move the active window: floating windows move by 15-pixel increments; tiled windows move directionally |
-| `Super` + `V` | Toggle floating mode for the active window |
-| `Super` + `F` | Toggle fullscreen |
-| `Super` + `P` | Toggle pseudo-tiling in the Dwindle layout |
-| `Super` + `J` | Toggle the Dwindle split direction |
-| `Super` + `R` | Enter the resize submap |
-| `Super` + `S` | Toggle the `magic` special workspace |
-| `Super` + `Shift` + `S` | Move the active window to the `magic` special workspace |
-| `Super` + mouse wheel | Cycle through workspaces |
-| `Super` + left mouse button + drag | Move a window |
-| `Super` + right mouse button + drag | Resize a window |
+| Shortcut                            | Action                                                                                                 |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `Super` + arrow keys                | Focus a window in that direction                                                                       |
+| `Super` + `Shift` + arrow keys      | Move the active window: floating windows move by 15-pixel increments; tiled windows move directionally |
+| `Super` + `V`                       | Toggle floating mode for the active window                                                             |
+| `Super` + `F`                       | Toggle fullscreen                                                                                      |
+| `Super` + `R`                       | Enter the resize submap                                                                                |
+| `Super` + `S`                       | Toggle the `magic` special workspace                                                                   |
+| `Super` + `Shift` + `S`             | Move the active window to the `magic` special workspace                                                |
+| `Super` + mouse wheel               | Cycle through workspaces                                                                               |
+| `Super` + left mouse button + drag  | Move a window                                                                                          |
+| `Super` + right mouse button + drag | Resize a window                                                                                        |
 
 ### Workspaces
 
-| Shortcut | Action |
-|---|---|
-| `Super` + `1` … `9` | Focus workspace 1–9 |
-| `Super` + `0` | Focus workspace 10 |
+| Shortcut                      | Action                                  |
+| ----------------------------- | --------------------------------------- |
+| `Super` + `1` … `9`           | Focus workspace 1–9                     |
+| `Super` + `0`                 | Focus workspace 10                      |
 | `Super` + `Shift` + `1` … `9` | Move the active window to workspace 1–9 |
-| `Super` + `Shift` + `0` | Move the active window to workspace 10 |
+| `Super` + `Shift` + `0`       | Move the active window to workspace 10  |
 
 ### Resize submap
 
@@ -238,25 +260,25 @@ Waybar displays the active submap next to the workspace indicators, so the tempo
 
 ### Screenshots and recordings
 
-| Shortcut | Action |
-|---|---|
-| `Print` | Capture the full screen, save it, and copy it to the clipboard |
-| `Shift` + `Print` | Select and capture an area, save it, and copy it to the clipboard |
-| `Super` + `Print` | Start a full-screen recording; press again to stop |
-| `Super` + `Shift` + `Print` | Start an area recording; press again to stop |
+| Shortcut                    | Action                                                            |
+| --------------------------- | ----------------------------------------------------------------- |
+| `Print`                     | Capture the full screen, save it, and copy it to the clipboard    |
+| `Shift` + `Print`           | Select and capture an area, save it, and copy it to the clipboard |
+| `Super` + `Print`           | Start a full-screen recording; press again to stop                |
+| `Super` + `Shift` + `Print` | Start an area recording; press again to stop                      |
 
-Screenshots are saved in `~/Pictures/Screenshots/`. Recordings are saved in `~/Videos/Recordings/`. File names use timestamps. Area captures and recordings prompt for a region selection.
+Screenshots are saved in `~/Pictures/Screenshots/`. Recordings are saved in `~/Videos/Recordings/`. File names use timestamps.
 
 ### Hardware keys and input
 
-| Key | Action |
-|---|---|
-| Volume up / down | Change output volume |
-| Volume mute | Toggle output mute |
-| Microphone mute | Toggle the default audio input mute |
-| Brightness up / down | Change display brightness |
+| Key                                  | Action                               |
+| ------------------------------------ | ------------------------------------ |
+| Volume up / down                     | Change output volume                 |
+| Volume mute                          | Toggle output mute                   |
+| Microphone mute                      | Toggle the default audio input mute  |
+| Brightness up / down                 | Change display brightness            |
 | Media next / play / pause / previous | Control playback through `playerctl` |
-| Laptop lid switch | Suspend the system |
+| Laptop lid switch                    | Suspend the system                   |
 
 The configured keyboard layouts are **US English**, **Arabic**, and **Russian** (`us,ara,ru`). A three-finger horizontal touchpad swipe switches workspaces.
 
@@ -281,7 +303,7 @@ hypr-dotfiles/
 │   │   ├── config.jsonc
 │   │   ├── style.css
 │   │   └── scripts/
-│   └── zathura/                # Zathura settings
+│   └── zathura/                # Optional Zathura settings
 ├── assets/
 │   └── screenshots/            # Screenshots and showcase recording
 ├── .gitignore
@@ -289,7 +311,7 @@ hypr-dotfiles/
 └── README.md
 ```
 
-Generated colour files (including `gtk-3.0/colors.css`, `gtk-4.0/colors.css`, `theme/colors.css`, Matugen's Hyprland colour files, and `yazi/theme.toml`) may exist locally but are not source files tracked in Git. The tree is illustrative rather than a guarantee that every optional app directory is present in every checkout.
+Generated colour files (including `gtk-3.0/colors.css`, `gtk-4.0/colors.css`, `theme/colors.css`, Matugen's Hyprland colour files, and `yazi/theme.toml`) may exist locally but are not source files tracked in Git.
 
 This is a guide to the main paths, not a complete file listing. The repository also contains scripts and other configuration files beneath `.config/`.
 
@@ -309,15 +331,19 @@ Before linking or copying files, back up the matching directories under `~/.conf
 
 ### 3. Install the tools you plan to use
 
-This package list reflects my current Arch Linux workstation. It includes applications and development tools beyond what Hyprland itself needs, so review it before running—especially the kernel, NVIDIA driver, bootloader, firewall, and display-manager packages. Package versions are intentionally not pinned.
+This package list reflects my current Arch Linux workstation. It includes applications and development tools beyond what Hyprland itself needs, so review it before running—especially the kernel, NVIDIA driver, bootloader, firewall, and display-manager packages.
 
 #### Arch Linux repository packages
 
 ```bash
-sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils amd-ucode android-file-transfer android-tools awww base base-devel bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cmatrix cppcheck cups cups-pdf dosfstools efibootmgr efitools fastfetch fd ffmpeg ffmpegthumbnailer fuseiso fzf gamemode gamescope git github-cli glm gnome-disk-utility grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly gvfs-mtp hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit lib32-gamemode lib32-gcc-libs lib32-mangohud lib32-mesa lib32-mesa-utils lib32-nvidia-utils lib32-vulkan-icd-loader lib32-vulkan-mesa-layers lib32-vulkan-radeon libnotify libpaper libreoffice-fresh linux linux-firmware linux-headers lldb llvm dunst man-db man-pages mangohud matugen mesa nemo neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvidia-open nvidia-prime nvidia-utils nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler protontricks python python-black python-debugpy qbittorrent qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm sdl12-compat selene shellcheck simple-scan slurp smartmontools sof-firmware steam stylua system-config-printer telegram-desktop texinfo time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv vulkan-mesa-layers vulkan-radeon vulkan-tools waybar wf-recorder wine wine-gecko wine-mono winetricks wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland zathura zathura-pdf-mupdf zsh flatpak
+sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils amd-ucode android-file-transfer android-tools awww base base-devel bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cmatrix cppcheck cups cups-pdf dosfstools dunst efibootmgr efitools evince fastfetch fd ffmpeg ffmpegthumbnailer flatpak fuseiso fzf gamemode gamescope git github-cli glm gnome-disk-utility grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly gvfs-mtp hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit lib32-gamemode lib32-gcc-libs lib32-mangohud lib32-mesa lib32-mesa-utils lib32-nvidia-utils lib32-vkd3d lib32-vulkan-icd-loader lib32-vulkan-mesa-layers lib32-vulkan-radeon libnotify libpaper libreoffice-fresh linux linux-firmware linux-headers lldb llvm lutris man-db man-pages mangohud matugen mesa nautilus neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvidia-open nvidia-prime nvidia-utils nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler protontricks python-black python-debugpy qbittorrent qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm sdl12-compat selene shellcheck simple-scan slurp smartmontools sof-firmware steam stylua system-config-printer telegram-desktop time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv vkd3d vulkan-mesa-layers vulkan-radeon vulkan-tools waybar wf-recorder wine wine-gecko wine-mono winetricks wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland zathura zathura-pdf-mupdf zram-generator zsh
 ```
 
-The `nvidia-open` package is for compatible NVIDIA GPUs using Arch's standard `linux` kernel. This command also includes the Mesa/Vulkan packages used by the integrated Radeon GPU and 32-bit graphics libraries for gaming. The `lib32-*` packages require the `[multilib]` repository to be enabled in `/etc/pacman.conf`. If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
+The `nvidia-open` package is for compatible NVIDIA GPUs using Arch's standard `linux` kernel. This command also includes the Mesa/Vulkan packages used by the integrated Radeon GPU and 32-bit graphics libraries for gaming.
+
+The `lib32-*` packages require the `[multilib]` repository to be enabled in `/etc/pacman.conf`.
+
+If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
 
 #### AUR packages
 
@@ -327,10 +353,10 @@ Install an AUR helper first if you do not already have one. The following bootst
 git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si
 ```
 
-Then install the AUR applications used by the desktop setup:
+Install the AUR applications used by the desktop setup:
 
 ```bash
-yay -S --needed bm-sidebar helixnotes-bin nm-sidebar papirus-folders pipewire-control-center vesktop-bin zen-browser-bin
+yay -S --needed bm-sidebar eww helixnotes-bin nm-sidebar papirus-folders pipewire-control-center vesktop
 ```
 
 These additional AUR packages are part of my wider workstation, but are optional for the Hyprland configuration itself:
@@ -339,7 +365,9 @@ These additional AUR packages are part of my wider workstation, but are optional
 yay -S --needed catt cnrdrvcups-ufr2-uk esp-idf localsend
 ```
 
-The `*-debug` packages are not needed for normal use. AUR packages are community-maintained; inspect their build files and review updates before installing them. See the [ArchWiki AUR guide](https://wiki.archlinux.org/title/Arch_User_Repository).
+The `yay-debug` package is not needed for normal use. AUR packages are community-maintained; inspect their build files and review updates before installing them.
+
+See the [ArchWiki AUR guide](https://wiki.archlinux.org/title/Arch_User_Repository).
 
 #### Whatsie through Flatpak
 
@@ -353,31 +381,49 @@ See [Whatsie on Flathub](https://flathub.org/en/apps/com.ktechpit.whatsie).
 
 #### Clipboard-history dependencies
 
-The visual clipboard picker uses **Wofi**, `cliphist`, and `wl-clipboard`. Image thumbnails are generated with ImageMagick; local video-file thumbnails use FFmpeg. Python parses file URIs copied from Nemo. The autostart configuration must run clipboard watchers for all three relevant formats:
+The visual clipboard picker uses **Wofi**, `cliphist`, and `wl-clipboard`.
 
 - `text` — ordinary text copied to the clipboard.
 - `image` — copied images.
-- `x-special/gnome-copied-files` — file selections copied in Nemo, including local video files.
+- `x-special/gnome-copied-files` — file selections copied in Nautilus, including local video files.
+
+Image thumbnails are generated with ImageMagick; local video-file thumbnails use FFmpeg. Python parses file URIs copied from Nautilus.
 
 Wofi is also the application launcher. Fuzzel is not used by the current clipboard picker.
 
 ### Matugen output files and Papirus permissions
 
-The generated colour files are deliberately not committed. After deploying the source configuration, run the wallpaper picker once to generate them. Keep `.config/matugen/config.toml` and the files under `.config/matugen/templates/` tracked; do not replace templates with their generated output files.
+The generated colour files are deliberately not committed. After deploying the source configuration, run the wallpaper picker once to generate them.
 
-If you use the automatic Papirus folder-colour hook, install `papirus-folders` and configure a narrow sudoers exception for the current login. Open the sudoers drop-in with `sudo visudo -f /etc/sudoers.d/papirus-folders` and add the following line after replacing `YOUR_USERNAME` with your login name:
+Keep `.config/matugen/config.toml` and the files under `.config/matugen/templates/` tracked; do not replace templates with their generated output files.
+
+If you use the automatic Papirus folder-colour hook, install `papirus-folders` and configure a narrow sudoers exception for the current login.
+
+Open the sudoers drop-in with:
+
+```bash
+sudo visudo -f /etc/sudoers.d/papirus-folders
+```
+
+Add the following line after replacing `YOUR_USERNAME` with your login name:
 
 ```sudoers
 YOUR_USERNAME ALL=(ALL) NOPASSWD: /usr/bin/papirus-folders
 ```
 
-Then set its permissions with `sudo chmod 440 /etc/sudoers.d/papirus-folders`. Do not grant passwordless sudo to all commands. The hook logs output to `~/.cache/hypr/papirus-folders.log`; if the colour change fails, inspect that log before changing the hook.
+Then set its permissions:
+
+```bash
+sudo chmod 440 /etc/sudoers.d/papirus-folders
+```
+
+Do not grant passwordless sudo to all commands. The hook logs output to `~/.cache/hypr/papirus-folders.log`; if the colour change fails, inspect that log before changing the hook.
 
 ### 4. Review hardware- and machine-specific settings
 
 - `.config/hypr/modules/monitors.lua` defines `eDP-1` at `1920x1080@144`, scale `1`. Change it for your own monitor if needed.
 - `.config/hypr/modules/autostart-env.lua` sets Wayland/desktop environment variables and includes NVIDIA-specific values. Review those if your GPU or driver setup differs.
-- Autostart includes Telegram, Vesktop, Whatsie, Waybar, Dunst, Hypridle, `awww-daemon`, the polkit agent, and clipboard watchers. Disable any application launch you do not want. The Wofi wallpaper picker is launched separately.
+- Autostart includes Telegram, Vesktop, Whatsie, Waybar, Dunst, Hypridle, `awww-daemon`, the polkit agent, and clipboard watchers. Disable any application launch you do not want.
 - The wallpaper picker reads image files from `~/.config/wallpapers/`. Keep your wallpaper images there, or update the picker path if you store them elsewhere.
 - The lid-switch binding suspends the system. Change it if that is not the behavior you want.
 - Permission changes in `permissions.lua` require restarting Hyprland.
@@ -386,7 +432,9 @@ For version-specific behavior, consult the [Hyprland wiki](https://wiki.hypr.lan
 
 ## Neovim
 
-Neovim is maintained separately in [yahia098/nvim.dots](https://github.com/yahia098/nvim.dots). This repository documents the Hyprland desktop configuration; manage and update the Neovim configuration in its own repository rather than copying generated Neovim colour output into this one.
+Neovim is maintained separately in [yahia098/nvim.dots](https://github.com/yahia098/nvim.dots).
+
+This repository documents the Hyprland desktop configuration; manage and update the Neovim configuration in its own repository rather than copying generated Neovim colour output into this one.
 
 ## AI assistance and ownership
 
