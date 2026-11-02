@@ -27,8 +27,6 @@ hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("com.ktechpit.whatsie"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("$HOME/.config/hypr/scripts/cliphist-wofi-img.sh"))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("lutris"))
 hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-layout.sh"))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
