@@ -197,6 +197,7 @@ Dunst is the active notification daemon. Matugen writes its configuration from `
 | [cliphist](https://github.com/sentriz/cliphist) and `wl-clipboard`                                | Clipboard history and clipboard access                                                                    |
 | [Hyprlock](https://github.com/hyprwm/hyprlock) and [Hypridle](https://github.com/hyprwm/hypridle) | Lock screen and idle management                                                                           |
 | [awww](https://github.com/0x46d/awww)                                                             | Wallpaper rendering                                                                                       |
+| [Yazi](https://yazi-rs.github.io/) | Terminal file manager, themed by Matugen |
 | [Neovim](https://neovim.io/)                                                                      | Editor; its configuration is maintained in [a separate repository](https://github.com/yahia098/nvim.dots) |
 
 Additional app bindings and autostart commands refer to Helix Notes, Telegram, Vesktop, Whatsie, Lutris, and other machine-specific helpers. These applications are not all required to use Hyprland itself.
@@ -331,19 +332,43 @@ Before linking or copying files, back up the matching directories under `~/.conf
 
 ### 3. Install the tools you plan to use
 
-This package list reflects my current Arch Linux workstation. It includes applications and development tools beyond what Hyprland itself needs, so review it before running—especially the kernel, NVIDIA driver, bootloader, firewall, and display-manager packages.
+The package lists below reflect my current Arch Linux workstation. They include applications and development tools beyond what Hyprland itself needs, so review them before running—especially the kernel, GPU driver, bootloader, firewall, and display-manager packages.
 
 #### Arch Linux repository packages
 
+The repository packages are split into core packages, NVIDIA drivers, AMD packages, and gaming packages so you can install only the groups that match your hardware.
+
+**Core desktop, tools, and development packages**
+
 ```bash
-sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils amd-ucode android-file-transfer android-tools awww base base-devel bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cmatrix cppcheck cups cups-pdf dosfstools dunst efibootmgr efitools evince fastfetch fd ffmpeg ffmpegthumbnailer flatpak fuseiso fzf gamemode gamescope git github-cli glm gnome-disk-utility grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly gvfs-mtp hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit lib32-gamemode lib32-gcc-libs lib32-mangohud lib32-mesa lib32-mesa-utils lib32-nvidia-utils lib32-vkd3d lib32-vulkan-icd-loader lib32-vulkan-mesa-layers lib32-vulkan-radeon libnotify libpaper libreoffice-fresh linux linux-firmware linux-headers lldb llvm lutris man-db man-pages mangohud matugen mesa nautilus neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvidia-open nvidia-prime nvidia-utils nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler protontricks python-black python-debugpy qbittorrent qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm sdl12-compat selene shellcheck simple-scan slurp smartmontools sof-firmware steam stylua system-config-printer telegram-desktop time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv vkd3d vulkan-mesa-layers vulkan-radeon vulkan-tools waybar wf-recorder wine wine-gecko wine-mono winetricks wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland zathura zathura-pdf-mupdf zram-generator zsh
+sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils android-file-transfer android-tools arch-install-scripts awww base base-devel bash-completion bat bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cloc cmatrix cppcheck cups cups-pdf deluge-gtk dosfstools dunst efibootmgr efitools evince eza fastfetch fd ffmpeg ffmpegthumbnailer flatpak fuseiso fzf git github-cli glm grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit libnotify libpaper libreoffice-fresh librewolf linux linux-firmware linux-headers lldb llvm lsd man-db man-pages matugen nautilus neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler python-black python-debugpy qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm selene shellcheck slurp smartmontools sof-firmware starship stylua system-config-printer telegram-desktop time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv waybar wf-recorder wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland yazi zathura zathura-pdf-mupdf zram-generator zsh
 ```
 
-The `nvidia-open` package is for compatible NVIDIA GPUs using Arch's standard `linux` kernel. This command also includes the Mesa/Vulkan packages used by the integrated Radeon GPU and 32-bit graphics libraries for gaming.
+**NVIDIA driver packages**
+
+```bash
+sudo pacman -S --needed nvidia-open nvidia-prime nvidia-utils lib32-nvidia-utils
+```
+
+`nvidia-open` is for compatible NVIDIA GPUs (Turing and newer) using Arch's standard `linux` kernel. `nvidia-prime` provides `prime-run` for offloading applications to the NVIDIA GPU on hybrid-graphics laptops. If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
+
+**AMD packages**
+
+```bash
+sudo pacman -S --needed amd-ucode mesa vulkan-radeon vulkan-mesa-layers lib32-mesa lib32-mesa-utils lib32-vulkan-radeon lib32-vulkan-mesa-layers
+```
+
+These cover the AMD CPU microcode (`amd-ucode`) and the open-source Mesa/Radeon Vulkan stack used by the integrated Radeon GPU, including 32-bit libraries.
+
+**Gaming packages**
+
+```bash
+sudo pacman -S --needed gamemode gamescope lib32-gamemode lib32-gcc-libs lib32-mangohud mangohud lib32-vkd3d vkd3d lib32-vulkan-icd-loader vulkan-tools lutris protontricks steam wine wine-gecko wine-mono winetricks sdl12-compat
+```
+
+This group contains Steam, Lutris, Wine and its helpers, Proton tooling, GameMode, Gamescope, MangoHud, VKD3D, and the Vulkan tools. 32-bit libraries are included for Steam and Wine games.
 
 The `lib32-*` packages require the `[multilib]` repository to be enabled in `/etc/pacman.conf`.
-
-If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
 
 #### AUR packages
 
@@ -356,16 +381,22 @@ git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -
 Install the AUR applications used by the desktop setup:
 
 ```bash
-yay -S --needed bm-sidebar eww helixnotes-bin nm-sidebar papirus-folders pipewire-control-center vesktop
+yay -S --needed blesh bm-sidebar eww helixnotes-bin nm-sidebar papirus-folders-git pipewire-control-center vesktop
 ```
 
 These additional AUR packages are part of my wider workstation, but are optional for the Hyprland configuration itself:
 
 ```bash
-yay -S --needed catt cnrdrvcups-ufr2-uk esp-idf localsend
+yay -S --needed esp-idf
 ```
 
-The `yay-debug` package is not needed for normal use. AUR packages are community-maintained; inspect their build files and review updates before installing them.
+AUR gaming package (DXVK, the Direct3D-to-Vulkan layer used with Wine and Proton):
+
+```bash
+yay -S --needed dxvk-bin
+```
+
+The `yay-debug` package (installed alongside `yay`) is not needed for normal use. AUR packages are community-maintained; inspect their build files and review updates before installing them.
 
 See the [ArchWiki AUR guide](https://wiki.archlinux.org/title/Arch_User_Repository).
 
@@ -397,7 +428,7 @@ The generated colour files are deliberately not committed. After deploying the s
 
 Keep `.config/matugen/config.toml` and the files under `.config/matugen/templates/` tracked; do not replace templates with their generated output files.
 
-If you use the automatic Papirus folder-colour hook, install `papirus-folders` and configure a narrow sudoers exception for the current login.
+If you use the automatic Papirus folder-colour hook, install `papirus-folders-git` and configure a narrow sudoers exception for the current login.
 
 Open the sudoers drop-in with:
 
@@ -438,7 +469,7 @@ This repository documents the Hyprland desktop configuration; manage and update 
 
 ## AI assistance and ownership
 
-I built and maintain this configuration while learning how to customize my Linux desktop. I used documentation, videos, experimentation, and debugging to learn Lua, Bash, JSON, and CSS. I also used ChatGPT to explain concepts, debug issues, and generate some Bash boilerplate.
+I built and maintain this configuration while learning how to customize my Linux desktop. I used documentation, videos, experimentation, and debugging to learn Lua, Bash, JSON, and CSS. I also used ChatGPT and Claude to explain concepts, debug issues, generate some Bash boilerplate, and help write and update this README.
 
 The overall design, configuration choices, and final implementation are mine. I use this setup for university and personal projects, and I continue to change it by understanding the configuration rather than blindly accepting generated changes.
 
