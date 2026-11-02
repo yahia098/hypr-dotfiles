@@ -28,5 +28,5 @@ case "$choice" in
         "$HOME/.config/hypr/scripts/wallpaper.sh"
         ;;
     "󰩡 Displays")
-      "$HOME/.config/hypr/scripts/displays.sh.sh"
+      "$HOME/.config/hypr/scripts/displays.sh"
         esac
