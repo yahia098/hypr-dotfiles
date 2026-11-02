@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 choice=$(
-    printf " Shutdown\n󰜉 Reboot\n󰌾 Lock\n󰤄 Suspend\n Logout\n󰑓 Reload Hyprland\n󰸉 Change wallpaper\n󰩡 Change screen freq" |
+    printf " Shutdown\n󰜉 Reboot\n󰌾 Lock\n󰤄 Suspend\n Logout\n󰑓 Reload Hyprland\n󰸉 Change wallpaper\n󰩡 Displays" |
     wofi --dmenu --prompt "Power"
 )
 
@@ -27,6 +27,6 @@ case "$choice" in
     "󰸉 Change wallpaper")
         "$HOME/.config/hypr/scripts/wallpaper.sh"
         ;;
-    "󰩡 Change screen freq")
-      "$HOME/.config/hypr/scripts/screen-freq.sh"
+    "󰩡 Displays")
+      "$HOME/.config/hypr/scripts/displays.sh.sh"
         esac
