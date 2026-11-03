@@ -76,7 +76,11 @@ hl.window_rule({
 	size = { 720, 500 },
 	float = true,
 })
-
+hl.window_rule({
+	name = "windows floating",
+	match = { class = "steam_class_default" },
+	float = true,
+})
 hl.window_rule({
 	name = "PolyMC floating",
 	match = { class = "org.polymc.PolyMC" },

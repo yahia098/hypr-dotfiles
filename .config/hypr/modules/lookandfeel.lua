@@ -9,9 +9,10 @@
 local colors = dofile(os.getenv("HOME") .. "/.config/hypr/lua/matugen-colors.lua")
 
 local spacing = {
-	gaps_in = 2,
-	gaps_out = 0,
-	border_size = 0,
+	gaps_in = 5,
+	gaps_out = 10,
+	border_size = 2,
+	rounding = 14,
 }
 
 local speed = {
@@ -36,7 +37,8 @@ hl.config({
 		col = {
 			active_border = {
 				colors = {
-					colors.surface_container,
+					colors.primary,
+					colors.tertiary,
 					colors.primary,
 				},
 				angle = 45,
@@ -45,31 +47,33 @@ hl.config({
 			inactive_border = colors.surface_container_low,
 		},
 
-		resize_on_border = false,
+		resize_on_border = true,
 		allow_tearing = false,
 
 		layout = "master",
 	},
 
 	decoration = {
-		rounding = 0,
-		rounding_power = 1.00,
+		rounding = spacing.rounding,
+		rounding_power = 4.0, -- squircle corners; use 2.0 for plain circular arcs
 
 		active_opacity = 1.0,
-		inactive_opacity = 0.95,
+		inactive_opacity = 0.94,
 
 		shadow = {
 			enabled = true,
-			range = 3,
-			render_power = 2,
+			range = 24,
+			render_power = 3,
 			color = colors.shadow,
 		},
 
 		blur = {
 			enabled = true,
-			size = 1,
-			passes = 1,
-			vibrancy = 0,
+			size = 8,
+			passes = 3, -- drop to 2 if you notice GPU lag
+			vibrancy = 0.17,
+			noise = 0.015,
+			new_optimizations = true,
 		},
 	},
 
@@ -129,6 +133,20 @@ hl.curve("easy", {
 	dampening = 15.8273644,
 })
 
+hl.curve("snappy", {
+	type = "spring",
+	mass = 1,
+	stiffness = 220,
+	dampening = 22,
+})
+
+hl.curve("bouncy", {
+	type = "spring",
+	mass = 1,
+	stiffness = 140,
+	dampening = 13, -- under-damped: slight overshoot on open
+})
+
 ------------------------------------------------------------
 -- Animations
 ------------------------------------------------------------
@@ -140,6 +158,7 @@ hl.animation({
 	bezier = "default",
 })
 
+-- Borders
 hl.animation({
 	leaf = "border",
 	enabled = true,
@@ -148,28 +167,45 @@ hl.animation({
 })
 
 hl.animation({
+	leaf = "borderangle",
+	enabled = true,
+	speed = 60,
+	bezier = "linear",
+	style = "loop", -- slowly rotating gradient border
+})
+
+-- Windows
+hl.animation({
 	leaf = "windows",
 	enabled = true,
 	speed = speed.smooth,
-	spring = "easy",
+	spring = "snappy",
 })
 
 hl.animation({
 	leaf = "windowsIn",
 	enabled = true,
 	speed = speed.smooth,
-	spring = "easy",
-	style = "popin 90%",
+	spring = "bouncy",
+	style = "popin 80%",
 })
 
 hl.animation({
 	leaf = "windowsOut",
 	enabled = true,
 	speed = speed.fast,
-	bezier = "linear",
-	style = "popin 90%",
+	bezier = "quick",
+	style = "popin 85%",
 })
 
+hl.animation({
+	leaf = "windowsMove",
+	enabled = true,
+	speed = speed.smooth,
+	spring = "snappy",
+})
+
+-- Fades
 hl.animation({
 	leaf = "fadeIn",
 	enabled = true,
@@ -191,6 +227,7 @@ hl.animation({
 	bezier = "quick",
 })
 
+-- Layers
 hl.animation({
 	leaf = "layers",
 	enabled = true,
@@ -202,15 +239,15 @@ hl.animation({
 	leaf = "layersIn",
 	enabled = true,
 	speed = speed.normal,
-	bezier = "easeOutQuint",
-	style = "fade",
+	spring = "snappy",
+	style = "popin 92%",
 })
 
 hl.animation({
 	leaf = "layersOut",
 	enabled = true,
 	speed = speed.fast,
-	bezier = "linear",
+	bezier = "quick",
 	style = "fade",
 })
 
@@ -228,30 +265,32 @@ hl.animation({
 	bezier = "almostLinear",
 })
 
+-- Workspaces
 hl.animation({
 	leaf = "workspaces",
 	enabled = true,
-	speed = speed.fast,
-	bezier = "almostLinear",
-	style = "fade",
+	speed = speed.smooth,
+	spring = "snappy",
+	style = "slide",
 })
 
 hl.animation({
 	leaf = "workspacesIn",
 	enabled = true,
-	speed = speed.fast,
-	bezier = "almostLinear",
-	style = "fade",
+	speed = speed.smooth,
+	spring = "snappy",
+	style = "slide",
 })
 
 hl.animation({
 	leaf = "workspacesOut",
 	enabled = true,
-	speed = speed.fast,
-	bezier = "almostLinear",
-	style = "fade",
+	speed = speed.smooth,
+	spring = "snappy",
+	style = "slide",
 })
 
+-- Zoom
 hl.animation({
 	leaf = "zoomFactor",
 	enabled = true,
@@ -271,7 +310,8 @@ hl.config({
 
 hl.config({
 	master = {
-		new_status = "master",
+		new_status = "slave", -- first window stays master; new windows go to the stack
+		new_on_top = false, -- new slaves are added at the bottom of the stack
 	},
 })
 
