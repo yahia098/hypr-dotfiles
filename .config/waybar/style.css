@@ -20,15 +20,17 @@
  * Bar
  * =========================== */
 
-/* The outer window stays fully transparent so the rounded corners
- * show the wallpaper instead of a black rectangle */
+/* The outer window stays transparent so rounded corners
+ * show the wallpaper instead of a black rectangle. */
+
 window#waybar {
   background: transparent;
   border: none;
   color: @on_surface;
 }
 
-/* The visible bar is the inner box */
+/* Visible bar */
+
 window#waybar > box {
   background: @surface;
   border: 2px solid @surface_container;
@@ -87,6 +89,7 @@ window#waybar > box {
 #network,
 #bluetooth,
 #pulseaudio,
+#wireplumber,
 #battery,
 #clock,
 #tray,
@@ -104,12 +107,22 @@ window#waybar > box {
 #network:hover,
 #bluetooth:hover,
 #pulseaudio:hover,
+#wireplumber:hover,
 #battery:hover,
 #clock:hover,
 #tray:hover,
 #custom-keyboard:hover,
 #custom-tlp:hover {
   background: @surface_container_low;
+}
+
+/* ===========================
+ * Microphone
+ * =========================== */
+
+#wireplumber.microphone.muted {
+  color: @error;
+  font-weight: bold;
 }
 
 /* ===========================

@@ -120,8 +120,70 @@ local function smart_move(dx, dy, direction)
 		end
 	end
 end
-
+--moving
 hl.bind(mainMod .. " + SHIFT + left", smart_move(-15, 0, "left"), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + right", smart_move(15, 0, "right"), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + up", smart_move(0, -15, "up"), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + down", smart_move(0, 15, "down"), { repeating = true })
+
+--floating hide
+local floating_workspaces = {
+	[1] = "special:floating-1",
+	[2] = "special:floating-2",
+	[3] = "special:floating-3",
+	[4] = "special:floating-4",
+	[5] = "special:floating-5",
+}
+
+local function move_windows(windows, destination)
+	for _, window in ipairs(windows) do
+		local action = hl.dsp.window.move({
+			window = window,
+			workspace = destination,
+			follow = false,
+		})
+
+		hl.dispatch(action)
+	end
+end
+
+hl.bind("SUPER + Tab", function()
+	local workspace = hl.get_active_workspace()
+
+	if not workspace then
+		return
+	end
+
+	local special_name = floating_workspaces[workspace.id]
+
+	if not special_name then
+		return
+	end
+
+	local special_workspace = hl.get_workspace(special_name)
+
+	if special_workspace then
+		local parked_windows = hl.get_windows({
+			workspace = special_workspace,
+		})
+
+		if #parked_windows > 0 then
+			move_windows(parked_windows, workspace)
+			return
+		end
+	end
+
+	local windows = hl.get_windows({
+		workspace = workspace,
+	})
+
+	local floating = {}
+
+	for _, window in ipairs(windows) do
+		if window.floating then
+			table.insert(floating, window)
+		end
+	end
+
+	move_windows(floating, special_name)
+end)

@@ -55,10 +55,14 @@ hl.config({
 
 	decoration = {
 		rounding = spacing.rounding,
-		rounding_power = 4.0, -- squircle corners; use 2.0 for plain circular arcs
+		rounding_power = 4.0,
 
 		active_opacity = 1.0,
 		inactive_opacity = 0.94,
+
+		dim_inactive = true,
+		dim_strength = 0.12,
+		dim_special = 0.22,
 
 		shadow = {
 			enabled = true,
@@ -67,13 +71,38 @@ hl.config({
 			color = colors.shadow,
 		},
 
+		glow = {
+			enabled = false,
+			color = colors.primary,
+			range = 6,
+			render_power = 3,
+		},
+
 		blur = {
 			enabled = true,
 			size = 8,
-			passes = 3, -- drop to 2 if you notice GPU lag
+			passes = 2,
+
 			vibrancy = 0.17,
 			noise = 0.015,
+
 			new_optimizations = true,
+			xray = true,
+
+			popups = true,
+			popups_ignorealpha = 0.2,
+
+			special = false,
+			variant = "kawase",
+		},
+
+		wobble = {
+			enabled = true,
+			mesh = 12,
+			stiffness = 220,
+			damping = 18,
+			mass = 1,
+			intensity = 0.08,
 		},
 	},
 
@@ -130,21 +159,21 @@ hl.curve("easy", {
 	type = "spring",
 	mass = 1,
 	stiffness = 71.2633,
-	dampening = 15.8273644,
+	damping = 15.8273644,
 })
 
 hl.curve("snappy", {
 	type = "spring",
 	mass = 1,
 	stiffness = 220,
-	dampening = 22,
+	damping = 22,
 })
 
 hl.curve("bouncy", {
 	type = "spring",
 	mass = 1,
 	stiffness = 140,
-	dampening = 13, -- under-damped: slight overshoot on open
+	damping = 13,
 })
 
 ------------------------------------------------------------
@@ -159,6 +188,7 @@ hl.animation({
 })
 
 -- Borders
+
 hl.animation({
 	leaf = "border",
 	enabled = true,
@@ -166,15 +196,17 @@ hl.animation({
 	bezier = "easeOutQuint",
 })
 
+-- Animate the gradient once instead of continuously.
 hl.animation({
 	leaf = "borderangle",
 	enabled = true,
-	speed = 60,
+	speed = speed.borders,
 	bezier = "linear",
-	style = "loop", -- slowly rotating gradient border
+	style = "once",
 })
 
 -- Windows
+
 hl.animation({
 	leaf = "windows",
 	enabled = true,
@@ -206,6 +238,7 @@ hl.animation({
 })
 
 -- Fades
+
 hl.animation({
 	leaf = "fadeIn",
 	enabled = true,
@@ -227,7 +260,22 @@ hl.animation({
 	bezier = "quick",
 })
 
+hl.animation({
+	leaf = "fadeSwitch",
+	enabled = true,
+	speed = speed.fast,
+	bezier = "almostLinear",
+})
+
+hl.animation({
+	leaf = "fadeDim",
+	enabled = true,
+	speed = speed.normal,
+	bezier = "easeOutQuint",
+})
+
 -- Layers
+
 hl.animation({
 	leaf = "layers",
 	enabled = true,
@@ -266,6 +314,7 @@ hl.animation({
 })
 
 -- Workspaces
+
 hl.animation({
 	leaf = "workspaces",
 	enabled = true,
@@ -290,7 +339,16 @@ hl.animation({
 	style = "slide",
 })
 
+hl.animation({
+	leaf = "specialWorkspace",
+	enabled = true,
+	speed = speed.smooth,
+	spring = "snappy",
+	style = "slidefade 12%",
+})
+
 -- Zoom
+
 hl.animation({
 	leaf = "zoomFactor",
 	enabled = true,
@@ -306,16 +364,12 @@ hl.config({
 	dwindle = {
 		preserve_split = true,
 	},
-})
 
-hl.config({
 	master = {
-		new_status = "slave", -- first window stays master; new windows go to the stack
-		new_on_top = false, -- new slaves are added at the bottom of the stack
+		new_status = "slave",
+		new_on_top = false,
 	},
-})
 
-hl.config({
 	scrolling = {
 		fullscreen_on_one_column = true,
 	},

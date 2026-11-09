@@ -4,21 +4,27 @@
   "margin-top": 10,
   "margin-left": 24,
   "margin-right": 24,
+
   "modules-left": ["hyprland/workspaces", "hyprland/submap"],
+
   "modules-center": ["hyprland/window"],
+
   "modules-right": [
     "custom/keyboard",
     "network",
     "bluetooth",
     "pulseaudio",
+    "wireplumber#microphone",
     "custom/tlp",
     "battery",
     "tray",
     "clock",
   ],
+
   "hyprland/window": {
     "max-length": 50,
   },
+
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
@@ -32,6 +38,7 @@
       "*": 5,
     },
   },
+
   "network": {
     "format-wifi": "\uf1eb ",
     "format-ethernet": "\udb80\ude00 Ethernet",
@@ -39,6 +46,7 @@
     "tooltip-format": "{essid}\n{ipaddr}\nSignal: {signalStrength}%",
     "on-click": "nm-sidebar --toggle",
   },
+
   "bluetooth": {
     "format": "\uf293",
     "format-disabled": "\udb80\udcb2",
@@ -47,13 +55,12 @@
     "tooltip-format-enumerate-connected": "{device_alias}",
     "on-click": "bm-sidebar",
   },
+
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-muted": "\udb81\udf5f",
     "format-bluetooth": "{icon} {volume}%",
     "format-bluetooth-muted": "\udb81\udf5f ",
-    "format-source": "\uf130 {volume}%",
-    "format-source-muted": "\uf131",
     "format-icons": {
       "headphone": "\uf025",
       "hands-free": "\uf025",
@@ -66,6 +73,18 @@
     "scroll-step": 5,
     "on-click": "pavucontrol",
   },
+
+  "wireplumber#microphone": {
+    "node-type": "Audio/Source",
+    "format": " {volume}%",
+    "format-muted": " MUTED",
+    "tooltip": true,
+    "tooltip-format": "{node_name}",
+    "scroll-step": 5,
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+  },
+
   "battery": {
     "format": "{capacity}% {icon}",
     "format-charging": "\uf0e7 {capacity}% {icon}",
@@ -75,6 +94,7 @@
       "critical": 15,
     },
   },
+
   "clock": {
     "format": "{:%H:%M}",
     "format-alt": "{:%A, %B %d, %Y (%R)}",
@@ -95,15 +115,18 @@
       },
     },
   },
+
   "tray": {
     "spacing": 8,
   },
+
   "custom/keyboard": {
     "exec": "~/.config/waybar/scripts/keyboard-layout.sh",
     "return-type": "json",
     "signal": 8,
     "on-click": "~/.config/hypr/scripts/toggle-layout.sh",
   },
+
   "custom/tlp": {
     "exec": "~/.config/waybar/scripts/power-profile-get.sh",
     "return-type": "json",
