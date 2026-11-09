@@ -8,20 +8,20 @@ My personal Hyprland desktop configuration for **Arch Linux**. I use it for ever
 
 ## Quick Start
 
-**Requirements:** Arch Linux, a working Hyprland session, Git, and the applications required by the modules you want to use.
+**Requirements:** Arch Linux, Git, Bash, and the applications required by the modules you want to use. Install the rice packages before starting a Hyprland session.
 
 ```bash
 git clone https://github.com/yahia098/hypr-dotfiles.git ~/hypr-dotfiles
 cd ~/hypr-dotfiles
 ```
 
-1. Back up your existing `~/.config` files.
-2. Review `.config/hypr/hyprland.lua` and its modules, especially monitor settings, startup commands, and hardware-specific options.
-3. Install the required dependencies listed in [Installation and setup](#installation-and-setup).
-4. Copy or symlink the configuration directories you need into `~/.config/`. Avoid replacing your entire configuration blindly.
-5. Reload Hyprland with `Super` + `Shift` + `R` if your configuration defines that binding, or restart your session.
+1. Review `.config/hypr/hyprland.lua` and its modules, especially monitor settings, startup commands, and hardware-specific options.
+2. Install the required dependencies listed in [Installation and setup](#installation-and-setup).
+3. Preview the deployment with `./deploy.sh --dry-run`.
+4. Deploy with `./deploy.sh`. It creates a timestamped backup before copying configuration files.
+5. Log out and select Hyprland from your display manager. After logging in, apply a wallpaper once so Matugen can generate local colour files.
 
-This repository is a personal configuration, not an automated installer. Review the scripts and paths before using them on your machine.
+The deployment script merges the repository's configuration into `~/.config`: files with matching names are replaced, but files not shipped by this repository are preserved. Review the scripts before using them on your machine.
 
 ## Showcase
 
@@ -318,154 +318,125 @@ This is a guide to the main paths, not a complete file listing. The repository a
 
 ## Installation and setup
 
-This configuration is written for **Arch Linux** and targets the machine and applications I use. It is not a self-contained installer. Review commands and settings before adopting it, especially if you already have a Hyprland setup.
+This configuration targets **Arch Linux**. The installers are intentionally split into four independent tasks; they do not install a general workstation package set.
 
 ### 1. Clone the repository
 
 ```sh
 git clone https://github.com/yahia098/hypr-dotfiles.git "$HOME/hypr-dotfiles"
+cd "$HOME/hypr-dotfiles"
 ```
 
-### 2. Back up existing configuration
-
-Before linking or copying files, back up the matching directories under `~/.config/`. Do not blindly replace your entire `.config` directory. Integrate the directories you want from the checkout—for example, `hypr`, `waybar`, and `theme`—and resolve any existing files or symlinks first.
-
-### 3. Install the tools you plan to use
-
-The package lists below reflect my current Arch Linux workstation. They include applications and development tools beyond what Hyprland itself needs, so review them before running—especially the kernel, GPU driver, bootloader, firewall, and display-manager packages.
-
-#### Arch Linux repository packages
-
-The repository packages are split into core packages, NVIDIA drivers, AMD packages, and gaming packages so you can install only the groups that match your hardware.
-
-**Core desktop, tools, and development packages**
+### 2. Install the rice runtime
 
 ```bash
-sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils android-file-transfer android-tools arch-install-scripts awww base base-devel bash-completion bat bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cloc cmatrix cppcheck cups cups-pdf deluge-gtk dosfstools dunst efibootmgr efitools evince eza fastfetch fd ffmpeg ffmpegthumbnailer flatpak fuseiso fzf git github-cli glm grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit libnotify libpaper libreoffice-fresh librewolf linux linux-firmware linux-headers lldb llvm lsd man-db man-pages matugen nautilus neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler python-black python-debugpy qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm selene shellcheck slurp smartmontools sof-firmware starship stylua system-config-printer telegram-desktop time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv waybar wf-recorder wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland yazi zathura zathura-pdf-mupdf zram-generator zsh
+./install_rice_packages.sh
 ```
 
-**NVIDIA driver packages**
+Installs the packages referenced by the rice itself, including its AUR utilities. It requires an already-installed `yay` or `paru`. If neither helper exists, it exits before installing anything; it will not bootstrap an AUR helper for you.
+
+### 3. Install gaming software (optional)
 
 ```bash
-sudo pacman -S --needed nvidia-open nvidia-prime nvidia-utils lib32-nvidia-utils
+./install_gaming.sh
 ```
 
-`nvidia-open` is for compatible NVIDIA GPUs (Turing and newer) using Arch's standard `linux` kernel. `nvidia-prime` provides `prime-run` for offloading applications to the NVIDIA GPU on hybrid-graphics laptops. If you use a different kernel, select the matching NVIDIA package instead; see the [ArchWiki NVIDIA guide](https://wiki.archlinux.org/title/NVIDIA).
+This installs Steam, Lutris, Wine/Proton utilities, GameMode, Gamescope, MangoHud, and Vulkan tooling. Enable the `[multilib]` repository in `/etc/pacman.conf` first. Run the driver installer before this one so the script can add the matching 32-bit NVIDIA and/or AMD Vulkan userspace packages.
 
-**AMD packages**
+### 4. Install GPU drivers (optional)
+
+Choose one or both vendors:
 
 ```bash
-sudo pacman -S --needed amd-ucode mesa vulkan-radeon vulkan-mesa-layers lib32-mesa lib32-mesa-utils lib32-vulkan-radeon lib32-vulkan-mesa-layers
+./install_drivers.sh --nvidia
+./install_drivers.sh --amd
+./install_drivers.sh --nvidia --amd  # hybrid systems
 ```
 
-These cover the AMD CPU microcode (`amd-ucode`) and the open-source Mesa/Radeon Vulkan stack used by the integrated Radeon GPU, including 32-bit libraries.
+`--nvidia` installs the open NVIDIA kernel module and userspace packages (for supported GPUs). `--amd` installs Mesa and RADV Vulkan userspace. The script requires at least one option and does not guess your hardware.
 
-**Gaming packages**
+### 5. Install personal applications and development tools
 
 ```bash
-sudo pacman -S --needed gamemode gamescope lib32-gamemode lib32-gcc-libs lib32-mangohud mangohud lib32-vkd3d vkd3d lib32-vulkan-icd-loader vulkan-tools lutris protontricks steam wine wine-gecko wine-mono winetricks sdl12-compat
+./install_my_apps.sh
 ```
 
-This group contains Steam, Lutris, Wine and its helpers, Proton tooling, GameMode, Gamescope, MangoHud, VKD3D, and the Vulkan tools. 32-bit libraries are included for Steam and Wine games.
+Installs Telegram Desktop, Vesktop, and Whatsie (Flatpak), plus the development stack: Neovim/Neovide, C/C++ compilers and debugging tools, Python, Java, Rust, Node.js, SDL3 and its image/audio/font libraries, and ESP-IDF. Vesktop and ESP-IDF are installed from the AUR; this script requires an existing `yay` or `paru` and exits before installing anything if neither is present. Whatsie is installed from a per-user Flathub remote. Telegram Desktop is an official Arch Extra package; Whatsie uses the Flathub app ID `com.ktechpit.whatsie`.
 
-The `lib32-*` packages require the `[multilib]` repository to be enabled in `/etc/pacman.conf`.
+The script also installs the stable Rust toolchain and Clippy, then clones [your Neovim configuration](https://github.com/yahia098/nvim.dots) into `~/.config/nvim`. If a different Neovim configuration already exists, it is moved to a timestamped `~/.config/nvim.backup-*` directory first. If your own `nvim.dots` clone is already present, the script leaves it untouched.
 
-#### AUR packages
+After installation, activate ESP-IDF in a shell with `source /opt/esp-idf/export.sh`. To make that convenient in zsh, add this function to `~/.zshrc`:
 
-Install an AUR helper first if you do not already have one. The following bootstraps `yay` from the AUR:
+```zsh
+esp() {
+  git config --global --get-all safe.directory | grep -qx '/opt/esp-idf' || \
+    git config --global --add safe.directory /opt/esp-idf
+  source /opt/esp-idf/export.sh
+}
+```
+
+Then open a new terminal and run `esp` before using `idf.py`. If flashing fails with a serial-port permission error, inspect the device's group and add your user to the appropriate group (commonly `uucp` or `lock` on Arch) rather than running the tool as root.
+
+### 6. Back up and deploy the configuration
+
+Preview the files that would be deployed:
 
 ```bash
-git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si
+./deploy.sh --dry-run
 ```
 
-Install the AUR applications used by the desktop setup:
+Deploy interactively (recommended):
 
 ```bash
-yay -S --needed blesh bm-sidebar eww helixnotes-bin nm-sidebar papirus-folders-git pipewire-control-center vesktop
+./deploy.sh
 ```
 
-These additional AUR packages are part of my wider workstation, but are optional for the Hyprland configuration itself:
+For a reviewed, non-interactive deployment:
 
 ```bash
-yay -S --needed esp-idf
+./deploy.sh --yes
 ```
 
-AUR gaming package (DXVK, the Direct3D-to-Vulkan layer used with Wine and Proton):
+`deploy.sh` always runs `backup.sh` first. It backs up every top-level entry under this repository's `.config/` directory and the repository `.zshrc`, but only when the corresponding destination already exists in your home directory. It then copies the repository configuration into `~/.config/` and `.zshrc` into `~/.zshrc`.
+
+The deployment is a **merge**, not a destructive mirror: matching files are overwritten after backup, while extra files in your existing config directories are kept. It does not run `rm`, delete unrelated config files, or replace your entire `~/.config` directory. It refuses symlinked destination roots rather than silently writing through them.
+
+You can create a backup independently at any time:
 
 ```bash
-yay -S --needed dxvk-bin
+./backup.sh
+./backup.sh --dry-run
+./backup.sh --output-dir /path/to/backups
 ```
 
-The `yay-debug` package (installed alongside `yay`) is not needed for normal use. AUR packages are community-maintained; inspect their build files and review updates before installing them.
-
-See the [ArchWiki AUR guide](https://wiki.archlinux.org/title/Arch_User_Repository).
-
-#### Whatsie through Flatpak
-
-Whatsie is installed separately from Flathub as `com.ktechpit.whatsie`:
+Backups are stored by default in `~/.local/state/hypr-dotfiles/backups/` (or `$XDG_STATE_HOME/hypr-dotfiles/backups/` when `XDG_STATE_HOME` is set). Each backup is a timestamped `.tar.gz` archive plus a readable `.manifest.txt` file. Inspect an archive before restoring it:
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && flatpak install --user flathub com.ktechpit.whatsie
+tar -tzvf ~/.local/state/hypr-dotfiles/backups/hypr-rice-backup-TIMESTAMP.tar.gz
 ```
 
-See [Whatsie on Flathub](https://flathub.org/en/apps/com.ktechpit.whatsie).
-
-#### Clipboard-history dependencies
-
-The visual clipboard picker uses **Wofi**, `cliphist`, and `wl-clipboard`.
-
-- `text` — ordinary text copied to the clipboard.
-- `image` — copied images.
-- `x-special/gnome-copied-files` — file selections copied in Nautilus, including local video files.
-
-Image thumbnails are generated with ImageMagick; local video-file thumbnails use FFmpeg. Python parses file URIs copied from Nautilus.
-
-Wofi is also the application launcher. Fuzzel is not used by the current clipboard picker.
-
-### Matugen output files and Papirus permissions
-
-The generated colour files are deliberately not committed. After deploying the source configuration, run the wallpaper picker once to generate them.
-
-Keep `.config/matugen/config.toml` and the files under `.config/matugen/templates/` tracked; do not replace templates with their generated output files.
-
-If you use the automatic Papirus folder-colour hook, install `papirus-folders-git` and configure a narrow sudoers exception for the current login.
-
-Open the sudoers drop-in with:
+Restore a selected archive by extracting it into your home directory. This overwrites the current versions of the archived paths, so back up the current state first if you need to preserve it:
 
 ```bash
-sudo visudo -f /etc/sudoers.d/papirus-folders
+tar -xzvf /path/to/hypr-rice-backup-TIMESTAMP.tar.gz -C "$HOME"
 ```
 
-Add the following line after replacing `YOUR_USERNAME` with your login name:
+### 7. Review machine-specific settings
 
-```sudoers
-YOUR_USERNAME ALL=(ALL) NOPASSWD: /usr/bin/papirus-folders
-```
+- `.config/hypr/modules/monitors.lua` defines a specific `eDP-1` mode; change it for your display.
+- `.config/hypr/modules/autostart-env.lua` includes NVIDIA-specific environment settings. Review them on non-NVIDIA systems.
+- The wallpaper picker reads images from `~/.config/wallpapers/`.
+- The lid-switch binding suspends the system; change it if that is not desired.
 
-Then set its permissions:
-
-```bash
-sudo chmod 440 /etc/sudoers.d/papirus-folders
-```
-
-Do not grant passwordless sudo to all commands. The hook logs output to `~/.cache/hypr/papirus-folders.log`; if the colour change fails, inspect that log before changing the hook.
-
-### 4. Review hardware- and machine-specific settings
-
-- `.config/hypr/modules/monitors.lua` defines `eDP-1` at `1920x1080@144`, scale `1`. Change it for your own monitor if needed.
-- `.config/hypr/modules/autostart-env.lua` sets Wayland/desktop environment variables and includes NVIDIA-specific values. Review those if your GPU or driver setup differs.
-- Autostart includes Telegram, Vesktop, Whatsie, Waybar, Dunst, Hypridle, `awww-daemon`, the polkit agent, and clipboard watchers. Disable any application launch you do not want.
-- The wallpaper picker reads image files from `~/.config/wallpapers/`. Keep your wallpaper images there, or update the picker path if you store them elsewhere.
-- The lid-switch binding suspends the system. Change it if that is not the behavior you want.
-- Permission changes in `permissions.lua` require restarting Hyprland.
+The installers install packages; `deploy.sh` and `backup.sh` manage user configuration files. None of these scripts enables services, modifies sudoers, configures a bootloader, or changes your display manager/session selection. Review AUR PKGBUILDs and updates before installing community packages.
 
 For version-specific behavior, consult the [Hyprland wiki](https://wiki.hypr.land/).
 
 ## Neovim
 
-Neovim is maintained separately in [yahia098/nvim.dots](https://github.com/yahia098/nvim.dots).
+The app installer clones [yahia098/nvim.dots](https://github.com/yahia098/nvim.dots) into `~/.config/nvim`. Update it separately with `git -C ~/.config/nvim pull --ff-only`.
 
-This repository documents the Hyprland desktop configuration; manage and update the Neovim configuration in its own repository rather than copying generated Neovim colour output into this one.
+This repository documents the Hyprland desktop configuration; keep Neovim configuration changes in its own repository rather than copying generated Neovim colour output into this one.
 
 ## AI assistance and ownership
 

@@ -10,7 +10,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("Telegram -startintray")
 	hl.exec_cmd("vesktop -m")
-	hl.exec_cmd("com.ktechpit.whatsie -m")
+	hl.exec_cmd("flatpak run --user com.ktechpit.whatsie")
 	hl.exec_cmd("$HOME/.config/waybar/scripts/launch.sh")
 
 	-- Clear old history before starting the clipboard watchers.

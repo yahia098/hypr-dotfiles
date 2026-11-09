@@ -1,5 +1,5 @@
-sudo pacman -S --needed 7zip adw-gtk-theme alsa-utils android-file-transfer android-tools arch-install-scripts awww base base-devel bash-completion bat bear blueman bluetui bluez bluez-utils brightnessctl btop clang cliphist cloc cmatrix cppcheck cups cups-pdf deluge-gtk dosfstools dunst efibootmgr efitools evince eza fastfetch fd ffmpeg ffmpegthumbnailer flatpak fuseiso fzf git github-cli glm grim grub gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly hypridle hyprland hyprlock hyprpolkitagent imagemagick jdk-openjdk jq kitty lazygit libnotify libpaper libreoffice-fresh librewolf linux linux-firmware linux-headers lldb llvm lsd man-db man-pages matugen nautilus neovim networkmanager nodejs noto-fonts-cjk noto-fonts-emoji npm nvme-cli nvtop openssh pamixer papirus-icon-theme pavucontrol pipewire-alsa pipewire-pulse playerctl poppler python-black python-debugpy qt5-base qt5ct qt6-5compat qt6-multimedia qt6-multimedia-ffmpeg reflector ripgrep rpm-tools rsync ruff rust-analyzer rustup sane sddm selene shellcheck slurp smartmontools sof-firmware starship stylua system-config-printer telegram-desktop time tldr tlp tlp-pd tlpui tree ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ufw unrar unzip uv waybar wf-recorder wl-clipboard wofi xdg-desktop-portal-hyprland xdg-utils xorg-xwayland yazi zathura zathura-pdf-mupdf zram-generator zsh
-sudo pacman -S --needed nvidia-open nvidia-prime nvidia-utils lib32-nvidia-utils
-sudo pacman -S --needed amd-ucode mesa vulkan-radeon vulkan-mesa-layers lib32-mesa lib32-mesa-utils lib32-vulkan-radeon lib32-vulkan-mesa-layers
-sudo pacman -S --needed gamemode gamescope lib32-gamemode lib32-gcc-libs lib32-mangohud mangohud lib32-vkd3d vkd3d lib32-vulkan-icd-loader vulkan-tools lutris protontricks steam wine wine-gecko wine-mono winetricks sdl12-compat
-cp .config Pictures .zshrc ~/ -rf
+#!/usr/bin/env bash
+set -euo pipefail
+echo "install.sh is deprecated. Use install_rice_packages.sh, install_gaming.sh, or install_drivers.sh." >&2
+echo "See README.md for usage." >&2
+exit 1
