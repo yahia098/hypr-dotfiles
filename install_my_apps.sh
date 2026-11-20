@@ -25,14 +25,14 @@ fi
 
 # Native applications and the user's development toolchain.
 sudo pacman -Syu --needed \
-  bear bison clang cloc cmake cppcheck ccache dfu-util fd flex fzf gcc gdb git \
+  bear bison clang cloc cmake cppcheck ccache dfu-util discord fd flex fzf gcc gdb git \
   github-cli gperf jdk-openjdk lldb llvm make ncurses neovim neovide ninja \
   nodejs npm python python-black python-debugpy python-pip python-virtualenv \
   ripgrep rust-analyzer rustup sdl3 sdl3_image sdl3_mixer sdl3_ttf shellcheck \
   stylua selene uv wget telegram-desktop flatpak
 
 # Community packages: Vesktop and Espressif's ESP-IDF toolchain package.
-"$AUR_HELPER" -S --needed vesktop esp-idf
+"$AUR_HELPER" -S --needed whatsie  esp-idf
 
 # Prepare the Rust toolchain used by blink.cmp and Rust projects.
 if ! rustup toolchain list | grep -q '^stable'; then
@@ -40,14 +40,6 @@ if ! rustup toolchain list | grep -q '^stable'; then
 fi
 rustup default stable
 rustup component add clippy
-
-# Install Whatsie per-user; don't modify the system-wide Flatpak remotes.
-if ! flatpak remotes --user --columns=name | grep -Fxq flathub; then
-  flatpak remote-add --user --if-not-exists flathub \
-    https://flathub.org/repo/flathub.flatpakrepo
-fi
-flatpak install --user --assumeyes --noninteractive flathub \
-  com.ktechpit.whatsie
 
 # Install the user's Neovim configuration. Never overwrite an existing config.
 NVIM_CONFIG="$HOME/.config/nvim"
