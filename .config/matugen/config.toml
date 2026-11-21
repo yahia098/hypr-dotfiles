@@ -1,50 +1,26 @@
+# Matugen pipeline: every wallpaper change (scripts/set-wallpaper.sh) renders
+# the templates below. Outputs are generated locally and are git-ignored.
 
 [config]
 mode = "dark"
 
-[templates.kitty]
-input_path = "~/.config/matugen/templates/kitty.conf"
-output_path = "~/.config/kitty/matugen-colors.conf"
-post_hook = "pkill -SIGUSR1 kitty"
+# ---------- shared theme (Waybar, Wofi) ----------
 
-[templates.gtk]
-input_path = "~/.config/matugen/templates/gtk-colors.css"
+[templates.theme]
+input_path = "~/.config/matugen/templates/theme-colors.css"
 output_path = "~/.config/theme/colors.css"
 post_hook = "pkill -SIGUSR2 -x waybar"
 
-[templates.yazi]
-input_path = "~/.config/matugen/templates/yazi.toml"
-output_path = "~/.config/yazi/theme.toml"
-
-[templates.hyprlock]
-input_path = "~/.config/matugen/templates/hyprlock.conf"
-output_path = "~/.config/hypr/matugen-lock.conf"
-
-[templates.hyprland]
-input_path = "~/.config/matugen/templates/hyprland.lua"
-output_path = "~/.config/hypr/lua/matugen-colors.lua"
-
-[templates.mako]
-input_path = "~/.config/matugen/templates/mako.conf"
-output_path = "~/.config/mako/config"
+# ---------- GTK ----------
 
 [templates.gtk3]
-input_path = "~/.config/matugen/templates/gtk-theme.css"
+input_path = "~/.config/matugen/templates/gtk-overrides.css"
 output_path = "~/.config/gtk-3.0/colors.css"
 
 [templates.gtk4]
-input_path = "~/.config/matugen/templates/gtk-theme.css"
+input_path = "~/.config/matugen/templates/gtk-overrides.css"
 output_path = "~/.config/gtk-4.0/colors.css"
-post_hook = "gsettings set org.gnome.desktop.interface gtk-theme ''; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark"
-
-[templates.nvim]
-input_path = "~/.config/matugen/templates/nvim.json"
-output_path = "~/.config/matugen/templates/colors-nvim.json"
-
-[templates.dunst]
-input_path = "~/.config/matugen/templates/dunstrc"
-output_path = "~/.config/dunst/dunstrc"
-post_hook = "dunstctl reload"
+post_hook = "~/.config/hypr/scripts/apply-gtk-settings.sh"
 
 [templates.papirus-folders]
 input_path = "~/.config/matugen/templates/papirus-color"
@@ -76,7 +52,43 @@ colors_to_compare = [
 compare_to = "{{ colors.primary.default.hex }}"
 post_hook = 'mkdir -p "$HOME/.cache/hypr" && (nohup sudo -n /usr/bin/papirus-folders -C {{ closest_color }} --theme Papirus-Dark >> "$HOME/.cache/hypr/papirus-folders.log" 2>&1 < /dev/null &)'
 index = 1
+
+# ---------- Hyprland and its tools ----------
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland.lua"
+output_path = "~/.config/hypr/lua/matugen-colors.lua"
+
+[templates.hyprlock]
+input_path = "~/.config/matugen/templates/hyprlock.conf"
+output_path = "~/.config/hypr/matugen-lock.conf"
+
+[templates.dunst]
+input_path = "~/.config/matugen/templates/dunstrc"
+output_path = "~/.config/dunst/dunstrc"
+post_hook = "dunstctl reload"
+
 [templates.eww]
 input_path = "~/.config/matugen/templates/eww-colors.scss"
 output_path = "~/.config/eww/colors.scss"
 post_hook = "eww reload"
+
+# ---------- Terminal and apps ----------
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty.conf"
+output_path = "~/.config/kitty/matugen-colors.conf"
+post_hook = "pkill -SIGUSR1 kitty"
+
+[templates.yazi]
+input_path = "~/.config/matugen/templates/yazi.toml"
+output_path = "~/.config/yazi/theme.toml"
+
+[templates.zathura]
+input_path = "~/.config/matugen/templates/zathura-colors"
+output_path = "~/.config/zathura/matugen-colors"
+
+# Read by the Neovim config (see yahia098/nvim.dots).
+[templates.nvim]
+input_path = "~/.config/matugen/templates/nvim.json"
+output_path = "~/.config/matugen/templates/colors-nvim.json"

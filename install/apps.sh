@@ -4,24 +4,10 @@ set -Eeuo pipefail
 # Personal applications and development toolchain.
 # Rice runtime, GPU drivers, and gaming packages live in their own installers.
 
-if [[ $EUID -eq 0 ]]; then
-  echo "Do not run this script as root; it uses sudo for pacman." >&2
-  exit 1
-fi
+source "$(dirname -- "${BASH_SOURCE[0]}")/lib.sh"
 
-AUR_HELPER=""
-if command -v yay >/dev/null 2>&1; then
-  AUR_HELPER="yay"
-elif command -v paru >/dev/null 2>&1; then
-  AUR_HELPER="paru"
-else
-  cat >&2 <<'MSG'
-No supported AUR helper was found.
-Install yay or paru first, then rerun this script.
-Nothing has been installed.
-MSG
-  exit 1
-fi
+require_user
+find_aur_helper
 
 # Native applications and the user's development toolchain.
 sudo pacman -Syu --needed \
@@ -29,10 +15,10 @@ sudo pacman -Syu --needed \
   github-cli gperf jdk-openjdk lldb llvm make ncurses neovim neovide ninja \
   nodejs npm python python-black python-debugpy python-pip python-virtualenv \
   ripgrep rust-analyzer rustup sdl3 sdl3_image sdl3_mixer sdl3_ttf shellcheck \
-  stylua selene uv wget telegram-desktop flatpak
+  stylua selene uv wget telegram-desktop flatpak zsh lsd yt-dlp
 
-# Community packages: Vesktop and Espressif's ESP-IDF toolchain package.
-"$AUR_HELPER" -S --needed whatsie  esp-idf
+# Community packages: apps launched by the rice, plus the ESP-IDF toolchain.
+"$AUR_HELPER" -S --needed whatsie helixnotes-bin librewolf-bin esp-idf
 
 # Prepare the Rust toolchain used by blink.cmp and Rust projects.
 if ! rustup toolchain list | grep -q '^stable'; then
@@ -67,10 +53,12 @@ cat <<EOF2
 
 Personal applications and development stack installed.
 AUR packages were installed using $AUR_HELPER.
-Whatsie was installed from Flathub for the current user.
 Neovim configuration: https://github.com/yahia098/nvim.dots
 
 ESP-IDF is installed under /opt/esp-idf by the AUR package. In a zsh session,
-run `source /opt/esp-idf/export.sh` to activate its environment. See the README
-for a reusable shell function and serial-device permission notes.
+run "esp" (defined in the repository .zshrc) to activate its environment. See the
+README for serial-device permission notes.
+
+oh-my-zsh is not packaged here; install it from https://ohmyz.sh if you use the
+repository .zshrc.
 EOF2

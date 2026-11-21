@@ -1,32 +1,28 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-choice=$(
-    printf " Shutdown\n󰜉 Reboot\n󰌾 Lock\n󰤄 Suspend\n Logout\n󰑓 Reload Hyprland\n󰸉 Change wallpaper\n󰩡 Displays" |
+SCRIPTS="$HOME/.config/hypr/scripts"
+
+choice="$(
+    printf '%s\n' \
+        " Shutdown" \
+        "󰜉 Reboot" \
+        "󰌾 Lock" \
+        "󰤄 Suspend" \
+        " Logout" \
+        "󰑓 Reload Hyprland" \
+        "󰸉 Change wallpaper" \
+        "󰩡 Displays" |
     wofi --dmenu --prompt "Power"
-)
+)" || exit 0
 
 case "$choice" in
-    " Shutdown")
-        systemctl poweroff
-        ;;
-    "󰜉 Reboot")
-        systemctl reboot
-        ;;
-    "󰌾 Lock")
-        hyprlock
-        ;;
-    "󰤄 Suspend")
-        systemctl suspend
-        ;;
-    " Logout")
-        hyprctl dispatch 'hl.dsp.exit()'
-        ;;
-    "󰑓 Reload Hyprland")
-        hyprctl reload
-        ;;
-    "󰸉 Change wallpaper")
-        "$HOME/.config/hypr/scripts/wallpaper.sh"
-        ;;
-    "󰩡 Displays")
-      "$HOME/.config/hypr/scripts/displays.sh"
-        esac
+    *Shutdown)         systemctl poweroff ;;
+    *Reboot)           systemctl reboot ;;
+    *Lock)             exec "$SCRIPTS/lock.sh" ;;
+    *Suspend)          systemctl suspend ;;
+    *Logout)           hyprctl dispatch 'hl.dsp.exit()' ;;
+    *"Reload Hyprland") hyprctl reload ;;
+    *"Change wallpaper") exec "$SCRIPTS/wallpaper-picker.sh" ;;
+    *Displays)         exec "$SCRIPTS/displays.sh" ;;
+esac

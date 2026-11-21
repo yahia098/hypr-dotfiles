@@ -4,29 +4,23 @@
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
--- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(Programs.Terminal))
-local closeWindowBind = hl.bind(mainMod .. " +SHIFT+ Q", hl.dsp.window.close())
---for disabling a bind use :
---local closeWindowBind = hl.bind(mainMod .. " +SHIFT+ Q", hl.dsp.window.close())
---note: just ":set_enabled(false)" like this :closeWindowBind:set_enabled(false)
---or  hl.bind(mainMod .. " +SHIFT+ Q", hl.dsp.window.close()):set_enabled(false)
-hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock.sh"))
-hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("~/.config/hypr/scripts/powermenu.sh"))
-hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("~/.config/hypr/scripts/power-profile-toggle.sh"))
---apps also available in apps submap with extra keys
+hl.bind(mainMod .. " +SHIFT+ Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd(Scripts .. "lock.sh"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd(Scripts .. "powermenu.sh"))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(Scripts .. "power-profile-toggle.sh"))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(Programs.Menu))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(Programs.Browser))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(Programs.FileManager))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(Programs.Notes))
 hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd(Programs.Pdf))
-hl.bind(mainMod .. "+ D", hl.dsp.exec_cmd("discord"))
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("Telegram"))
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("flatpak run --user com.ktechpit.whatsie"))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("$HOME/.config/hypr/scripts/cliphist-wofi-img.sh"))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("lutris"))
-hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-layout.sh"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(Programs.Discord))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(Programs.Telegram))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(Programs.Whatsie))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(Scripts .. "cliphist-wofi-img.sh"))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd(Programs.Games))
+hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd(Scripts .. "keyboard-layout-toggle.sh"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -43,7 +37,7 @@ for i = 1, 10 do
 	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
--- Example special workspace (scratchpad)
+-- Special workspace (scratchpad)
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
@@ -58,17 +52,17 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind(
 	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-up.sh"),
+	hl.dsp.exec_cmd(Scripts .. "volume.sh up"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-down.sh"),
+	hl.dsp.exec_cmd(Scripts .. "volume.sh down"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioMute",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/volume-toggle.sh"),
+	hl.dsp.exec_cmd(Scripts .. "volume.sh toggle"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
@@ -78,12 +72,12 @@ hl.bind(
 )
 hl.bind(
 	"XF86MonBrightnessUp",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness-up.sh"),
+	hl.dsp.exec_cmd(Scripts .. "brightness.sh up"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86MonBrightnessDown",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness-down.sh"),
+	hl.dsp.exec_cmd(Scripts .. "brightness.sh down"),
 	{ locked = true, repeating = true }
 )
 
@@ -94,10 +88,10 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 -- Screenshots
-hl.bind("Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot-full.sh"))
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot-area.sh"))
-hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/record-full.sh"))
-hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/record-area.sh"))
+hl.bind("Print", hl.dsp.exec_cmd(Scripts .. "screenshot.sh full"))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd(Scripts .. "screenshot.sh area"))
+hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd(Scripts .. "record.sh full"))
+hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd(Scripts .. "record.sh area"))
 
 -- Moving windows
 local function smart_move(dx, dy, direction)
@@ -120,13 +114,12 @@ local function smart_move(dx, dy, direction)
 		end
 	end
 end
---moving
 hl.bind(mainMod .. " + SHIFT + left", smart_move(-15, 0, "left"), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + right", smart_move(15, 0, "right"), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + up", smart_move(0, -15, "up"), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + down", smart_move(0, 15, "down"), { repeating = true })
 
---floating hide
+-- Park / restore floating windows (workspaces 1-5)
 local floating_workspaces = {
 	[1] = "special:floating-1",
 	[2] = "special:floating-2",

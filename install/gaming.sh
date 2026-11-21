@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-if [[ $EUID -eq 0 ]]; then
-  echo "Do not run this script as root; it uses sudo for pacman." >&2
-  exit 1
-fi
+source "$(dirname -- "${BASH_SOURCE[0]}")/lib.sh"
+
+require_user
 
 PACMAN_CONF="/etc/pacman.conf"
 if ! awk '
@@ -16,7 +15,7 @@ if ! awk '
 ' "$PACMAN_CONF"; then
   cat >&2 <<'MSG'
 The [multilib] repository is not enabled in /etc/pacman.conf.
-Enable [multilib], run `sudo pacman -Sy`, then rerun this script.
+Enable [multilib], run `sudo pacman -Syu`, then rerun this script.
 No gaming packages have been installed.
 MSG
   exit 1
@@ -39,10 +38,14 @@ fi
 
 sudo pacman -Syu --needed "${packages[@]}"
 
+# DXVK (Direct3D-to-Vulkan) from the AUR.
+find_aur_helper
+"$AUR_HELPER" -S --needed dxvk-bin
+
 cat <<'MSG'
 Gaming stack installed.
 
-Install your GPU driver first with install_drivers.sh so the matching 32-bit
+Install your GPU driver first with install/drivers.sh so the matching 32-bit
 Vulkan/NVIDIA userspace can be selected. Steam and Proton still need their
 usual per-game setup.
 MSG

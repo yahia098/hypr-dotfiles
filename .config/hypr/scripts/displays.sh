@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CONF="$HOME/.config/hypr/modules/monitors.lua"
+CONF="$HOME/.config/hypr/monitors.generated.lua"
 STATE="$HOME/.config/hypr/monitors.state"   # lines: name|mode|position|disabled|scale
 INTERNAL="eDP-1"
 FALLBACK_MODE="1920x1080@144"

@@ -15,7 +15,7 @@
     "bluetooth",
     "pulseaudio",
     "wireplumber#microphone",
-    "custom/tlp",
+    "custom/power-profile",
     "battery",
     "tray",
     "clock",
@@ -33,6 +33,11 @@
       "3": "三",
       "4": "四",
       "5": "五",
+      "6": "六",
+      "7": "七",
+      "8": "八",
+      "9": "九",
+      "10": "十",
     },
     "persistent-workspaces": {
       "*": 5,
@@ -124,10 +129,10 @@
     "exec": "~/.config/waybar/scripts/keyboard-layout.sh",
     "return-type": "json",
     "signal": 8,
-    "on-click": "~/.config/hypr/scripts/toggle-layout.sh",
+    "on-click": "~/.config/hypr/scripts/keyboard-layout-toggle.sh",
   },
 
-  "custom/tlp": {
+  "custom/power-profile": {
     "exec": "~/.config/waybar/scripts/power-profile-get.sh",
     "return-type": "json",
     "interval": 5,

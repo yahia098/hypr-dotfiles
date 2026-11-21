@@ -94,7 +94,7 @@ window#waybar > box {
 #clock,
 #tray,
 #custom-keyboard,
-#custom-tlp {
+#custom-power-profile {
   padding: 0 10px;
   margin: 3px 2px;
   border-radius: 10px;
@@ -112,7 +112,7 @@ window#waybar > box {
 #clock:hover,
 #tray:hover,
 #custom-keyboard:hover,
-#custom-tlp:hover {
+#custom-power-profile:hover {
   background: @surface_container_low;
 }
 
@@ -147,15 +147,15 @@ window#waybar > box {
  * Power Profiles
  * =========================== */
 
-#custom-tlp.performance {
+#custom-power-profile.performance {
   color: @error;
 }
 
-#custom-tlp.balanced {
+#custom-power-profile.balanced {
   color: @primary;
 }
 
-#custom-tlp.power-saver {
+#custom-power-profile.power-saver {
   color: @tertiary;
 }
 

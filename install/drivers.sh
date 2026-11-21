@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-if [[ $EUID -eq 0 ]]; then
-  echo "Do not run this script as root; it uses sudo for pacman." >&2
-  exit 1
-fi
+source "$(dirname -- "${BASH_SOURCE[0]}")/lib.sh"
+
+require_user
 
 install_nvidia=0
 install_amd=0
@@ -40,5 +39,5 @@ sudo pacman -Syu --needed "${packages[@]}"
 cat <<'MSG'
 Selected GPU driver packages installed.
 Reboot before testing the new kernel driver. For Steam/Proton, run
-install_gaming.sh after enabling [multilib] to add the relevant 32-bit stack.
+install/gaming.sh after enabling [multilib] to add the relevant 32-bit stack.
 MSG

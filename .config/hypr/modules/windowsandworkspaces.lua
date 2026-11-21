@@ -5,7 +5,11 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
--- Example window rules that are useful
+-- Positions and sizes below are written in pixels on a 1920x1080 screen and
+-- converted to fractions of the monitor, so they scale to any 16:9 resolution.
+local function px(x, y)
+	return string.format("monitor_w*%.4f monitor_h*%.4f", x / 1920, y / 1080)
+end
 
 local suppressMaximizeRule = hl.window_rule({
 	-- Ignore maximize requests from all apps. You'll probably like this.
@@ -31,94 +35,86 @@ hl.window_rule({
 	no_focus = true,
 })
 
--- Layer rules also return a handle.
--- local overlayLayerRule = hl.layer_rule({
---     name  = "no-anim-overlay",
---     match = { namespace = "^my-overlay$" },
---     no_anim = true,
--- })
--- overlayLayerRule:set_enabled(false)
-
 -- Hyprland-run windowrule
 hl.window_rule({
 	name = "move-hyprland-run",
 	match = { class = "hyprland-run" },
 
-	move = "20 monitor_h-120",
+	move = px(20, 1080 - 120),
 	float = true,
 })
---for opengl learning
+-- OpenGL learning window
 hl.window_rule({
-	name = "opengl floating",
+	name = "opengl-float",
 	match = { title = "^LearnOpenGL$" },
 	float = true,
 	center = true,
 })
 hl.window_rule({
-	name = "lutris floating",
+	name = "lutris-float",
 	match = { class = "net.lutris.Lutris" },
 	float = true,
-	size = { 900, 900 },
-	move = { 100, 100 },
+	size = px(900, 900),
+	move = px(100, 100),
 	border_size = 5,
 })
 
 hl.window_rule({
-	name = "network floating",
+	name = "network-editor-float",
 	match = { class = "nm-connection-editor" },
-	move = { 1300, 30 },
+	move = px(1300, 30),
 	float = true,
 })
 hl.window_rule({
-	name = "audio floating",
+	name = "volume-control-float",
 	match = { title = "Volume Control" },
-	move = { 1200, 30 },
-	size = { 720, 500 },
+	move = px(1200, 30),
+	size = px(720, 500),
 	float = true,
 })
 hl.window_rule({
-	name = "windows floating",
+	name = "steam-float",
 	match = { class = "steam_class_default" },
 	float = true,
 })
 hl.window_rule({
-	name = "PolyMC floating",
+	name = "polymc-float",
 	match = { class = "org.polymc.PolyMC" },
 	float = true,
-	size = { 900, 600 },
+	size = px(900, 600),
 })
 
 hl.window_rule({
-	name = "nautilus float",
+	name = "nautilus-float",
 	match = { class = "org.gnome.Nautilus" },
 	float = true,
-	size = { 1100, 800 },
-	move = { 50, 140 },
+	size = px(1100, 800),
+	move = px(50, 140),
 })
 
 hl.window_rule({
-	name = "Xarchiver float",
+	name = "xarchiver-float",
 	match = { class = "xarchiver" },
 	float = true,
-	size = { 750, 800 },
-	move = { 1160, 140 },
+	size = px(750, 800),
+	move = px(1160, 140),
 })
 
 hl.window_rule({
-	name = "portal file chooser",
+	name = "portal-file-chooser-float",
 	match = { class = "^xdg-desktop-portal-gtk$" },
 	float = true,
 	center = true,
-	size = { 1000, 700 },
+	size = px(1000, 700),
 })
 
 hl.window_rule({
-	name = "floating downloads",
+	name = "librewolf-library-float",
 	match = {
 		class = "librewolf",
 		title = "Library",
 	},
 	float = true,
 	center = true,
-	size = { 1000, 700 },
+	size = px(1000, 700),
 })
