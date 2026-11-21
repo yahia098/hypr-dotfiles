@@ -1,9 +1,9 @@
-
 #!/usr/bin/env bash
 set -Eeuo pipefail
 umask 077
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+INSTALL_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+REPO_DIR="$(cd -- "$INSTALL_DIR/.." && pwd -P)"
 HOME_DIR="${HOME:?HOME is not set}"
 OUTPUT_DIR="${XDG_STATE_HOME:-$HOME_DIR/.local/state}/hypr-dotfiles/backups"
 DRY_RUN=0
@@ -15,7 +15,6 @@ die()  { printf '[BACKUP] ERROR: %s\n' "$*" >&2; exit 1; }
 usage() {
   cat <<USAGE
 Usage: $(basename -- "$0") [OPTIONS]
-
 Create a timestamped archive of the configuration paths deployed by this
 repository. Existing files are read only; nothing in HOME is changed.
 
@@ -25,7 +24,6 @@ Options:
                              ~/.local/state/hypr-dotfiles/backups
   --dry-run         Show what would be backed up without creating files.
   -h, --help        Show this help.
-
 The archive contains paths relative to HOME (for example .config/hypr and
 .zshrc), so it can be restored with: tar -xzvf ARCHIVE -C "$HOME_DIR"
 USAGE
@@ -76,15 +74,13 @@ done
 [[ -d "$HOME_DIR" ]] ||
   die "Home directory does not exist: $HOME_DIR"
 
-[[ -d "$SCRIPT_DIR/.config" ]] ||
-  die "Cannot find the repository .config directory: $SCRIPT_DIR/.config"
+[[ -d "$REPO_DIR/.config" && ! -L "$REPO_DIR/.config" ]] ||
+  die "Cannot find the repository .config directory: $REPO_DIR/.config"
 
 command -v tar >/dev/null 2>&1 ||
   die "The tar command is required."
-
 command -v realpath >/dev/null 2>&1 ||
   die "The realpath command is required."
-
 command -v mktemp >/dev/null 2>&1 ||
   die "The mktemp command is required."
 
@@ -92,11 +88,11 @@ command -v mktemp >/dev/null 2>&1 ||
 # nullglob prevents an unmatched pattern from being returned literally.
 # dotglob includes hidden top-level configuration directories.
 shopt -s nullglob dotglob
-repo_entries=("$SCRIPT_DIR/.config/"*)
+repo_entries=("$REPO_DIR/.config/"*)
 shopt -u nullglob dotglob
 
 ((${#repo_entries[@]} > 0)) ||
-  die "No configuration entries were found under $SCRIPT_DIR/.config."
+  die "No configuration entries were found under $REPO_DIR/.config."
 
 managed_paths=()
 
@@ -104,14 +100,31 @@ for entry in "${repo_entries[@]}"; do
   managed_paths+=(".config/${entry##*/}")
 done
 
-if [[ -e "$SCRIPT_DIR/.zshrc" || -L "$SCRIPT_DIR/.zshrc" ]]; then
+if [[ -e "$REPO_DIR/.zshrc" || -L "$REPO_DIR/.zshrc" ]]; then
   managed_paths+=(".zshrc")
+fi
+
+# Codes/ is merged into ~/Codes by deploy.sh, so existing files there
+# must be included in the backup before deployment can overwrite them.
+if [[ -e "$REPO_DIR/Codes" || -L "$REPO_DIR/Codes" ]]; then
+  [[ -d "$REPO_DIR/Codes" && ! -L "$REPO_DIR/Codes" ]] ||
+    die "Repository Codes must be a real directory: $REPO_DIR/Codes"
+
+  managed_paths+=("Codes")
+fi
+
+# Matugen may generate or overwrite Dunst's configuration even when the
+# repository does not ship .config/dunst. Include that path for backup
+# coverage when it exists locally and is not already covered by .config.
+if [[ ! -e "$REPO_DIR/.config/dunst" && ! -L "$REPO_DIR/.config/dunst" ]] &&
+   [[ -e "$HOME_DIR/.config/dunst" || -L "$HOME_DIR/.config/dunst" ]]; then
+  managed_paths+=(".config/dunst")
 fi
 
 # Identify which managed paths currently exist in HOME.
 existing_paths=()
 
-log "Repository: $SCRIPT_DIR"
+log "Repository: $REPO_DIR"
 log "Home directory: $HOME_DIR"
 log "Checking ${#managed_paths[@]} managed path(s) in your home directory..."
 
@@ -227,7 +240,6 @@ trap cleanup EXIT
 
 # Create the archive.
 log "Creating compressed backup..."
-
 tar -czvf "$tmp_archive" -C "$HOME_DIR" -- "${existing_paths[@]}"
 
 # Create the manifest.
@@ -235,7 +247,7 @@ tar -czvf "$tmp_archive" -C "$HOME_DIR" -- "${existing_paths[@]}"
   printf 'Hyprland rice backup\n'
   printf 'Created: %s\n' "$(date --iso-8601=seconds)"
   printf 'Host: %s\n' "$(hostname 2>/dev/null || printf 'unknown')"
-  printf 'Source repository: %s\n' "$SCRIPT_DIR"
+  printf 'Source repository: %s\n' "$REPO_DIR"
   printf 'Home directory: %s\n\n' "$HOME_DIR"
 
   printf 'Archived paths (relative to HOME):\n'
@@ -272,4 +284,3 @@ log "Manifest: $manifest"
 log "To restore, inspect the archive first, then extract it into HOME:"
 printf '  tar -tzvf %q\n' "$archive"
 printf '  tar -xzvf %q -C %q\n' "$archive" "$HOME_DIR"
-

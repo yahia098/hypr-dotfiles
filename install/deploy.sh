@@ -5,10 +5,9 @@ set -Eeuo pipefail
 # Deploy the .config entries and auxiliary files shipped by this repository.
 # Existing managed paths are backed up first.
 # Deployment merges directories and never deletes unrelated files.
-
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+INSTALL_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+REPO_DIR="$(cd -- "$INSTALL_DIR/.." && pwd -P)"
 HOME_DIR="${HOME:?HOME is not set}"
-
 ASSUME_YES=0
 DRY_RUN=0
 
@@ -89,19 +88,19 @@ command -v grep >/dev/null 2>&1 ||
 HOME_DIR="$(realpath -e -- "$HOME_DIR")"
 export HOME="$HOME_DIR"
 
-[[ -d "$SCRIPT_DIR/.config" && ! -L "$SCRIPT_DIR/.config" ]] ||
-  die "Cannot find a valid repository .config directory: $SCRIPT_DIR/.config"
+[[ -d "$REPO_DIR/.config" && ! -L "$REPO_DIR/.config" ]] ||
+  die "Cannot find a valid repository .config directory: $REPO_DIR/.config"
 
-[[ -f "$SCRIPT_DIR/backup.sh" && ! -L "$SCRIPT_DIR/backup.sh" ]] ||
+[[ -f "$INSTALL_DIR/backup.sh" && ! -L "$INSTALL_DIR/backup.sh" ]] ||
   die "backup.sh is missing or is a symbolic link."
 
 # Include hidden top-level configuration entries.
 shopt -s nullglob dotglob
 
-repo_entries=("$SCRIPT_DIR/.config/"*)
+repo_entries=("$REPO_DIR/.config/"*)
 
 ((${#repo_entries[@]} > 0)) ||
-  die "No configuration entries were found under $SCRIPT_DIR/.config."
+  die "No configuration entries were found under $REPO_DIR/.config."
 
 # ------------------------------------------------------------
 # 2. SHARED VALIDATION HELPERS
@@ -263,7 +262,7 @@ has_supported_wallpaper() {
   local directory
 
   for directory in \
-    "$SCRIPT_DIR/.config/wallpapers" \
+    "$REPO_DIR/.config/wallpapers" \
     "$HOME_DIR/.config/wallpapers"; do
 
     if first_supported_wallpaper "$directory" >/dev/null; then
@@ -282,27 +281,27 @@ HAVE_ZSHRC=0
 HAVE_CODES=0
 HAVE_AVATAR=0
 
-if [[ -e "$SCRIPT_DIR/.zshrc" || -L "$SCRIPT_DIR/.zshrc" ]]; then
-  [[ -f "$SCRIPT_DIR/.zshrc" && ! -L "$SCRIPT_DIR/.zshrc" ]] ||
+if [[ -e "$REPO_DIR/.zshrc" || -L "$REPO_DIR/.zshrc" ]]; then
+  [[ -f "$REPO_DIR/.zshrc" && ! -L "$REPO_DIR/.zshrc" ]] ||
     die "Repository .zshrc must be a regular file."
 
   HAVE_ZSHRC=1
 fi
 
-if [[ -e "$SCRIPT_DIR/Codes" || -L "$SCRIPT_DIR/Codes" ]]; then
-  [[ -d "$SCRIPT_DIR/Codes" && ! -L "$SCRIPT_DIR/Codes" ]] ||
+if [[ -e "$REPO_DIR/Codes" || -L "$REPO_DIR/Codes" ]]; then
+  [[ -d "$REPO_DIR/Codes" && ! -L "$REPO_DIR/Codes" ]] ||
     die "Repository Codes must be a real directory."
 
   HAVE_CODES=1
 fi
 
-if [[ -e "$SCRIPT_DIR/Pictures" || -L "$SCRIPT_DIR/Pictures" ]]; then
-  [[ -d "$SCRIPT_DIR/Pictures" && ! -L "$SCRIPT_DIR/Pictures" ]] ||
+if [[ -e "$REPO_DIR/Pictures" || -L "$REPO_DIR/Pictures" ]]; then
+  [[ -d "$REPO_DIR/Pictures" && ! -L "$REPO_DIR/Pictures" ]] ||
     die "Repository Pictures must be a real directory."
 fi
 
-if [[ -e "$SCRIPT_DIR/Pictures/pfp.png" || -L "$SCRIPT_DIR/Pictures/pfp.png" ]]; then
-  [[ -f "$SCRIPT_DIR/Pictures/pfp.png" && ! -L "$SCRIPT_DIR/Pictures/pfp.png" ]] ||
+if [[ -e "$REPO_DIR/Pictures/pfp.png" || -L "$REPO_DIR/Pictures/pfp.png" ]]; then
+  [[ -f "$REPO_DIR/Pictures/pfp.png" && ! -L "$REPO_DIR/Pictures/pfp.png" ]] ||
     die "Repository Pictures/pfp.png must be a regular file."
 
   HAVE_AVATAR=1
@@ -354,7 +353,7 @@ if ((HAVE_CODES)); then
   assert_safe_directory "$destination" "Codes destination"
 
   if [[ -d "$destination" ]]; then
-    validate_merge_tree "$SCRIPT_DIR/Codes" "$destination"
+    validate_merge_tree "$REPO_DIR/Codes" "$destination"
   fi
 
   log "VALID  Codes -> $destination"
@@ -449,7 +448,7 @@ fi
 
 log "Checking backup script and backup coverage..."
 
-BACKUP_PREVIEW="$(bash "$SCRIPT_DIR/backup.sh" --dry-run)" ||
+BACKUP_PREVIEW="$(bash "$INSTALL_DIR/backup.sh" --dry-run)" ||
   die "backup.sh failed its dry-run check. Resolve the problem before deploying."
 
 # The backup script must explicitly report existing paths that this
@@ -488,7 +487,7 @@ log "============================================================"
 log "HYPRLAND RICE DEPLOYMENT PLAN"
 log "============================================================"
 
-log "Repository:     $SCRIPT_DIR"
+log "Repository:     $REPO_DIR"
 log "Destination:    $HOME_DIR"
 log "Config entries: ${#repo_entries[@]}"
 log "Copy strategy:  merge and overwrite matching files"
@@ -587,7 +586,7 @@ log "============================================================"
 log "STEP 1/5 — BACK UP EXISTING CONFIGURATION"
 log "============================================================"
 
-bash "$SCRIPT_DIR/backup.sh"
+bash "$INSTALL_DIR/backup.sh"
 
 log "Backup completed. Starting deployment."
 
@@ -626,7 +625,7 @@ log "STEP 3/5 — DEPLOY ZSH CONFIGURATION"
 log "============================================================"
 
 if ((HAVE_ZSHRC)); then
-  cp -av -- "$SCRIPT_DIR/.zshrc" "$HOME_DIR/.zshrc"
+  cp -av -- "$REPO_DIR/.zshrc" "$HOME_DIR/.zshrc"
   log "Completed: $HOME_DIR/.zshrc"
 else
   log "Skipped: repository does not contain .zshrc."
@@ -642,7 +641,7 @@ log "============================================================"
 
 if ((HAVE_CODES)); then
   mkdir -p -- "$HOME_DIR/Codes"
-  cp -av -- "$SCRIPT_DIR/Codes/." "$HOME_DIR/Codes/"
+  cp -av -- "$REPO_DIR/Codes/." "$HOME_DIR/Codes/"
   log "Completed: $HOME_DIR/Codes"
 fi
 
@@ -650,7 +649,7 @@ if [[ "$AVATAR_ACTION" == "copy" ]]; then
   mkdir -p -- "$HOME_DIR/Pictures"
 
   cp -av -- \
-    "$SCRIPT_DIR/Pictures/pfp.png" \
+    "$REPO_DIR/Pictures/pfp.png" \
     "$HOME_DIR/Pictures/pfp.png"
 
   log "Completed: $HOME_DIR/Pictures/pfp.png"
@@ -716,4 +715,3 @@ log "Log out and select Hyprland from your display manager before testing."
 log "Review the machine-specific monitor and NVIDIA settings in README.md."
 
 log "Matugen colour files are regenerated whenever you apply a wallpaper."
-

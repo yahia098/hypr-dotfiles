@@ -20,7 +20,6 @@ for arg in "$@"; do
     *) echo "Unknown option: $arg" >&2; exit 2 ;;
   esac
 done
-
 if (( ! install_nvidia && ! install_amd )); then
   echo "Choose at least one driver: --nvidia, --amd, or both." >&2
   exit 2
@@ -34,8 +33,7 @@ if (( install_amd )); then
   packages+=(mesa vulkan-radeon vulkan-mesa-layers)
 fi
 
-sudo pacman -Syu --needed "${packages[@]}"
-
+sudo "$PACMAN_BIN" -Syu --needed "${packages[@]}"
 cat <<'MSG'
 Selected GPU driver packages installed.
 Reboot before testing the new kernel driver. For Steam/Proton, run

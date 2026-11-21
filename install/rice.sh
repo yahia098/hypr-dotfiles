@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 source "$(dirname -- "${BASH_SOURCE[0]}")/lib.sh"
-
 # Runtime dependencies referenced by this Hyprland rice (compositor, bar,
 # launcher, theming pipeline, helper scripts, and the tools themed by Matugen).
 # General workstation, gaming and driver packages live in their own installers.
 
 require_user
 find_aur_helper
-
-sudo pacman -Syu --needed \
+sudo "$PACMAN_BIN" -Syu --needed \
   adw-gtk-theme awww bluez bluez-utils brightnessctl cliphist dunst \
   evince ffmpeg ffmpegthumbnailer glib2 grim gpu-screen-recorder \
   gsettings-desktop-schemas hypridle hyprland hyprlock hyprpolkitagent \
@@ -18,7 +16,6 @@ sudo pacman -Syu --needed \
   playerctl python slurp socat ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols \
   tlp-pd waybar wl-clipboard wireplumber wofi xarchiver yazi zathura zathura-pdf-mupdf \
   xdg-desktop-portal xdg-desktop-portal-hyprland xdg-utils xorg-xwayland
-
 "$AUR_HELPER" -S --needed \
   eww bm-sidebar nm-sidebar papirus-folders-git
 
