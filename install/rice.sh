@@ -17,7 +17,7 @@ sudo "$PACMAN_BIN" -Syu --needed \
   tlp-pd waybar wl-clipboard wireplumber wofi xarchiver yazi zathura zathura-pdf-mupdf \
   xdg-desktop-portal xdg-desktop-portal-hyprland xdg-utils xorg-xwayland
 "$AUR_HELPER" -S --needed \
-  eww bm-sidebar nm-sidebar papirus-folders-git
+  eww papirus-folders-git
 
 cat <<EOF2
 
