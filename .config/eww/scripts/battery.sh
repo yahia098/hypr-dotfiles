@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
-# Prints battery percentage, or 0 if there is no battery.
-f=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -n1)
-echo "${f:-0}"
+
+for f in /sys/class/power_supply/BAT*/capacity; do
+    if [[ -r "$f" ]]; then
+        IFS= read -r capacity < "$f"
+        [[ "$capacity" =~ ^[0-9]+$ ]] && {
+            printf '%s\n' "$capacity"
+            exit 0
+        }
+    fi
+done
+
+printf '0\n'
+

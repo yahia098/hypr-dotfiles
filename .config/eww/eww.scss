@@ -23,7 +23,6 @@
   color: $on_surface_variant;
   font-size: 14px;
   letter-spacing: 5px;
-  /* letter-spacing adds a trailing gap, so pad the left to keep the text centered */
   padding-left: 5px;
   margin-bottom: 8px;
 }
@@ -110,4 +109,204 @@
 
 .stat-bar.danger progress {
   background-color: $error;
+}
+
+/* ---------- control center ---------- */
+
+.control-center-panel {
+  background-color: $surface_container;
+  border: 1px solid $outline_variant;
+  border-radius: 22px;
+  padding: 12px;
+}
+
+/* Standalone menus reuse the same opaque panel treatment. */
+.control-center-popup {
+  border-radius: 22px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.24);
+}
+
+.control-center-block {
+  background-color: $surface_container_highest;
+  border-radius: 16px;
+  padding: 10px 12px;
+}
+
+.control-center-cap {
+  color: $on_surface_variant;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.control-center-ico {
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 99px;
+  background-color: rgba($on_surface, 0.08);
+  color: $on_surface_variant;
+  font-size: 16px;
+  transition: background-color 200ms;
+}
+
+.control-center-ico.on {
+  background-color: rgba($primary, 0.22);
+  color: $primary;
+}
+
+.control-center-ico.muted {
+  background-color: rgba($error, 0.18);
+  color: $error;
+}
+
+.control-center-hit:hover .control-center-ico {
+  background-color: rgba($on_surface, 0.16);
+}
+
+.control-center-hit:hover .control-center-ico.on {
+  background-color: rgba($primary, 0.32);
+}
+
+.control-center-slider .control-center-ico {
+  min-width: 34px;
+  min-height: 34px;
+  font-size: 14px;
+}
+
+.control-center-title {
+  color: $on_surface;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.control-center-sub {
+  color: $on_surface_variant;
+  font-size: 11px;
+}
+
+.control-center-chev {
+  color: $on_surface_variant;
+  font-size: 12px;
+  padding: 0 6px;
+}
+
+.control-center-list {
+  margin-top: 8px;
+}
+
+.control-center-item {
+  padding: 7px 10px;
+  border-radius: 12px;
+}
+
+.control-center-hit:hover .control-center-item {
+  background-color: rgba($on_surface, 0.07);
+}
+
+.control-center-item.active {
+  background-color: rgba($primary, 0.16);
+}
+
+.control-center-item.active .control-center-item-name {
+  color: $primary;
+  font-weight: 700;
+}
+
+.control-center-item-name {
+  color: $on_surface;
+  font-size: 12px;
+}
+
+.control-center-item-meta {
+  color: $on_surface_variant;
+  font-size: 11px;
+}
+
+.control-center-pct {
+  color: $on_surface_variant;
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 34px;
+}
+
+.control-center-scale {
+  min-height: 22px;
+}
+
+.control-center-scale trough {
+  background-color: $surface_container_highest;
+  min-height: 6px;
+  border-radius: 99px;
+}
+
+.control-center-scale highlight {
+  background-color: $primary;
+  border-radius: 99px;
+}
+
+.control-center-scale slider {
+  background-color: $primary;
+  min-width: 14px;
+  min-height: 14px;
+  margin: -4px;
+  border-radius: 99px;
+}
+
+.control-center-seg {
+  padding: 8px 6px;
+  border-radius: 12px;
+  background-color: rgba($on_surface, 0.06);
+  color: $on_surface_variant;
+  font-size: 12px;
+}
+
+.control-center-hit:hover .control-center-seg {
+  background-color: rgba($on_surface, 0.12);
+}
+
+.control-center-seg.active {
+  background-color: rgba($primary, 0.22);
+  color: $primary;
+  font-weight: 700;
+}
+
+.control-center-pbtn {
+  padding: 10px 0;
+  border-radius: 14px;
+  background-color: rgba($on_surface, 0.06);
+  color: $on_surface;
+  font-size: 16px;
+}
+
+.control-center-hit:hover .control-center-pbtn {
+  background-color: rgba($on_surface, 0.14);
+}
+
+.control-center-pbtn.danger {
+  color: $error;
+}
+
+.control-center-confirm {
+  padding: 8px 10px;
+  border-radius: 12px;
+  background-color: rgba($error, 0.14);
+}
+
+.control-center-confirm-text {
+  color: $on_surface;
+  font-size: 12px;
+}
+
+.control-center-btn {
+  padding: 5px 14px;
+  border-radius: 10px;
+  background-color: rgba($on_surface, 0.08);
+  color: $on_surface;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.control-center-btn.danger {
+  background-color: rgba($error, 0.28);
+  color: $error;
 }
