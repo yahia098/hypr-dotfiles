@@ -14,11 +14,11 @@
     "network",
     "bluetooth",
     "pulseaudio",
-    "wireplumber#microphone",
     "custom/power-profile",
     "battery",
     "tray",
     "clock",
+    "custom/control-center",
   ],
 
   "hyprland/window": {
@@ -49,7 +49,8 @@
     "format-ethernet": "\udb80\ude00 Ethernet",
     "format-disconnected": "\udb81\uddaa ",
     "tooltip-format": "{essid}\n{ipaddr}\nSignal: {signalStrength}%",
-    "on-click": "nm-sidebar --toggle",
+    "on-click": "~/.config/eww/scripts/control-center.sh wifi",
+    "on-click-right": "nm-sidebar --toggle",
   },
 
   "bluetooth": {
@@ -58,14 +59,15 @@
     "format-connected": "\udb80\udcb0 ",
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
-    "on-click": "bm-sidebar",
+    "on-click": "~/.config/eww/scripts/control-center.sh bluetooth",
+    "on-click-right": "bm-sidebar",
   },
 
   "pulseaudio": {
-    "format": "{icon} {volume}%",
-    "format-muted": "\udb81\udf5f",
-    "format-bluetooth": "{icon} {volume}%",
-    "format-bluetooth-muted": "\udb81\udf5f ",
+    "format": "{icon} {volume}% {format_source}",
+    "format-muted": "\udb81\udf5f {format_source}",
+    "format-bluetooth": "{icon} {volume}% {format_source}",
+    "format-bluetooth-muted": "\udb81\udf5f {format_source}",
     "format-icons": {
       "headphone": "\uf025",
       "hands-free": "\uf025",
@@ -75,20 +77,15 @@
       "car": "\uf1b9",
       "default": ["\uf026", "\uf027", "\uf028"],
     },
+    "format-source": "\uf130 {volume}%",
+    "format-source-muted": "\uf131",
+    "tooltip-format": "{desc}\nOutput: {volume}%\nMic: {source_volume}%",
     "scroll-step": 5,
-    "on-click": "pavucontrol",
+    "on-click": "~/.config/eww/scripts/control-center.sh audio",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-middle": "pavucontrol",
   },
 
-  "wireplumber#microphone": {
-    "node-type": "Audio/Source",
-    "format": " {volume}%",
-    "format-muted": " MUTED",
-    "tooltip": true,
-    "tooltip-format": "{node_name}",
-    "scroll-step": 5,
-    "on-click": "pavucontrol",
-    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
-  },
 
   "battery": {
     "format": "{capacity}% {icon}",
@@ -138,5 +135,11 @@
     "interval": 5,
     "signal": 9,
     "on-click": "~/.config/hypr/scripts/power-profile-toggle.sh",
+  },
+
+  "custom/control-center": {
+    "format": "\uf1de",
+    "tooltip": false,
+    "on-click": "~/.config/eww/scripts/control-center.sh win",
   },
 }
