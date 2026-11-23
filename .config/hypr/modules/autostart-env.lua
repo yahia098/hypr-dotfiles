@@ -44,7 +44,6 @@ hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 
 hl.env("GDK_BACKEND", "wayland,x11,*")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
-hl.env("SDL_VIDEODRIVER", "wayland")
 hl.env("CLUTTER_BACKEND", "wayland")
 
 hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
