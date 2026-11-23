@@ -50,36 +50,16 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
-hl.bind(
-	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd(Scripts .. "volume.sh up"),
-	{ locked = true, repeating = true }
-)
-hl.bind(
-	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd(Scripts .. "volume.sh down"),
-	{ locked = true, repeating = true }
-)
-hl.bind(
-	"XF86AudioMute",
-	hl.dsp.exec_cmd(Scripts .. "volume.sh toggle"),
-	{ locked = true, repeating = true }
-)
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(Scripts .. "volume.sh up"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(Scripts .. "volume.sh down"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(Scripts .. "volume.sh toggle"), { locked = true, repeating = true })
 hl.bind(
 	"XF86AudioMicMute",
 	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
 	{ locked = true, repeating = true }
 )
-hl.bind(
-	"XF86MonBrightnessUp",
-	hl.dsp.exec_cmd(Scripts .. "brightness.sh up"),
-	{ locked = true, repeating = true }
-)
-hl.bind(
-	"XF86MonBrightnessDown",
-	hl.dsp.exec_cmd(Scripts .. "brightness.sh down"),
-	{ locked = true, repeating = true }
-)
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(Scripts .. "brightness.sh up"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(Scripts .. "brightness.sh down"), { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
@@ -118,65 +98,3 @@ hl.bind(mainMod .. " + SHIFT + left", smart_move(-15, 0, "left"), { repeating = 
 hl.bind(mainMod .. " + SHIFT + right", smart_move(15, 0, "right"), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + up", smart_move(0, -15, "up"), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + down", smart_move(0, 15, "down"), { repeating = true })
-
--- Park / restore floating windows (workspaces 1-5)
-local floating_workspaces = {
-	[1] = "special:floating-1",
-	[2] = "special:floating-2",
-	[3] = "special:floating-3",
-	[4] = "special:floating-4",
-	[5] = "special:floating-5",
-}
-
-local function move_windows(windows, destination)
-	for _, window in ipairs(windows) do
-		local action = hl.dsp.window.move({
-			window = window,
-			workspace = destination,
-			follow = false,
-		})
-
-		hl.dispatch(action)
-	end
-end
-
-hl.bind("SUPER + Tab", function()
-	local workspace = hl.get_active_workspace()
-
-	if not workspace then
-		return
-	end
-
-	local special_name = floating_workspaces[workspace.id]
-
-	if not special_name then
-		return
-	end
-
-	local special_workspace = hl.get_workspace(special_name)
-
-	if special_workspace then
-		local parked_windows = hl.get_windows({
-			workspace = special_workspace,
-		})
-
-		if #parked_windows > 0 then
-			move_windows(parked_windows, workspace)
-			return
-		end
-	end
-
-	local windows = hl.get_windows({
-		workspace = workspace,
-	})
-
-	local floating = {}
-
-	for _, window in ipairs(windows) do
-		if window.floating then
-			table.insert(floating, window)
-		end
-	end
-
-	move_windows(floating, special_name)
-end)

@@ -94,7 +94,8 @@ window#waybar > box {
 #tray,
 #custom-keyboard,
 #custom-power-profile,
-#custom-control-center {
+#custom-control-center,
+#custom-floating {
   padding: 0 10px;
   margin: 3px 2px;
   border-radius: 10px;
@@ -112,7 +113,8 @@ window#waybar > box {
 #tray:hover,
 #custom-keyboard:hover,
 #custom-power-profile:hover,
-#custom-control-center:hover {
+#custom-control-center:hover,
+#custom-floating:hover {
   background: @surface_container_low;
 }
 
@@ -188,4 +190,16 @@ window#waybar > box {
 
 #custom-keyboard.russian {
   color: @secondary;
+}
+
+/* =====================================
+ * Floating Indicator
+ * ===================================== */
+
+#custom-floating.on {
+  color: @primary;
+}
+
+#custom-floating.off {
+  color: @on_surface_variant;
 }

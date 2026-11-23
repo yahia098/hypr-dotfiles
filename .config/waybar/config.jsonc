@@ -5,7 +5,7 @@
   "margin-left": 24,
   "margin-right": 24,
 
-  "modules-left": ["hyprland/workspaces", "hyprland/submap"],
+  "modules-left": ["hyprland/workspaces", "custom/floating", "hyprland/submap"],
 
   "modules-center": ["hyprland/window"],
 
@@ -42,6 +42,13 @@
     "persistent-workspaces": {
       "*": 5,
     },
+  },
+  "custom/floating": {
+    "exec": "~/.config/waybar/scripts/floating-state.sh",
+    "return-type": "json",
+    "interval": 2,
+    "signal": 8,
+    "on-click": "hyprctl eval 'toggle_floating_parking()'",
   },
 
   "network": {
@@ -85,7 +92,6 @@
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "on-click-middle": "pavucontrol",
   },
-
 
   "battery": {
     "format": "{capacity}% {icon}",
