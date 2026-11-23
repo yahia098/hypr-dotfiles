@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-pkill -9 -x waybar
+pkill -TERM -x waybar 2>/dev/null || true
 sleep 0.2
-waybar &
+exec waybar

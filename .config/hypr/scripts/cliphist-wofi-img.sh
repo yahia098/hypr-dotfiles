@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 # Wofi clipboard picker with image and local-video thumbnails.

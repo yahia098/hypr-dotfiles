@@ -11,7 +11,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("dunst")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd(scripts .. "displays.sh --watch") -- Re-applies monitor rules on hotplug
-
+	hl.exec_cmd(scripts .. "battery-watch.sh")
 	-- Theme: lock-screen background, GTK settings, bar and widgets
 	hl.exec_cmd(scripts .. "prelock.sh")
 	hl.exec_cmd(scripts .. "apply-gtk-settings.sh")
@@ -51,7 +51,3 @@ hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("MOZ_ENABLE_WAYLAND", "1")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
-
--- NVIDIA. Remove these two on AMD-only or Intel-only machines.
-hl.env("GBM_BACKEND", "nvidia-drm")
-hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")

@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 if ! command -v tlpctl >/dev/null 2>&1; then
