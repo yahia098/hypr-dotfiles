@@ -28,7 +28,7 @@ hl.on("hyprland.start", function()
 	-- Messaging apps, started minimized to the tray
 	hl.exec_cmd(Programs.Telegram .. " -startintray")
 	hl.exec_cmd(Programs.Discord .. " --start-minimized")
-	hl.exec_cmd(Programs.Whatsie .. " -minimized")
+	--	hl.exec_cmd(Programs.Whatsie .. " --minimized")
 end)
 
 --------------------------------

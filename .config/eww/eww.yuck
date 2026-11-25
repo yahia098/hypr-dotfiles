@@ -35,7 +35,9 @@
              :show-truncated false :text name)
       (label :class "stat-text" :halign "end"
              :show-truncated false :text text))
-    (progress :class {value >= 85 ? "stat-bar danger" : "stat-bar"}
+    (progress :class {name == "BAT"
+      ? (value <= 20 ? "stat-bar danger" : "stat-bar")
+      : (value >= 85 ? "stat-bar danger" : "stat-bar")}
               :orientation "h"
               :value value)))
 

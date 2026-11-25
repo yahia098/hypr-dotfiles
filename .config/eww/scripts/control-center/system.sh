@@ -28,7 +28,7 @@ sys_status() {
 sys_prof() {
     case "$1" in
         power-saver|balanced|performance)
-            tlpctl set "$1" || return 1
+            tlpctl  "$1" || return 1
             pkill -RTMIN+9 waybar 2>/dev/null
             up control_center_sys sys_status
             ;;
